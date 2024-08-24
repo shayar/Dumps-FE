@@ -1,3 +1,21 @@
+# Tools Used
+
+- React 18 with hooks
+- TypeScript
+- Vite 2 for fast builds and dev server
+- Chakra UI for styling
+- React Router v6 for routing
+- React Query for data fetching
+- Framer Motion for animations
+- React Helmet Async for managing page title and meta tags
+- React Hook Form for form management
+- Yup/Zod for form validation
+- lint-staged and husky for automatic linting and formatting on commit
+- CommitLint and Conventional Changelog CLI for generating changelogs
+- zustand for state management
+- @tanstack/react-table for creating datatable
+- husky precommit hooks to restrict type any, console and unused variables
+
 # DUMPS Frontend Project
 
 This is the frontend application for our Dumps Selling Site. The application is built using React and TypeScript.
@@ -19,12 +37,14 @@ This is the frontend application for our Dumps Selling Site. The application is 
 To get started with the project, follow these steps:
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/your-repo/frontend.git
    cd frontend
    ```
 
 2. **Install dependencies:**
+
    ```bash
    npm install
    ```
@@ -62,38 +82,40 @@ frontend/
 
 We follow a structured branching strategy to ensure smooth development and deployment processes:
 
-- **Main Branch (`main`)**: 
+- **Main Branch (`main`)**:
   - This is the master branch and should always contain the production-ready code.
-  
-- **Release Branch (`release`)**: 
+- **Release Branch (`release`)**:
   - This branch is used for the preparation of production releases. It contains stable code ready for production deployment.
-  
 - **Sprint Branches (`sprint-x`)**:
   - A sprint branch is created from the `release` branch for each sprint. All feature branches are created from the respective sprint branch.
-  
 - **Feature Branches**:
   - Feature branches are created from the current sprint branch. The name of the branch should correspond to the JIRA task ID (e.g., `ID-10`).
 
 ### Branching Workflow
 
 1. **Pull the `release` branch:**
+
    ```bash
    git checkout release
    git pull origin release
    ```
 
 2. **Create a new sprint branch from `release`:**
+
    ```bash
    git checkout -b sprint-x
    ```
 
 3. **Create a feature branch from the sprint branch:**
+
    ```bash
    git checkout -b ID-10
    ```
+
    (Replace `ID-10` with your actual JIRA task ID.)
 
 4. **Work on your feature, commit changes, and push the branch:**
+
    ```bash
    git add .
    git commit -m "ID-10: Implemented feature XYZ"
@@ -101,6 +123,7 @@ We follow a structured branching strategy to ensure smooth development and deplo
    ```
 
 5. **Before pushing your final changes, pull the latest changes from the sprint branch:**
+
    ```bash
    git checkout sprint-x
    git pull origin sprint-x
@@ -109,11 +132,13 @@ We follow a structured branching strategy to ensure smooth development and deplo
    ```
 
 6. **Push your feature branch and create a merge request into the sprint branch:**
+
    ```bash
    git push origin ID-10
    ```
 
 7. **Sprint Closure:**
+
    - After all features are merged into the sprint branch, create a pull request from the sprint branch to the `release` branch and merge it.
    - Deploy the code from the `release` branch to production.
 
@@ -122,17 +147,19 @@ We follow a structured branching strategy to ensure smooth development and deplo
 
 ## Development Workflow
 
-1. **Feature Development**: 
+1. **Feature Development**:
    - Start a new branch for each feature or bugfix using the JIRA task ID as the branch name.
-   
 2. **Commit Messages**:
+
    - Follow the format: `ID-XX: Your commit message`, where `ID-XX` is the JIRA task ID.
 
 3. **Pull Requests**:
+
    - Open a pull request against the sprint branch when your feature is complete.
    - Make sure all tests pass before requesting a review.
 
 4. **Code Reviews**:
+
    - All pull requests require at least one approval before merging.
 
 5. **Merge Requests**:
@@ -165,7 +192,7 @@ Ensure that all tests pass before submitting a pull request.
 
 ## Code Quality
 
-- **Linting**: 
+- **Linting**:
   - We use ESLint to enforce code quality standards. Run the linter using:
     ```bash
     npm run lint
