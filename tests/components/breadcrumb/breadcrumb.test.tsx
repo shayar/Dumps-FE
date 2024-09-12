@@ -1,7 +1,6 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { describe, it, vi } from 'vitest';
-import { MemoryRouter, useNavigate } from 'react-router-dom';
-import { getSidebarState } from '@dumps/components/layouts/Layout';
+import { MemoryRouter } from 'react-router-dom';
 import { BreadCrumb } from '@dumps/components/breadCrumb';
 
 // Mock dependencies
