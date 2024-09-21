@@ -29,9 +29,9 @@
       "@dumps/service/*": ["service/*"],
       "@dumps/theme/*": ["theme/*"]
     },
-    "types": ["jest", "node"]
+    "types": ["jest", "node","vitest"]
   },
-  "include": ["src", "types.ts", "tests/**/*.ts", "tests/**/*.tsx"],
+  "include": ["src", "types.ts", "tests/**/*.ts", "tests/**/*.tsx","vitest.config.ts","vite.config.ts"],
   "references": [
     {
       "path": "./tsconfig.node.json"
