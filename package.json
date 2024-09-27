@@ -43,7 +43,8 @@
     "postinstall": "npx husky install",
     "changelog": "conventional-changelog --preset angular --infile CHANGELOG.md --same-file --release-count 0",
     "theme": "chakra-cli tokens src/theme/index.ts",
-    "theme:watch": "chakra-cli tokens src/theme/index.ts --watch"
+    "theme:watch": "chakra-cli tokens src/theme/index.ts --watch",
+    "test": "vitest"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -64,6 +65,11 @@
     "@chakra-ui/cli": "^2.4.1",
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/jest": "^29.5.12",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@typescript-eslint/eslint-plugin": ">=5.31.0",
@@ -86,10 +92,13 @@
     "husky": "^8.0.0",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
     "typescript": ">=4.4",
     "vite": "^3.0.7",
     "vite-plugin-checker": "^0.6.0",
-    "vite-plugin-svgr": "^2.4.0"
+    "vite-plugin-svgr": "^2.4.0",
+    "vitest": "^2.1.1"
   },
   "engines": {
     "node": ">= 14.17.0",

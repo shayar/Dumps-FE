@@ -1,7 +1,7 @@
 import { Box, List, ListItem, Link } from '@chakra-ui/react';
 import { NAVIGATION_ROUTES } from '@dumps/routes/routes.constant';
 import { Link as RouterLink } from 'react-router-dom';
-import NavItem from './navItem';
+import NavItem from './NavItem';
 import { navItems } from './navItemList';
 import { webkit_scrollbar } from '../style';
 
