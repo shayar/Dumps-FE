@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toastSuccess } from '@dumps/service/service-toast';
+import { useLoginMutation } from '@dumps/service/service-auth';
 
 export interface LoginDetails {
   email: string;
@@ -37,10 +38,16 @@ const Login = () => {
     resolver: zodResolver(schema),
   });
 
+  const {
+    mutateAsync:initLogin,isLoading
+  } = useLoginMutation()
+
   const onSubmitHandler = async (loginDetails: LoginDetails) => {
     toastSuccess(
       `email :${loginDetails.email} and password: ${loginDetails.password}`,
     );
+
+    await initLogin(loginDetails)
     // alert(loginDetails);
   };
   return (
