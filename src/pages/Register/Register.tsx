@@ -1,43 +1,27 @@
-import { Box, Button, Flex, Text, VStack } from '@chakra-ui/react';
+import { Box, Button, Flex, Link, Text, VStack } from '@chakra-ui/react';
+import { useRegister } from '@dumps/api-hooks/auth/useRegister';
+import { RegisterDetails, registerSchema } from '@dumps/api-schemas/auth';
 import { LoginIcon } from '@dumps/assets/svgs';
 import { Input } from '@dumps/components/form';
-import { toastSuccess } from '@dumps/service/service-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-
-export interface RegisterDetails {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-}
-
-const defaultValues: RegisterDetails = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  password: '',
-};
-
-const schema = z.object({
-  firstName: z.string().min(1, 'First Name is required'),
-  lastName: z.string().min(1, 'Last Name is required'),
-  email: z.string().min(1, 'Email is required'),
-  password: z.string().min(1, 'Password is required'),
-});
 
 export default function Register() {
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit } = useForm<RegisterDetails>({
     mode: 'onBlur',
-    defaultValues: defaultValues,
-    resolver: zodResolver(schema),
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+    },
+    resolver: zodResolver(registerSchema),
   });
 
+  const { mutateAsync: registerRequest } = useRegister();
+
   const onSubmitHandler = async (registerDetails: RegisterDetails) => {
-    toastSuccess(
-      `email :${registerDetails.email} and password: ${registerDetails.password}`,
-    );
+    await registerRequest(registerDetails);
   };
 
   return (
@@ -52,7 +36,7 @@ export default function Register() {
         flexDirection={{ base: 'column-reverse', md: 'row' }}
         justifyContent={'space-between'}
       >
-        <Flex flex={1} mr={{ base: '0', md:'8'}} mt={{ base: '8', md:'0'}}>
+        <Flex flex={1} mr={{ base: '0', md: '8' }} mt={{ base: '8', md: '0' }}>
           <LoginIcon style={{ width: '100%' }} />
         </Flex>
         <Flex flex={1} flexDirection={'column'} justifyContent={'center'}>
@@ -79,6 +63,12 @@ export default function Register() {
                 type={'password'}
                 control={control}
               />
+              <Text>
+                Already have an account? &nbsp;
+                <Link variant="underline" href="/login" color="#2B67B1">
+                  Login here
+                </Link>
+              </Text>
               <Button
                 type="submit"
                 width="full"

@@ -1,46 +1,27 @@
 import { LoginIcon } from '@dumps/assets/svgs';
 import { Input } from '@dumps/components/form';
-import { Box, Button, Flex, Text, VStack } from '@chakra-ui/react';
+import { Box, Button, Flex, Link, Text, VStack } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { toastFail, toastSuccess } from '@dumps/service/service-toast';
 import { useLogin } from '@dumps/api-hooks/auth/useLogin';
-
-export interface LoginDetails {
-  email: string;
-  password: string;
-}
-
-const defaultValues: LoginDetails = {
-  email: '',
-  password: '',
-};
-
-const schema = z.object({
-  email: z.string().min(1, 'Email is required'),
-  password: z.string().min(1, 'Password is required'),
-});
+import { LoginDetails, loginSchema } from '@dumps/api-schemas/auth';
 
 const Login = () => {
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit } = useForm<LoginDetails>({
     mode: 'onBlur',
-    defaultValues: defaultValues,
-    resolver: zodResolver(schema),
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
   });
 
   const { mutateAsync: loginRequest } = useLogin();
 
   const onSubmitHandler = async (loginDetails: LoginDetails) => {
-    try {
-      await loginRequest(loginDetails);
-      toastSuccess(`Login Successful.`);
-    } catch (error: any) {
-      console.log(error);
-      // TODO: show error after managing error response
-      toastFail('Login Failed');
-    }
+    await loginRequest(loginDetails);
   };
+
   return (
     <Box
       display="flex"
@@ -60,7 +41,7 @@ const Login = () => {
             fontWeight={'normal'}
           >
             <Text color={'black'}>{'Welcome to'}&nbsp;</Text>
-            <Text color={'primary.500'}>dumps boilerplate code</Text>
+            <Text color={'primary.500'}>dumps</Text>
           </Flex>
           <Text fontSize={'3xl'} fontWeight={'semibold'}>
             {'Login'}
@@ -75,6 +56,12 @@ const Login = () => {
                 type={'password'}
                 control={control}
               />
+              <Text>
+                Don&apos;t have an account? &nbsp;
+                <Link variant="underline" href="/register" color="#2B67B1">
+                  Register here
+                </Link>
+              </Text>
               <Button
                 type="submit"
                 width="full"
