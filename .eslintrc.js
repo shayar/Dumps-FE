@@ -27,9 +27,9 @@ module.exports = {
   },
   plugins: ['react', 'prettier', 'jsx-a11y', 'import', '@typescript-eslint'],
   rules: {
-    // 'no-console': 'error',
-    // 'no-unused-vars': 'off',
-    // '@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '^_' }],
+    'no-console': 'error',
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '^_' }],
     'import/first': 'error',
     'react/prop-types': 0,
     'prettier/prettier': [
@@ -43,6 +43,6 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/no-var-requires': 'off',
     '@typescript-eslint/ban-ts-comment': 2,
-    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-explicit-any': 'error',
   },
 };
