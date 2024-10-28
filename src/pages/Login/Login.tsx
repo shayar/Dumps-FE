@@ -2,13 +2,10 @@ import { LoginIcon } from '@dumps/assets/svgs';
 import { Input } from '@dumps/components/form';
 import { Box, Button, Flex, Text, VStack } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
-// TODO: finalize zod or yup
-// import * as yup from 'yup';
-// import { yupResolver } from '@hookform/resolvers/yup';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { toastSuccess } from '@dumps/service/service-toast';
-import { useLoginMutation } from '@dumps/service/service-auth';
+import { toastFail, toastSuccess } from '@dumps/service/service-toast';
+import { useLogin } from '@dumps/api-hooks/auth/useLogin';
 
 export interface LoginDetails {
   email: string;
@@ -19,12 +16,6 @@ const defaultValues: LoginDetails = {
   email: '',
   password: '',
 };
-
-/** YUP schema */
-// const schema = yup.object().shape({
-//   email: yup.string().required('Email is required'),
-//   password: yup.string().required('Password is required'),
-// });
 
 const schema = z.object({
   email: z.string().min(1, 'Email is required'),
@@ -38,17 +29,17 @@ const Login = () => {
     resolver: zodResolver(schema),
   });
 
-  const {
-    mutateAsync:initLogin,isLoading
-  } = useLoginMutation()
+  const { mutateAsync: loginRequest } = useLogin();
 
   const onSubmitHandler = async (loginDetails: LoginDetails) => {
-    toastSuccess(
-      `email :${loginDetails.email} and password: ${loginDetails.password}`,
-    );
-
-    await initLogin(loginDetails)
-    // alert(loginDetails);
+    try {
+      await loginRequest(loginDetails);
+      toastSuccess(`Login Successful.`);
+    } catch (error: any) {
+      console.log(error);
+      // TODO: show error after managing error response
+      toastFail('Login Failed');
+    }
   };
   return (
     <Box

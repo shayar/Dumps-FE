@@ -1,43 +1,76 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from 'axios';
+import { ApiEndpoint } from './service-api';
 
 const baseURL = import.meta.env.VITE_APP_BACKEND_API;
 const THREE_MINUTES = 3 * 60 * 1000;
-const baseConfig = ()=>{
 
-    console.log(baseURL,"fasdfaskjdh")
-    return {
-        baseURL,
-        timeout: THREE_MINUTES,
-        headers: {
-      
-        },
-      };
-}
-
-const httpClient ={
-    get:(url:any,config:boolean)=>{
-
+const getBaseConfig = (endpoint: ApiEndpoint): AxiosRequestConfig => {
+  const config: AxiosRequestConfig = {
+    baseURL,
+    timeout: THREE_MINUTES,
+    headers: {
+      'Content-Type': 'application/json',
     },
-    post:(url:any,data:any)=>{
-        return axios.post(url, data, {
-            ...baseConfig(),
-            data,
-          })
-    },
-    patch:null,
-    put:null,
-    delete:null,
-}
+  };
 
-axios.interceptors.response.use(
-    response => response,
-    async error =>{
-        return Promise.reject(error.response)
+  // Default to false if requiresAuth is not specified
+  if (endpoint.requiresAuth ?? false) {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers!.Authorization = `Bearer ${token}`;
     }
-)
+  }
 
-export {
-    httpClient
- }
+  return config;
+};
 
+const httpClient = {
+  get: <T>(endpoint: ApiEndpoint, config: AxiosRequestConfig = {}) => {
+    return axios.get<T>(endpoint.url, {
+      ...getBaseConfig(endpoint),
+      ...config,
+    });
+  },
 
+  post: <T>(
+    endpoint: ApiEndpoint,
+    data: any,
+    config: AxiosRequestConfig = {},
+  ) => {
+    return axios.post<T>(endpoint.url, data, {
+      ...getBaseConfig(endpoint),
+      ...config,
+    });
+  },
+
+  put: <T>(
+    endpoint: ApiEndpoint,
+    data: any,
+    config: AxiosRequestConfig = {},
+  ) => {
+    return axios.put<T>(endpoint.url, data, {
+      ...getBaseConfig(endpoint),
+      ...config,
+    });
+  },
+
+  patch: <T>(
+    endpoint: ApiEndpoint,
+    data: any,
+    config: AxiosRequestConfig = {},
+  ) => {
+    return axios.patch<T>(endpoint.url, data, {
+      ...getBaseConfig(endpoint),
+      ...config,
+    });
+  },
+
+  delete: <T>(endpoint: ApiEndpoint, config: AxiosRequestConfig = {}) => {
+    return axios.delete<T>(endpoint.url, {
+      ...getBaseConfig(endpoint),
+      ...config,
+    });
+  },
+};
+
+export { httpClient };
