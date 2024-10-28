@@ -22,6 +22,7 @@
     "paths": {
       "@dumps/assets/*": ["assets/*"],
       "@dumps/hooks/*": ["hooks/*"],
+      "@dumps/api-hooks/*": ["api-hooks/*"],
       "@dumps/components/*": ["components/*"],
       "@dumps/pages/*": ["pages/*"],
       "@dumps/providers/*": ["providers/*"],

@@ -12,7 +12,7 @@ const Password = <T extends FieldValues>({
   field,
   ...rest
 }: ICustomInput<T>) => {
-  const { isOpen: showPassword, onToggle: _setShowPassword } = useDisclosure();
+  const { isOpen: showPassword } = useDisclosure();
 
   return (
     <InputGroup>
