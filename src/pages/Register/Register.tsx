@@ -21,9 +21,12 @@ export default function Register() {
 
   const { mutateAsync: registerRequest } = useRegister();
 
-  const onSubmitHandler = async (registerDetails: RegisterDetails) => {
-    const { confirmPassword, ...dataToSend } = registerDetails;
-    await registerRequest(dataToSend);
+  const onSubmitHandler = async ({
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    confirmPassword,
+    ...registerDetails
+  }: RegisterDetails) => {
+    await registerRequest(registerDetails);
   };
 
   return (
