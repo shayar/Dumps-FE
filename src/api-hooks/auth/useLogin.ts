@@ -17,8 +17,9 @@ const useLogin = () => {
       navigate('/');
       toastSuccess('Login Successful');
     },
-    onError: () => {
+    onError: (error: any) => {
       toastFail('Login Failed');
+      console.log(error)
       // return error.response.data.errors.error;
     },
   });

@@ -14,6 +14,7 @@ export default function Register() {
       lastName: '',
       email: '',
       password: '',
+      confirmPassword: '',
     },
     resolver: zodResolver(registerSchema),
   });
@@ -21,7 +22,8 @@ export default function Register() {
   const { mutateAsync: registerRequest } = useRegister();
 
   const onSubmitHandler = async (registerDetails: RegisterDetails) => {
-    await registerRequest(registerDetails);
+    const { confirmPassword, ...dataToSend } = registerDetails;
+    await registerRequest(dataToSend);
   };
 
   return (
@@ -60,6 +62,12 @@ export default function Register() {
               <Input
                 name={'password'}
                 label={'Password'}
+                type={'password'}
+                control={control}
+              />
+              <Input
+                name={'confirmPassword'}
+                label={'Confirm Password'}
                 type={'password'}
                 control={control}
               />
