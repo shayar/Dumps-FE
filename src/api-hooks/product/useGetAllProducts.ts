@@ -4,7 +4,7 @@ import { toastFail, toastSuccess } from '@dumps/service/service-toast';
 import { useQuery } from 'react-query';
 
 const getAllProductsRequest = async () => {
-  await httpClient.get(api.produtct.getAll);
+  await httpClient.get(api.product.getAll);
 };
 
 const useGetAllProducts = () => {

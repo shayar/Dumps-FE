@@ -8,7 +8,7 @@ export const api = {
     login: { url: '/account/login' },
     register: { url: '/account/register' },
   },
-  produtct: {
+  product: {
     getAll: { url: '/product' },
   },
 };
