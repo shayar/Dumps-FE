@@ -22,6 +22,7 @@ export default defineConfig({
       '@dumps/routes': path.resolve('routes'),
       '@dumps/hooks': path.resolve('hooks'),
       '@dumps/api-hooks': path.resolve('api-hooks'),
+      '@dumps/api-schemas': path.resolve('api-schemas'),
     },
   },
 });

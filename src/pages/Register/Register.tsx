@@ -1,25 +1,32 @@
+import { Box, Button, Flex, Link, Text, VStack } from '@chakra-ui/react';
+import { useRegister } from '@dumps/api-hooks/auth/useRegister';
+import { RegisterDetails, registerSchema } from '@dumps/api-schemas/auth';
 import { LoginIcon } from '@dumps/assets/svgs';
 import { Input } from '@dumps/components/form';
-import { Box, Button, Flex, Link, Text, VStack } from '@chakra-ui/react';
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useLogin } from '@dumps/api-hooks/auth/useLogin';
-import { LoginDetails, loginSchema } from '@dumps/api-schemas/auth';
+import { useForm } from 'react-hook-form';
 
-const Login = () => {
-  const { control, handleSubmit } = useForm<LoginDetails>({
+export default function Register() {
+  const { control, handleSubmit } = useForm<RegisterDetails>({
     mode: 'onBlur',
-    resolver: zodResolver(loginSchema),
     defaultValues: {
+      firstName: '',
+      lastName: '',
       email: '',
       password: '',
+      confirmPassword: '',
     },
+    resolver: zodResolver(registerSchema),
   });
 
-  const { mutateAsync: loginRequest } = useLogin();
+  const { mutateAsync: registerRequest } = useRegister();
 
-  const onSubmitHandler = async (loginDetails: LoginDetails) => {
-    await loginRequest(loginDetails);
+  const onSubmitHandler = async ({
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    confirmPassword,
+    ...registerDetails
+  }: RegisterDetails) => {
+    await registerRequest(registerDetails);
   };
 
   return (
@@ -34,6 +41,9 @@ const Login = () => {
         flexDirection={{ base: 'column-reverse', md: 'row' }}
         justifyContent={'space-between'}
       >
+        <Flex flex={1} mr={{ base: '0', md: '8' }} mt={{ base: '8', md: '0' }}>
+          <LoginIcon style={{ width: '100%' }} />
+        </Flex>
         <Flex flex={1} flexDirection={'column'} justifyContent={'center'}>
           <Flex
             direction={{ base: 'column', md: 'row' }}
@@ -44,11 +54,13 @@ const Login = () => {
             <Text color={'primary.500'}>dumps</Text>
           </Flex>
           <Text fontSize={'3xl'} fontWeight={'semibold'}>
-            {'Login'}
+            {'Register'}
           </Text>
 
           <form onSubmit={handleSubmit(onSubmitHandler)}>
             <VStack pt={6} spacing={8}>
+              <Input name={'firstName'} label={'Fist Name'} control={control} />
+              <Input name={'lastName'} label={'Last Name'} control={control} />
               <Input name={'email'} label={'Email'} control={control} />
               <Input
                 name={'password'}
@@ -56,10 +68,16 @@ const Login = () => {
                 type={'password'}
                 control={control}
               />
+              <Input
+                name={'confirmPassword'}
+                label={'Confirm Password'}
+                type={'password'}
+                control={control}
+              />
               <Text>
-                Don&apos;t have an account? &nbsp;
-                <Link variant="underline" href="/register" color="#2B67B1">
-                  Register here
+                Already have an account? &nbsp;
+                <Link variant="underline" href="/login" color="#2B67B1">
+                  Login here
                 </Link>
               </Text>
               <Button
@@ -67,18 +85,12 @@ const Login = () => {
                 width="full"
                 // isLoading={isLoading}
               >
-                {'Login'}
+                {'Register'}
               </Button>
             </VStack>
           </form>
         </Flex>
-
-        <Flex flex={1}>
-          <LoginIcon style={{ width: '100%' }} />
-        </Flex>
       </Flex>
     </Box>
   );
-};
-
-export default Login;
+}

@@ -4,4 +4,5 @@ export const NAVIGATION_ROUTES = {
   BUTTON: '/button',
   FORM_FIELD: '/form_field',
   LOGIN: '/login',
+  REGISTER: '/register',
 };

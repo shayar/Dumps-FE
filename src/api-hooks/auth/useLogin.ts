@@ -1,10 +1,12 @@
+import { LoginDetails } from '@dumps/api-schemas/auth';
 import { api } from '@dumps/service/service-api';
 import { httpClient } from '@dumps/service/service-axios';
+import { toastFail, toastSuccess } from '@dumps/service/service-toast';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
-const loginRequest = (loginData: { email: string; password: string }) => {
-  return httpClient.post(api.auth.login, loginData);
+const loginRequest = (loginDetails: LoginDetails) => {
+  return httpClient.post(api.auth.login, loginDetails);
 };
 
 const useLogin = () => {
@@ -13,9 +15,12 @@ const useLogin = () => {
     onSuccess: (response: any) => {
       localStorage.setItem('token', response.data.token);
       navigate('/');
+      toastSuccess('Login Successful');
     },
     onError: (error: any) => {
-      return error.response.data.errors.error;
+      toastFail('Login Failed');
+      console.log(error)
+      // return error.response.data.errors.error;
     },
   });
 };
