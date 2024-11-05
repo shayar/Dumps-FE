@@ -5,6 +5,7 @@ import Layout from '@dumps/components/layouts/Layout';
 import Login from '@dumps/pages/Login/Login';
 import ButtonGroup from '@dumps/pages/Components/Buttons';
 import FormFields from '@dumps/pages/Components/FormFields';
+import Register from '@dumps/pages/Register/Register';
 // import Dashboard from "@dumps/pages/Dashboard";
 
 const routes = [
@@ -35,6 +36,10 @@ const routes = [
   {
     path: NAVIGATION_ROUTES.LOGIN,
     element: <Login />,
+  },
+  {
+    path: NAVIGATION_ROUTES.REGISTER,
+    element: <Register />,
   },
 ];
 // const protectedRoutes = [];
