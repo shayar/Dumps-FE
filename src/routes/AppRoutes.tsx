@@ -6,7 +6,8 @@ import Login from '@dumps/pages/Login/Login';
 import ButtonGroup from '@dumps/pages/Components/Buttons';
 import FormFields from '@dumps/pages/Components/FormFields';
 import Register from '@dumps/pages/Register/Register';
-// import Dashboard from "@dumps/pages/Dashboard";
+import Dump from '@dumps/pages/Dump/dump';
+import Bundles from '@dumps/pages/Bundle/bundles';
 
 const routes = [
   {
@@ -40,6 +41,22 @@ const routes = [
   {
     path: NAVIGATION_ROUTES.REGISTER,
     element: <Register />,
+  },
+  {
+    path: NAVIGATION_ROUTES.DUMPS,
+    element: (
+      <Layout>
+        <Dump />
+      </Layout>
+    ),
+  },
+  {
+    path: NAVIGATION_ROUTES.BUNDLES,
+    element: (
+      <Layout>
+        <Bundles />
+      </Layout>
+    ),
   },
 ];
 // const protectedRoutes = [];

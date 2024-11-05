@@ -5,4 +5,6 @@ export const NAVIGATION_ROUTES = {
   FORM_FIELD: '/form_field',
   LOGIN: '/login',
   REGISTER: '/register',
+  DUMPS: '/dumps',
+  BUNDLES: '/bundles',
 };

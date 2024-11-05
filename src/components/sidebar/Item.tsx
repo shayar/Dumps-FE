@@ -86,7 +86,7 @@ const Item = ({
           fontSize="md"
           fontWeight="semibold"
         >
-          <ComponentIcon strokeWidth={0} />
+          <ComponentIcon strokeWidth={0} width={30} height={30} />
           {!isCollapsed && <Text whiteSpace="nowrap">{t(name)}</Text>}
 
           {(!!children || to === '') && (
