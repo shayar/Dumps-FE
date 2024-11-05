@@ -1,4 +1,9 @@
-import { DashboardIcon, LogoutIcon } from '@dumps/assets/svgs';
+import {
+  BundleIcon,
+  DashboardIcon,
+  DumpIcon,
+  LogoutIcon,
+} from '@dumps/assets/svgs';
 import { NAVIGATION_ROUTES } from '@dumps/routes/routes.constant';
 
 const navItems = [
@@ -19,6 +24,18 @@ const navItems = [
     // this visible boolean will be used in such scenario
     // TODO: needs discussion if this is actually good approach or
     visible: false,
+  },
+  {
+    name: 'Dumps',
+    to: NAVIGATION_ROUTES.DUMPS,
+    icon: DumpIcon,
+    visible: true,
+  },
+  {
+    name: 'Bundles',
+    to: NAVIGATION_ROUTES.BUNDLES,
+    icon: BundleIcon,
+    visible: true,
   },
   {
     name: 'Components',
