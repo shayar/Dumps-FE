@@ -10,5 +10,6 @@ export const api = {
   },
   product: {
     getAll: { url: '/product' },
+    addProduct: { url: '/product' },
   },
 };

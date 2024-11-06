@@ -8,6 +8,7 @@ import FormFields from '@dumps/pages/Components/FormFields';
 import Register from '@dumps/pages/Register/Register';
 import Dump from '@dumps/pages/Dump/dump';
 import Bundles from '@dumps/pages/Bundle/bundles';
+import ManageDump from '@dumps/pages/ManageDump';
 
 const routes = [
   {
@@ -47,6 +48,22 @@ const routes = [
     element: (
       <Layout>
         <Dump />
+      </Layout>
+    ),
+  },
+  {
+    path: NAVIGATION_ROUTES.DUMPS,
+    element: (
+      <Layout>
+        <Dump />
+      </Layout>
+    ),
+  },
+  {
+    path: NAVIGATION_ROUTES.MANAGE_DUMPS,
+    element: (
+      <Layout>
+        <ManageDump />
       </Layout>
     ),
   },

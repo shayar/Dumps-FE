@@ -4,6 +4,17 @@ import { buttonTheme } from './button';
 import { fontSizes } from './fontsize';
 
 export const theme = extendTheme({
+  styles: {
+    global: () => ({
+      ".base-card": {
+        margin: "16px",
+        padding: "30px",
+      },
+      body: {
+        bg: '#EDF2F7',
+      },
+    }),
+  },
   fontSizes,
   colors,
   borderRadius: {

@@ -10,6 +10,7 @@ import { IInputField } from './interface';
 import Text from './text';
 import { Type } from './constants';
 import { Password } from './password';
+import { Number } from './number';
 
 const Input = <T extends FieldValues>(props: IInputField<T>) => {
   const {
@@ -30,7 +31,8 @@ const Input = <T extends FieldValues>(props: IInputField<T>) => {
     fieldState: { error },
   } = useController({ name, control });
 
-  const FieldComponent = type === Type.PASSWORD ? Password : Text;
+  const FieldComponent =
+    type === Type.PASSWORD ? Password : type === 'number' ? Number : Text;
 
   return (
     <FormControl isInvalid={!!error} {...formControlProps}>

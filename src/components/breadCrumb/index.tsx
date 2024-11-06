@@ -27,10 +27,10 @@ export const BreadCrumb = ({ items, goBack, title }: IBreadCrumb) => {
   const { showSidebar, setShowSidebar } = getSidebarState();
 
   return (
-    <Box pb={6} my={6}>
+    <Box py={8} px={4} background={'white'}>
       <Flex justifyContent="space-between" alignItems="center" height={4}>
         <Breadcrumb spacing={1} separator={''}>
-          <Box _hover={{ cursor: 'pointer' }}>
+          <Box _hover={{ cursor: 'pointer' }} mr={4}>
             <RxHamburgerMenu onClick={() => setShowSidebar(!showSidebar)} />
           </Box>
 

@@ -65,9 +65,6 @@ const Layout = ({ children }: ILayout) => {
       <Box height="100vh" maxH="100vh" overflowY="auto">
         <SidebarState.Provider value={{ showSidebar, setShowSidebar }}>
           <Box
-            py={6}
-            px={5}
-            pb={40}
             sx={{ '&::-webkit-scrollbar': { display: 'none' } }}
           >
             {children}
