@@ -60,7 +60,15 @@ const routes = [
     ),
   },
   {
-    path: NAVIGATION_ROUTES.MANAGE_DUMPS,
+    path: NAVIGATION_ROUTES.ADD_DUMPS,
+    element: (
+      <Layout>
+        <ManageDump />
+      </Layout>
+    ),
+  },
+  {
+    path: NAVIGATION_ROUTES.EDIT_DUMPS,
     element: (
       <Layout>
         <ManageDump />
