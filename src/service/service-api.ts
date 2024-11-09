@@ -10,5 +10,8 @@ export const api = {
   },
   product: {
     getAll: { url: '/product' },
+    addProduct: { url: '/product' },
+    getProduct: (id: string) => ({ url: `/product/${id}` }),
+    updateProduct: (id: string) => ({ url: `/product/${id}` }),
   },
 };

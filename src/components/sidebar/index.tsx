@@ -21,6 +21,7 @@ const Sidebar = ({
       // maxW={width}
       bgColor={'white'}
       //TODO: can we add the color logic here in parent
+      borderRight={'1px solid'}
       color={'gray.300'}
       transitionDuration={'0.6s'}
       onMouseEnter={onEnterSidebar}

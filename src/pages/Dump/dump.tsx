@@ -1,12 +1,15 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Button, Card } from '@chakra-ui/react';
 import { useGetAllProducts } from '@dumps/api-hooks/product/useGetAllProducts';
 import { BreadCrumb } from '@dumps/components/breadCrumb';
 import { DataTable } from '@dumps/components/dataTable';
 import LoadingSpinner from '@dumps/components/loadingSpinner';
 import { PaginationState } from '@tanstack/react-table';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Dump = () => {
+  const navigate = useNavigate();
+
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 10,
@@ -47,22 +50,36 @@ const Dump = () => {
     <>
       <BreadCrumb items={[]} title={{ name: 'Dump', route: '/' }} />
 
-      <Box position="relative">
-        {isLoading ? (
-          <LoadingSpinner></LoadingSpinner>
-        ) : (
-          <DataTable
-            columns={col}
-            data={data ?? []}
-            pagination={{
-              manual: true,
-              pageParams: { pageIndex, pageSize },
-              pageCount: 10,
-              onChangePagination: setPagination,
+      <Card className="base-card">
+        <Box display={'flex'} justifyContent={'flex-end'}>
+          <Button
+            onClick={() => {
+              navigate('manage');
             }}
-          />
-        )}
-      </Box>
+          >
+            Add New Dump
+          </Button>
+        </Box>
+      </Card>
+
+      <Card className="base-card">
+        <Box position="relative">
+          {isLoading ? (
+            <LoadingSpinner></LoadingSpinner>
+          ) : (
+            <DataTable
+              columns={col}
+              data={data ?? []}
+              pagination={{
+                manual: true,
+                pageParams: { pageIndex, pageSize },
+                pageCount: 10,
+                onChangePagination: setPagination,
+              }}
+            />
+          )}
+        </Box>
+      </Card>
     </>
   );
 };

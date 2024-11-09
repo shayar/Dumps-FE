@@ -7,4 +7,6 @@ export const NAVIGATION_ROUTES = {
   REGISTER: '/register',
   DUMPS: '/dumps',
   BUNDLES: '/bundles',
+  ADD_DUMPS: '/dumps/manage',
+  EDIT_DUMPS: '/dumps/manage/:id',
 };
