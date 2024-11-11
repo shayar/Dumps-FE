@@ -3,6 +3,7 @@ import { z } from 'zod';
 const dumpSchema = z.object({
   id: z.string().optional(),
   title: z.string().trim().min(1, 'Title is required'),
+  codeTitle: z.string().trim().min(1, 'Code Title is required'),
   description: z.string().trim().min(1, 'Description is required'),
   price: z.string().min(1, "Price is required"),
   discount: z.string().min(1, "Discount is required"),

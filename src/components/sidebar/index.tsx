@@ -7,8 +7,8 @@ import { webkit_scrollbar } from '../style';
 
 const Sidebar = ({
   width,
-  onEnterSidebar,
-  onExitSidebar,
+  // onEnterSidebar,
+  // onExitSidebar,
   isCollapsed,
   isHovered,
 }: ISidebar) => {
@@ -24,8 +24,8 @@ const Sidebar = ({
       borderRight={'1px solid'}
       color={'gray.300'}
       transitionDuration={'0.6s'}
-      onMouseEnter={onEnterSidebar}
-      onMouseLeave={onExitSidebar}
+      // onMouseEnter={onEnterSidebar}
+      // onMouseLeave={onExitSidebar}
       overflowY={'auto'}
       sx={{
         ...webkit_scrollbar,
@@ -56,8 +56,8 @@ const Sidebar = ({
 interface ISidebar {
   // Todo: this can be further simplified to be fixed value
   width: string;
-  onEnterSidebar: () => void;
-  onExitSidebar: () => void;
+  // onEnterSidebar: () => void;
+  // onExitSidebar: () => void;
   isCollapsed: boolean;
   isHovered: boolean;
 }

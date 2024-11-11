@@ -4,14 +4,15 @@ import { toastFail, toastSuccess } from '@dumps/service/service-toast';
 import { useQuery } from 'react-query';
 
 const getAllProductsRequest = async () => {
-  await httpClient.get(api.product.getAll);
+  return await httpClient.get(api.product.getAll);
 };
 
 const useGetAllProducts = () => {
   return useQuery('products', getAllProductsRequest, {
     onSuccess: (response: any) => {
-      console.log(response);
-      toastSuccess('Successfully loaded Dumps.');
+      if (response.message) {
+        toastSuccess(response.message);
+      }
     },
     onError: (error: any) => {
       toastFail('Failed to Load Dumps.');

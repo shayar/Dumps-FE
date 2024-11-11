@@ -1,3 +1,4 @@
+import { Card } from '@chakra-ui/react';
 import { BreadCrumb } from '@dumps/components/breadCrumb';
 import { DataTable } from '@dumps/components/dataTable';
 import { PaginationState } from '@tanstack/react-table';
@@ -41,18 +42,22 @@ const Dashboard = () => {
 
   return (
     <>
-      <BreadCrumb items={[]} title={{ name: 'Dashboard', route: '/' }} />
-
-      <DataTable
-        columns={col}
-        data={[]}
-        pagination={{
-          manual: true,
-          pageParams: { pageIndex, pageSize },
-          pageCount: 10,
-          onChangePagination: setPagination,
-        }}
+      <BreadCrumb
+        items={[{ name: 'Dashboard', route: '/', isCurrentPage: true }]}
       />
+
+      <Card className="base-card">
+        <DataTable
+          columns={col}
+          data={[]}
+          pagination={{
+            manual: true,
+            pageParams: { pageIndex, pageSize },
+            pageCount: 10,
+            onChangePagination: setPagination,
+          }}
+        />
+      </Card>
     </>
   );
 };

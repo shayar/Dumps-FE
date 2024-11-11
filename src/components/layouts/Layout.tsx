@@ -1,10 +1,13 @@
 import { useState, useEffect, useMemo, useContext } from 'react';
-import { Box } from '@chakra-ui/react';
+import { Box, Flex, IconButton, Text } from '@chakra-ui/react';
 // import Sidebar from '@dumps/components/SideBar';
 import useWindowSize from '@dumps/hooks/useWindowResize';
 // import { SidebarState } from '@dumps/hooks/useContext';
 import Sidebar from '../sidebar';
 import { SidebarState } from '@dumps/hooks/useContext';
+import { RxHamburgerMenu } from 'react-icons/rx';
+import { dumps_colors } from '@dumps/theme/color';
+import { FaBell, FaDumpster } from 'react-icons/fa6';
 
 // Define the possible layout widths
 const LAYOUT_WIDTHS = {
@@ -40,38 +43,84 @@ const Layout = ({ children }: ILayout) => {
   );
 
   // Handle when the user hovers over the collapsed sidebar
-  const onEnterSidebar = () => {
-    if (!showSidebar) {
-      setIsHovered(true);
-    }
-  };
+  // const onEnterSidebar = () => {
+  //   if (!showSidebar) {
+  //     setIsHovered(true);
+  //   }
+  // };
 
   // Handle when the user stops hovering over the collapsed sidebar
-  const onExitSidebar = () => {
-    if (isHovered) {
-      setIsHovered(false);
-    }
-  };
+  // const onExitSidebar = () => {
+  //   if (isHovered) {
+  //     setIsHovered(false);
+  //   }
+  // };
 
   return (
-    <Box display="grid" gridTemplateColumns="auto 1fr">
-      <Sidebar
-        onEnterSidebar={onEnterSidebar}
-        onExitSidebar={onExitSidebar}
-        isHovered={isHovered}
-        width={isHovered ? LAYOUT_WIDTHS.LARGE : sidebarWidth}
-        isCollapsed={!showSidebar}
-      />
-      <Box height="100vh" maxH="100vh" overflowY="auto">
-        <SidebarState.Provider value={{ showSidebar, setShowSidebar }}>
-          <Box
-            sx={{ '&::-webkit-scrollbar': { display: 'none' } }}
-          >
-            {children}
+    <>
+      <Box
+        as="nav"
+        bg={'white'}
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <Flex
+          p={3}
+          width={sidebarWidth}
+          alignItems="center"
+          transition="all 0.6s"
+          borderRight={'1px solid'}
+          borderRightColor={dumps_colors.gray[300]}
+          height={'100%'}
+        >
+          <FaDumpster size={'2em'} />
+          {sidebarWidth !== LAYOUT_WIDTHS.SMALL && (
+            <Text ml={3} fontWeight={500}>
+              DUMPS
+            </Text>
+          )}
+        </Flex>
+        <Flex
+          px={4}
+          flex={1}
+          alignItems={'center'}
+          justifyContent={'space-between'}
+        >
+          <Box _hover={{ cursor: 'pointer' }}>
+            <RxHamburgerMenu
+              fontSize={24}
+              color={dumps_colors.primary['600']}
+              onClick={() => setShowSidebar(!showSidebar)}
+            />
           </Box>
-        </SidebarState.Provider>
+          <IconButton
+            isRound={true}
+            colorScheme={dumps_colors.primary[600]}
+            aria-label="notification"
+            size={'md'}
+            icon={<FaBell />}
+            onClick={() => {}}
+          ></IconButton>
+        </Flex>
       </Box>
-    </Box>
+      <Box display="grid" gridTemplateColumns="auto 1fr">
+        <Sidebar
+          // onEnterSidebar={() => {}}
+          // onExitSidebar={onExitSidebar}
+          isHovered={isHovered}
+          width={isHovered ? LAYOUT_WIDTHS.LARGE : sidebarWidth}
+          isCollapsed={!showSidebar}
+        />
+        <Box height="100vh" maxH="100vh" overflowY="auto">
+          <SidebarState.Provider value={{ showSidebar, setShowSidebar }}>
+            <Box sx={{ '&::-webkit-scrollbar': { display: 'none' } }}>
+              {children}
+            </Box>
+          </SidebarState.Provider>
+        </Box>
+      </Box>
+    </>
   );
 };
 

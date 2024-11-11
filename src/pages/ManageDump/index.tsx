@@ -12,6 +12,7 @@ import { useAddProduct } from '@dumps/api-hooks/product/useAddProduct';
 import { useGetProductById } from '@dumps/api-hooks/product/useGetProductById';
 import { useUpdateProduct } from '@dumps/api-hooks/product/useUpdateProduct';
 import { DumpDetails, dumpSchema } from '@dumps/api-schemas/dump';
+import { BreadCrumb } from '@dumps/components/breadCrumb';
 import { Input } from '@dumps/components/form';
 import LoadingSpinner from '@dumps/components/loadingSpinner';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -31,6 +32,7 @@ const ManageDump = () => {
     mode: 'onBlur',
     defaultValues: {
       title: '',
+      codeTitle: '',
       description: '',
       price: '',
       discount: '',
@@ -46,14 +48,16 @@ const ManageDump = () => {
   const { mutateAsync: updateProductRequest } = useUpdateProduct();
 
   const { data, isLoading } = useGetProductById(productId!);
+  const product = data?.data;
 
   useEffect(() => {
-    if (data) {
-      setValue('id', data.id);
-      setValue('title', data.title);
-      setValue('description', data.description);
-      setValue('price', data.price.toString());
-      setValue('discount', data.discount.toString());
+    if (product) {
+      setValue('id', product.id);
+      setValue('title', product.title);
+      setValue('codeTitle', product.codeTitle);
+      setValue('description', product.description);
+      setValue('price', product.price.toString());
+      setValue('discount', product.discount.toString());
       //TODO: populating file name
     }
   }, [data, setValue]);
@@ -90,10 +94,6 @@ const ManageDump = () => {
 
     formData.append('pdfFile', file);
 
-    // formData.forEach((value, key) => {
-    //   console.log(key, value);
-    // });
-
     if (productId) {
       await updateProductRequest({ data: formData, id: productId! });
       // edit product request
@@ -110,7 +110,16 @@ const ManageDump = () => {
 
   return (
     <>
-      {/* <BreadCrumb items={[]} title={{ name: 'Dump', route: '/' }} /> */}
+      <BreadCrumb
+        items={[
+          { name: 'Dump', route: '/dumps' },
+          {
+            name: productId ? 'Edit Dump' : 'Add Dump',
+            route: '',
+            isCurrentPage: true,
+          },
+        ]}
+      />
 
       {productId && isLoading ? (
         <LoadingSpinner></LoadingSpinner>
@@ -119,6 +128,11 @@ const ManageDump = () => {
           <form onSubmit={handleSubmit(onSubmitHandler)}>
             <VStack>
               <Input name={'title'} label={'Title'} control={control} />
+              <Input
+                name={'codeTitle'}
+                label={'Code Title'}
+                control={control}
+              />
               <Input
                 name={'description'}
                 label={'Description'}

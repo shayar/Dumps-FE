@@ -5,6 +5,7 @@
 export const dumps_colors = {
   black: '#000000',
   white: '#FFFFFF',
+  red: '#ff3333',
   primary: {
     900: '#122B4A',
     800: '#183961',

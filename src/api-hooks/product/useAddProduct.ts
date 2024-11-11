@@ -5,7 +5,11 @@ import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
 const addProductRequest = (data: FormData) => {
-  return httpClient.post(api.product.addProduct, data);
+  return httpClient.post(api.product.addProduct, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
 };
 
 const useAddProduct = () => {

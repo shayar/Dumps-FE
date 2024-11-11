@@ -9,9 +9,10 @@ export const api = {
     register: { url: '/account/register' },
   },
   product: {
-    getAll: { url: '/product' },
-    addProduct: { url: '/product' },
-    getProduct: (id: string) => ({ url: `/product/${id}` }),
-    updateProduct: (id: string) => ({ url: `/product/${id}` }),
+    getAll: { url: '/products' },
+    addProduct: { url: '/products' },
+    getProduct: (id: string) => ({ url: `/products/${id}` }),
+    updateProduct: (id: string) => ({ url: `/products/${id}` }),
+    deleteProduct: (id: string) => ({ url: `/products/${id}` }),
   },
 };

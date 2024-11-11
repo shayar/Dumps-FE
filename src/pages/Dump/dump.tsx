@@ -6,6 +6,8 @@ import LoadingSpinner from '@dumps/components/loadingSpinner';
 import { PaginationState } from '@tanstack/react-table';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ActionButtons } from '@dumps/components/dataTableActions';
+import { useDeleteProductById } from '@dumps/api-hooks/product/useDeleteProductById';
 
 const Dump = () => {
   const navigate = useNavigate();
@@ -42,13 +44,30 @@ const Dump = () => {
         return `${_cell.discount}%`;
       },
     },
+    {
+      header: 'Actions',
+      cell: ({ row }: { row: any }) => {
+        return (
+          <ActionButtons
+            row={row.original}
+            onEdit={(row: any) => {
+              navigate(`manage/${row.id}`);
+            }}
+            onDelete={(row: any) => {
+              deleteProduct(row.id);
+            }}
+          />
+        );
+      },
+    },
   ];
 
   const { data, isLoading } = useGetAllProducts();
+  const { mutate: deleteProduct } = useDeleteProductById();
 
   return (
     <>
-      <BreadCrumb items={[]} title={{ name: 'Dump', route: '/' }} />
+      <BreadCrumb items={[{ name: 'Dump', route: '/', isCurrentPage: true }]} />
 
       <Card className="base-card">
         <Box display={'flex'} justifyContent={'flex-end'}>
@@ -69,7 +88,7 @@ const Dump = () => {
           ) : (
             <DataTable
               columns={col}
-              data={data ?? []}
+              data={data?.data ?? []}
               pagination={{
                 manual: true,
                 pageParams: { pageIndex, pageSize },
