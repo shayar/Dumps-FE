@@ -29,6 +29,10 @@ const Dump = () => {
       accessorKey: 'title',
     },
     {
+      header: 'Code Title',
+      accessorKey: 'codeTitle',
+    },
+    {
       header: 'Desc',
       accessorKey: 'description',
     },

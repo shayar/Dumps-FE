@@ -1,6 +1,9 @@
 import { Box, Card } from '@chakra-ui/react';
+import { useGetAllBundles } from '@dumps/api-hooks/bundles/useGetAllBundles';
 import { BreadCrumb } from '@dumps/components/breadCrumb';
 import { DataTable } from '@dumps/components/dataTable';
+import { ActionButtons } from '@dumps/components/dataTableActions';
+import LoadingSpinner from '@dumps/components/loadingSpinner';
 import { PaginationState } from '@tanstack/react-table';
 import { useState } from 'react';
 
@@ -18,27 +21,33 @@ const Bundles = () => {
       },
     },
     {
-      header: 'Name',
-      accessorKey: 'first_name1',
-      accessorFn: (_cell: unknown, index: number) => {
-        return index + 1;
-      },
+      header: 'Title',
+      accessorKey: 'title',
     },
     {
-      header: 'Name',
-      accessorKey: 'first_name2',
-      accessorFn: (_cell: unknown, index: unknown) => {
-        return index;
-      },
+      header: 'Desc',
+      accessorKey: 'description',
     },
     {
-      header: 'Name',
-      accessorKey: 'first_name3',
-      accessorFn: (_cell: unknown, index: unknown) => {
-        return index;
+      header: 'Price',
+      accessorKey: 'discountedPrice',
+      accessorFn: (info: any) => `$${info.discountedPrice}`,
+    },
+    {
+      header: 'Actions',
+      cell: ({ row }: { row: any }) => {
+        return (
+          <ActionButtons
+            row={row.original}
+            onEdit={() => {}}
+            onDelete={() => {}}
+          />
+        );
       },
     },
   ];
+
+  const { data, isLoading } = useGetAllBundles();
 
   return (
     <>
@@ -48,12 +57,12 @@ const Bundles = () => {
 
       <Card className="base-card">
         <Box position="relative">
-          {/* {isLoading ? (
+          {isLoading ? (
             <LoadingSpinner></LoadingSpinner>
           ) : (
             <DataTable
               columns={col}
-              data={[]}
+              data={data ?? []}
               pagination={{
                 manual: true,
                 pageParams: { pageIndex, pageSize },
@@ -61,17 +70,7 @@ const Bundles = () => {
                 onChangePagination: setPagination,
               }}
             />
-          )} */}
-          <DataTable
-            columns={col}
-            data={[]}
-            pagination={{
-              manual: true,
-              pageParams: { pageIndex, pageSize },
-              pageCount: 10,
-              onChangePagination: setPagination,
-            }}
-          />
+          )}
         </Box>
       </Card>
     </>
