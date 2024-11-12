@@ -15,4 +15,11 @@ export const api = {
     updateProduct: (id: string) => ({ url: `/products/${id}` }),
     deleteProduct: (id: string) => ({ url: `/products/${id}` }),
   },
+  bundles: {
+    getAll: { url: '/bundles' },
+    addBundle: { url: '/bundles' },
+    getBundle: (id: string) => ({ url: `/bundles/${id}` }),
+    updateBundle: (id: string) => ({ url: `/bundles/${id}` }),
+    deleteBundle: (id: string) => ({ url: `/bundles/${id}` }),
+  },
 };
