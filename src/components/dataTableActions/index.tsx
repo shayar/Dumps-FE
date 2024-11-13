@@ -49,7 +49,7 @@ export const ActionButtons = ({
         <PopoverTrigger>
           <IconButton
             variant={'ghost'}
-            color={dumps_colors.red}
+            color={dumps_colors.danger}
             aria-label="delete"
             onClick={onOpen}
           >
@@ -57,7 +57,7 @@ export const ActionButtons = ({
           </IconButton>
         </PopoverTrigger>
         <PopoverContent>
-          <PopoverHeader fontWeight="bold" fontSize={16} color={dumps_colors.red}>Delete!</PopoverHeader>
+          <PopoverHeader fontWeight="bold" fontSize={16} color={dumps_colors.danger}>Delete!</PopoverHeader>
           <PopoverArrow />
           <PopoverCloseButton />
           <PopoverBody>Are you sure you want to continue?</PopoverBody>
@@ -66,7 +66,7 @@ export const ActionButtons = ({
               <Button variant="outline" onClick={onClose}>
                 Cancel
               </Button>
-              <Button background={dumps_colors.red} onClick={handleDelete}>
+              <Button background={dumps_colors.danger} onClick={handleDelete}>
                 Delete
               </Button>
             </ButtonGroup>

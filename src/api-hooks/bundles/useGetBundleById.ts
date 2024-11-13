@@ -3,12 +3,12 @@ import { httpClient } from '@dumps/service/service-axios';
 import { toastFail, toastSuccess } from '@dumps/service/service-toast';
 import { useQuery } from 'react-query';
 
-const getAllBundlesRequest = async () => {
-  return [
-    {
+const getBundleByIdRequest = async (id: string) => {
+  return {
+    data: {
       id: 'w4d72815-76f3-4128-87a9-76fa2456f431',
-      title: 'React Bundle',
-      description: 'React basic to advance',
+      title: 'React basic to advance',
+      description: 'This is bundle for react basic to advanced.',
       discountedPrice: '10',
       productIds: [
         'e7dc5d9f-81c2-4aa5-8086-adddf3c25b38',
@@ -16,22 +16,23 @@ const getAllBundlesRequest = async () => {
         'e4d72815-76f3-4128-87a9-76fa2456f433',
       ],
     },
-  ];
-  return await httpClient.get(api.bundles.getAll);
+  };
+  return await httpClient.get(api.bundles.getBundle(id));
 };
 
-const useGetAllBundles = () => {
-  return useQuery('bundles', getAllBundlesRequest, {
+const useGetBundleById = (id: string) => {
+  return useQuery(['bundles', id], () => getBundleByIdRequest(id), {
+    enabled: !!id,
     onSuccess: (response: any) => {
       if (response.message) {
         toastSuccess(response.message);
       }
     },
     onError: (error: any) => {
-      toastFail('Failed to Load Dumps.');
+      toastFail('Failed to Load Bundle.');
       console.log(error);
     },
   });
 };
 
-export { useGetAllBundles };
+export { useGetBundleById };
