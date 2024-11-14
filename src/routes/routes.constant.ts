@@ -13,4 +13,5 @@ export const NAVIGATION_ROUTES = {
   },
   LOGIN: '/login',
   REGISTER: '/register',
+  HOME: ''
 };

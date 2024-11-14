@@ -8,6 +8,7 @@ import Dump from '@dumps/pages/Admin/Dump/dump';
 import Bundles from '@dumps/pages/Admin/Bundle/bundles';
 import ManageDump from '@dumps/pages/Admin/ManageDump';
 import ManageBundle from '@dumps/pages/Admin/ManageBundle/manageBundle';
+import Home from '@dumps/pages/User/Home/home';
 
 const routes = [
   {
@@ -55,6 +56,10 @@ const routes = [
         element: <ManageBundle />,
       },
     ],
+  },
+  {
+    path: NAVIGATION_ROUTES.HOME,
+    element: <Home />,
   },
 ];
 // const protectedRoutes = [];
