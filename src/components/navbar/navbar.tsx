@@ -1,14 +1,7 @@
 import React from 'react';
-import {
-  Link,
-  Box,
-  Flex,
-  Text,
-  Button,
-  Stack,
-  IconButton,
-} from '@chakra-ui/react';
+import { Box, Flex, Text, Button, Stack, IconButton } from '@chakra-ui/react';
 import { FaBars, FaCartShopping, FaDumpster, FaX } from 'react-icons/fa6';
+import { Link } from 'react-router-dom';
 
 interface NavBarProps {
   children?: React.ReactNode;
@@ -40,13 +33,13 @@ const NavBar: React.FC = (props: NavBarProps) => {
       {/* Desktop Navigation */}
       <Flex display={{ base: 'none', md: 'flex' }} alignItems="center" gap={4}>
         <MenuLinks isOpen={isOpen} />
-        <SignUpButton />
+        <LoginButton />
         <CartButton />
       </Flex>
 
       {/* Mobile Navigation */}
       <Flex display={{ base: 'flex', md: 'none' }} alignItems="center" gap={2}>
-        <SignUpButton />
+        <LoginButton />
         <CartButton />
         <MenuToggle toggle={toggle} isOpen={isOpen} />
       </Flex>
@@ -69,18 +62,20 @@ const CartButton = () => (
   />
 );
 
-const SignUpButton = () => (
-  <Button
-    size="sm"
-    rounded="md"
-    color="primary.500"
-    bg="white"
-    _hover={{
-      bg: 'primary.100',
-    }}
-  >
-    Login
-  </Button>
+const LoginButton = () => (
+  <Link to={'/login'}>
+    <Button
+      size="sm"
+      rounded="md"
+      color="primary.500"
+      bg="white"
+      _hover={{
+        bg: 'primary.100',
+      }}
+    >
+      Login
+    </Button>
+  </Link>
 );
 
 const MenuToggle: React.FC<MenuToggleProps> = ({ toggle, isOpen }) => {
@@ -93,8 +88,8 @@ const MenuToggle: React.FC<MenuToggleProps> = ({ toggle, isOpen }) => {
 
 const MenuItem: React.FC<MenuItemProps> = ({ children, to = '/', ...rest }) => {
   return (
-    <Link href={to}>
-      <Text display="block" {...rest}>
+    <Link to={to}>
+      <Text _hover={{ textDecoration: 'underline' }} fontWeight={'bold'} display="block" {...rest}>
         {children}
       </Text>
     </Link>
@@ -115,10 +110,10 @@ const MenuLinks: React.FC<MenuLinksProps> = ({ isOpen }) => {
         direction={{ base: 'column', md: 'row' }}
         pt={[4, 4, 0, 0]}
       >
-        <MenuItem to="/">Minha Conta</MenuItem>
-        <MenuItem to="/how">Meus Pedidos</MenuItem>
-        <MenuItem to="/faetures">Favoritos</MenuItem>
-        <MenuItem to="/pricing">Recomendados</MenuItem>
+        <MenuItem to="/">Home</MenuItem>
+        <MenuItem to="/products">Certifications</MenuItem>
+        <MenuItem to="/bundles">Bundles</MenuItem>
+        <MenuItem to="/support">Support</MenuItem>
       </Stack>
     </Box>
   );

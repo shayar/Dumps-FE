@@ -9,6 +9,7 @@ import Bundles from '@dumps/pages/Admin/Bundle/bundles';
 import ManageDump from '@dumps/pages/Admin/ManageDump';
 import ManageBundle from '@dumps/pages/Admin/ManageBundle/manageBundle';
 import Home from '@dumps/pages/User/Home/home';
+import MainLayout from '@dumps/pages/User/MainLayout/mainLayout';
 
 const routes = [
   {
@@ -58,8 +59,18 @@ const routes = [
     ],
   },
   {
-    path: NAVIGATION_ROUTES.HOME,
-    element: <Home />,
+    path: '/',
+    element: (
+      <MainLayout>
+        <Outlet></Outlet>
+      </MainLayout>
+    ),
+    children: [
+      {
+        path: '',
+        element: <Home />,
+      },
+    ],
   },
 ];
 // const protectedRoutes = [];
