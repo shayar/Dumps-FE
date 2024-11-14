@@ -89,7 +89,7 @@ const Item = ({
           <ComponentIcon strokeWidth={0} width={30} height={30} />
           {!isCollapsed && <Text whiteSpace="nowrap">{t(name)}</Text>}
 
-          {(!!children || to === '') && (
+          {!!children && (
             <Icon
               as={RightArrowIcon}
               transform={showDropdown ? 'rotate(90deg)' : ''}
