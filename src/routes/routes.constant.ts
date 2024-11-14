@@ -13,5 +13,7 @@ export const NAVIGATION_ROUTES = {
   },
   LOGIN: '/login',
   REGISTER: '/register',
-  HOME: ''
+  HOME: '',
+  PRODUCTS: '/products',
+  BUNDLES: '/bundles',
 };

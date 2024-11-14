@@ -10,6 +10,7 @@ import ManageDump from '@dumps/pages/Admin/ManageDump';
 import ManageBundle from '@dumps/pages/Admin/ManageBundle/manageBundle';
 import Home from '@dumps/pages/User/Home/home';
 import MainLayout from '@dumps/pages/User/MainLayout/mainLayout';
+import Products from '@dumps/pages/Products/products';
 
 const routes = [
   {
@@ -70,6 +71,10 @@ const routes = [
         path: '',
         element: <Home />,
       },
+      {
+        path: NAVIGATION_ROUTES.PRODUCTS,
+        element: <Products />
+      }
     ],
   },
 ];
