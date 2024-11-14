@@ -9,6 +9,7 @@ import Register from '@dumps/pages/Register/Register';
 import Dump from '@dumps/pages/Dump/dump';
 import Bundles from '@dumps/pages/Bundle/bundles';
 import ManageDump from '@dumps/pages/ManageDump';
+import ManageBundle from '@dumps/pages/ManageBundle/manageBundle';
 
 const routes = [
   {
@@ -80,6 +81,22 @@ const routes = [
     element: (
       <Layout>
         <Bundles />
+      </Layout>
+    ),
+  },
+  {
+    path: NAVIGATION_ROUTES.ADD_BUNDLE,
+    element: (
+      <Layout>
+        <ManageBundle />
+      </Layout>
+    ),
+  },
+  {
+    path: NAVIGATION_ROUTES.EDIT_BUNDLE,
+    element: (
+      <Layout>
+        <ManageBundle />
       </Layout>
     ),
   },

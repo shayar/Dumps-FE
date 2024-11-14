@@ -9,4 +9,6 @@ export const NAVIGATION_ROUTES = {
   BUNDLES: '/bundles',
   ADD_DUMPS: '/dumps/manage',
   EDIT_DUMPS: '/dumps/manage/:id',
+  ADD_BUNDLE: '/bundles/manage',
+  EDIT_BUNDLE: '/bundles/manage/:id',
 };
