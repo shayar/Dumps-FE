@@ -1,13 +1,13 @@
 import { Outlet, useRoutes } from 'react-router-dom';
 import { NAVIGATION_ROUTES } from './routes.constant';
-import Dashboard from '@dumps/pages/Dashboard/index';
+import Dashboard from '@dumps/pages/Admin/Dashboard/index';
 import Layout from '@dumps/components/layouts/Layout';
 import Login from '@dumps/pages/Login/Login';
 import Register from '@dumps/pages/Register/Register';
-import Dump from '@dumps/pages/Dump/dump';
-import Bundles from '@dumps/pages/Bundle/bundles';
-import ManageDump from '@dumps/pages/ManageDump';
-import ManageBundle from '@dumps/pages/ManageBundle/manageBundle';
+import Dump from '@dumps/pages/Admin/Dump/dump';
+import Bundles from '@dumps/pages/Admin/Bundle/bundles';
+import ManageDump from '@dumps/pages/Admin/ManageDump';
+import ManageBundle from '@dumps/pages/Admin/ManageBundle/manageBundle';
 
 const routes = [
   {
