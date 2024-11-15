@@ -37,7 +37,7 @@ const Sidebar = ({
     >
       <List>
         <ListItem mx={3} my={6}>
-          <Link as={RouterLink} to={NAVIGATION_ROUTES.DASHBOARD}>
+          <Link as={RouterLink} to={NAVIGATION_ROUTES.ADMIN.DASHBOARD}>
             {/* PUT your project LOGO here */}
           </Link>
         </ListItem>
