@@ -10,6 +10,7 @@ import {
   useColorModeValue,
   VStack,
 } from '@chakra-ui/react';
+import { NAVIGATION_ROUTES } from '@dumps/routes/routes.constant';
 import { dumps_colors } from '@dumps/theme/color';
 import { FaCircleArrowRight } from 'react-icons/fa6';
 import {
@@ -20,6 +21,7 @@ import {
   FiClock,
   FiUsers,
 } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 
 export default function Home() {
   const bgColor = useColorModeValue('gray.50', 'gray.900');
@@ -102,17 +104,21 @@ export default function Home() {
               exam PDFs.
             </Text>
             <HStack spacing={4}>
-              <Button size="lg" rightIcon={<FaCircleArrowRight />}>
-                Browse Certifications
-              </Button>
-              <Button
-                size="lg"
-                bg={dumps_colors.secondary.default}
-                _hover={{ bg: dumps_colors.secondary[400] }}
-                rightIcon={<FaCircleArrowRight />}
-              >
-                Browse Bundles
-              </Button>
+              <Link to={NAVIGATION_ROUTES.PRODUCTS}>
+                <Button size="lg" rightIcon={<FaCircleArrowRight />}>
+                  Browse Certifications
+                </Button>
+              </Link>
+              <Link to={NAVIGATION_ROUTES.BUNDLES}>
+                <Button
+                  size="lg"
+                  bg={dumps_colors.secondary.default}
+                  _hover={{ bg: dumps_colors.secondary[400] }}
+                  rightIcon={<FaCircleArrowRight />}
+                >
+                  Browse Bundles
+                </Button>
+              </Link>
             </HStack>
           </VStack>
         </Container>

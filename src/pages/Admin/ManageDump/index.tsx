@@ -15,7 +15,6 @@ import { DumpDetails, dumpSchema } from '@dumps/api-schemas/dump';
 import { BreadCrumb } from '@dumps/components/breadCrumb';
 import { Input } from '@dumps/components/form';
 import LoadingSpinner from '@dumps/components/loadingSpinner';
-import { NAVIGATION_ROUTES } from '@dumps/routes/routes.constant';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';

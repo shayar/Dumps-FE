@@ -5,8 +5,8 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <NavBar />
-      <Box maxW={'1920px'} mx={'auto'}>
-        {children}
+      <Box width={'full'}  bg={'white'} minH={'100vh'}>
+        <Box className="max-width-app" mx={'auto'}>{children}</Box>
       </Box>
     </>
   );
