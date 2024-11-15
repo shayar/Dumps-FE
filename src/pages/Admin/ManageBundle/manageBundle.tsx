@@ -20,7 +20,6 @@ import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import Select from 'react-select';
-import { NAVIGATION_ROUTES } from '@dumps/routes/routes.constant';
 
 interface ProductOption {
   value: string;

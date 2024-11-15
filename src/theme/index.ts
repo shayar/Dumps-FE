@@ -6,14 +6,20 @@ import { fontSizes } from './fontsize';
 export const theme = extendTheme({
   styles: {
     global: () => ({
-      ".base-card": {
-        margin: "16px",
-        padding: "30px",
+      '.base-card': {
+        margin: '16px',
+        padding: '30px',
+      },
+      '.max-width-app': {
+        maxWidth: '1280px'
       },
       body: {
         bg: '#EDF2F7',
       },
     }),
+  },
+  shadows: {
+    base: 'rgba(0, 0, 0, 0.16) 0px 1px 4px',
   },
   fontSizes,
   colors,

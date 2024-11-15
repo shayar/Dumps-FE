@@ -139,7 +139,7 @@ const NavBarContainer: React.FC<NavBarProps> = ({ children, ...props }) => {
         align="center"
         justify="space-between"
         wrap="wrap"
-        maxW="1920px"
+        className="max-width-app"
         w="100%"
         px={8}
         py={4}

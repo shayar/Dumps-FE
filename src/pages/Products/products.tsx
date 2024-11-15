@@ -10,35 +10,20 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
+import { useGetAllProducts } from '@dumps/api-hooks/product/useGetAllProducts';
+import LoadingSpinner from '@dumps/components/loadingSpinner';
 import ProductCard from '@dumps/components/productCard/productCard';
 import { useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 
-const sampleProducts = [
-  {
-    id: 1,
-    title: 'AWS Certified Solutions Architect',
-    codeTitle: 'AWS-SAA-C03',
-    price: 49.99,
-    discount: 20,
-    filename: 'aws-solutions-architect-practice-exam.pdf',
-  },
-  {
-    id: 2,
-    title: 'CompTIA Security+',
-    codeTitle: 'SY0-601',
-    price: 39.99,
-    discount: 0,
-    filename: 'security-plus-study-guide.pdf',
-  },
-  // Add more sample products as needed
-];
-
 const Products = () => {
   const [sortBy, setSortBy] = useState('popular');
+  const [page] = useState(0);
+  const { data: getAllProducts, isLoading } = useGetAllProducts(page);
+  const products = getAllProducts?.data;
 
   return (
-    <Container maxW="7xl" py={8}>
+    <Container minW={'full'} py={8}>
       {/* Header */}
       <VStack spacing={8} align="stretch">
         <Stack
@@ -47,7 +32,7 @@ const Products = () => {
           align="center"
         >
           <Heading size="xl">Certification Materials</Heading>
-          <Text color="gray.600">Showing {sampleProducts.length} results</Text>
+          <Text color="gray.600">Showing {products?.length} results</Text>
         </Stack>
 
         {/* Filters and Search */}
@@ -79,6 +64,7 @@ const Products = () => {
 
         {/* Products Grid */}
         <Grid
+          position={'relative'}
           templateColumns={{
             base: '1fr',
             md: 'repeat(2, 1fr)',
@@ -86,9 +72,12 @@ const Products = () => {
           }}
           gap={6}
         >
-          {sampleProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+          {isLoading && <LoadingSpinner />}
+          {!isLoading && products &&
+            products.length > 0 &&
+            products.map((product: any) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
         </Grid>
       </VStack>
     </Container>

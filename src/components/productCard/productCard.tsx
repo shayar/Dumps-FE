@@ -16,11 +16,11 @@ const ProductCard = ({ product }: { product: any }) => {
   return (
     <Box
       bg={'white'}
-      borderRadius="lg"
-      boxShadow="md"
+      borderRadius="md"
+      boxShadow="base"
       p={6}
       transition="all 0.3s"
-      _hover={{ transform: 'translateY(-4px)', boxShadow: 'lg' }}
+      _hover={{ transform: 'translateY(-4px)' }}
       height="full"
     >
       <VStack align="stretch" spacing={4} height="full">
