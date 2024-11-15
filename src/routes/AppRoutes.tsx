@@ -5,12 +5,13 @@ import Layout from '@dumps/components/layouts/Layout';
 import Login from '@dumps/pages/Login/Login';
 import Register from '@dumps/pages/Register/Register';
 import Dump from '@dumps/pages/Admin/Dump/dump';
-import Bundles from '@dumps/pages/Admin/Bundle/bundles';
+import AdminBundles from '@dumps/pages/Admin/Bundle/bundles';
 import ManageDump from '@dumps/pages/Admin/ManageDump';
 import ManageBundle from '@dumps/pages/Admin/ManageBundle/manageBundle';
 import Home from '@dumps/pages/User/Home/home';
 import MainLayout from '@dumps/components/MainLayout/mainLayout';
 import Products from '@dumps/pages/Products/products';
+import Bundles from '@dumps/pages/Bundles/bundles';
 
 const routes = [
   {
@@ -47,7 +48,7 @@ const routes = [
       },
       {
         path: NAVIGATION_ROUTES.ADMIN.BUNDLES,
-        element: <Bundles />,
+        element: <AdminBundles />,
       },
       {
         path: NAVIGATION_ROUTES.ADMIN.ADD_BUNDLE,
@@ -73,8 +74,12 @@ const routes = [
       },
       {
         path: NAVIGATION_ROUTES.PRODUCTS,
-        element: <Products />
-      }
+        element: <Products />,
+      },
+      {
+        path: NAVIGATION_ROUTES.BUNDLES,
+        element: <Bundles />,
+      },
     ],
   },
 ];
