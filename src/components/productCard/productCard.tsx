@@ -9,6 +9,7 @@ import {
   Flex,
 } from '@chakra-ui/react';
 import { FiShoppingCart, FiFileText } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 
 const RibbonBadge = ({ discount }: { discount: number }) => (
   <Box
@@ -42,6 +43,8 @@ const RibbonBadge = ({ discount }: { discount: number }) => (
 const ProductCard = ({ product }: { product: any }) => {
   const finalPrice = product.price * (1 - (product.discount || 0) / 100);
 
+  const navigate = useNavigate();
+
   return (
     <Box
       position={'relative'}
@@ -52,12 +55,11 @@ const ProductCard = ({ product }: { product: any }) => {
       transition="all 0.3s"
       _hover={{ transform: 'translateY(-4px)' }}
       height="full"
+      onClick={() => navigate(`/products/${product.id}`)}
     >
       <Flex direction="column" height="full" gap={4}>
         {/* Discount Badge - naturally takes its height */}
-        {(product?.discount > 0) && (
-          <RibbonBadge discount={product.discount} />
-        )}
+        {product?.discount > 0 && <RibbonBadge discount={product.discount} />}
 
         {/* Title - uses noOfLines instead of fixed height */}
         <Heading size="md" minH={50} noOfLines={2}>
