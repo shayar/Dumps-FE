@@ -8,4 +8,18 @@ export const api = {
     login: { url: '/account/login' },
     register: { url: '/account/register' },
   },
+  product: {
+    getAll: { url: '/products' },
+    addProduct: { url: '/products' },
+    getProduct: (id: string) => ({ url: `/products/${id}` }),
+    updateProduct: (id: string) => ({ url: `/products/${id}` }),
+    deleteProduct: (id: string) => ({ url: `/products/${id}` }),
+  },
+  bundles: {
+    getAll: { url: '/bundles' },
+    addBundle: { url: '/bundles' },
+    getBundle: (id: string) => ({ url: `/bundles/${id}` }),
+    updateBundle: (id: string) => ({ url: `/bundles/${id}` }),
+    deleteBundle: (id: string) => ({ url: `/bundles/${id}` }),
+  },
 };
