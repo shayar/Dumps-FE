@@ -176,7 +176,9 @@ export function DataTable({
                       color={'white'}
                       fontSize={14}
                       style={{
-                        width: `${columns[index]?.size}%` ?? header.getSize(),
+                        width: columns[index]?.size
+                          ? `${columns[index]?.size}%`
+                          : header.getSize(),
                         textAlign:
                           header.id == 'Actions' ||
                           header.id == 'Action' ||

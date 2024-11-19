@@ -14,7 +14,7 @@ const useLogin = () => {
   return useMutation(loginRequest, {
     onSuccess: (response: any) => {
       localStorage.setItem('token', response.data.token);
-      navigate('/');
+      navigate('/admin');
       toastSuccess('Login Successful');
     },
     onError: (error: any) => {

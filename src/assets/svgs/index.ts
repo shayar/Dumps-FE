@@ -13,3 +13,5 @@ export { ReactComponent as LogoutIcon } from './logout.svg';
 export { ReactComponent as RightArrowIcon } from './rightArrow.svg';
 export { ReactComponent as LoginIcon } from './sikaaiLogin.svg';
 export { ReactComponent as NotificationIcon } from './notification.svg';
+export { ReactComponent as DumpIcon } from './dump.svg';
+export { ReactComponent as BundleIcon } from './bundle.svg';
