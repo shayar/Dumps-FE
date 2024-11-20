@@ -1,14 +1,20 @@
-# pull the official base image
-FROM node
-# set working direction
-WORKDIR /app
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
-# install application dependencies
-COPY package.json ./
+# Set the base image
+FROM node:23-alpine:3.19
 
-RUN npm i
-# add app
-COPY . ./
-# start app
-CMD ["npm", "start"]
+# Set the working directory
+WORKDIR /app
+
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the application code
+COPY . .
+
+# Expose the Vite server port
+EXPOSE 5173
+
+# Start the development server
+CMD ["npm", "run", "dev"]
