@@ -1,4 +1,12 @@
-import { Box, Button, Flex, Link, Text, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  HStack,
+  Link,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import { useRegister } from '@dumps/api-hooks/auth/useRegister';
 import { RegisterDetails, registerSchema } from '@dumps/api-schemas/auth';
 import { LoginIcon } from '@dumps/assets/svgs';
@@ -34,8 +42,9 @@ export default function Register() {
       display="flex"
       justifyContent={'center'}
       alignItems="center"
-      height={{ base: 'auto', md: '100vh' }}
-      m={4}
+      minHeight={'100vh'}
+      background={'white'}
+      p={4}
     >
       <Flex
         flexDirection={{ base: 'column-reverse', md: 'row' }}
@@ -59,8 +68,18 @@ export default function Register() {
 
           <form onSubmit={handleSubmit(onSubmitHandler)}>
             <VStack pt={6} spacing={8}>
-              <Input name={'firstName'} label={'Fist Name'} control={control} />
-              <Input name={'lastName'} label={'Last Name'} control={control} />
+              <HStack w="100%" spacing={8}>
+                <Input
+                  name={'firstName'}
+                  label={'Fist Name'}
+                  control={control}
+                />
+                <Input
+                  name={'lastName'}
+                  label={'Last Name'}
+                  control={control}
+                />
+              </HStack>
               <Input name={'email'} label={'Email'} control={control} />
               <Input
                 name={'password'}

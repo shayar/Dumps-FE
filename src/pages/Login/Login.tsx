@@ -27,8 +27,9 @@ const Login = () => {
       display="flex"
       justifyContent={'center'}
       alignItems="center"
-      height={{ base: 'auto', md: '100vh' }}
-      m={4}
+      minHeight={'100vh'}
+      background={'white'}
+      p={4}
     >
       <Flex
         flexDirection={{ base: 'column-reverse', md: 'row' }}

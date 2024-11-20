@@ -24,6 +24,16 @@ const getBaseConfig = (endpoint: ApiEndpoint): AxiosRequestConfig => {
   return config;
 };
 
+// inteceptor to map response data
+axios.interceptors.response.use(
+  (response) => {
+    return response.data;
+  },
+  (error) => {
+    return Promise.reject(error);
+  },
+);
+
 const httpClient = {
   get: <T>(endpoint: ApiEndpoint, config: AxiosRequestConfig = {}) => {
     return axios.get<T>(endpoint.url, {

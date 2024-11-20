@@ -1,38 +1,19 @@
-import { useRoutes } from 'react-router-dom';
+import { Outlet, useRoutes } from 'react-router-dom';
 import { NAVIGATION_ROUTES } from './routes.constant';
-import Dashboard from '@dumps/pages/Dashboard/index';
+import Dashboard from '@dumps/pages/Admin/Dashboard/index';
 import Layout from '@dumps/components/layouts/Layout';
 import Login from '@dumps/pages/Login/Login';
-import ButtonGroup from '@dumps/pages/Components/Buttons';
-import FormFields from '@dumps/pages/Components/FormFields';
 import Register from '@dumps/pages/Register/Register';
-// import Dashboard from "@dumps/pages/Dashboard";
+import Dump from '@dumps/pages/Admin/Dump/dump';
+import AdminBundles from '@dumps/pages/Admin/Bundle/bundles';
+import ManageDump from '@dumps/pages/Admin/ManageDump';
+import ManageBundle from '@dumps/pages/Admin/ManageBundle/manageBundle';
+import Home from '@dumps/pages/User/Home/home';
+import MainLayout from '@dumps/components/MainLayout/mainLayout';
+import Products from '@dumps/pages/Products/products';
+import Bundles from '@dumps/pages/Bundles/bundles';
 
 const routes = [
-  {
-    path: NAVIGATION_ROUTES.DASHBOARD,
-    element: (
-      <Layout>
-        <Dashboard />
-      </Layout>
-    ),
-  },
-  {
-    path: NAVIGATION_ROUTES.FORM_FIELD,
-    element: (
-      <Layout>
-        <FormFields />
-      </Layout>
-    ),
-  },
-  {
-    path: NAVIGATION_ROUTES.BUTTON,
-    element: (
-      <Layout>
-        <ButtonGroup />
-      </Layout>
-    ),
-  },
   {
     path: NAVIGATION_ROUTES.LOGIN,
     element: <Login />,
@@ -40,6 +21,66 @@ const routes = [
   {
     path: NAVIGATION_ROUTES.REGISTER,
     element: <Register />,
+  },
+  {
+    path: '/admin',
+    element: (
+      <Layout>
+        <Outlet></Outlet>
+      </Layout>
+    ),
+    children: [
+      {
+        path: NAVIGATION_ROUTES.ADMIN.DASHBOARD,
+        element: <Dashboard />,
+      },
+      {
+        path: NAVIGATION_ROUTES.ADMIN.DUMPS,
+        element: <Dump />,
+      },
+      {
+        path: NAVIGATION_ROUTES.ADMIN.ADD_DUMPS,
+        element: <ManageDump />,
+      },
+      {
+        path: NAVIGATION_ROUTES.ADMIN.EDIT_DUMPS,
+        element: <ManageDump />,
+      },
+      {
+        path: NAVIGATION_ROUTES.ADMIN.BUNDLES,
+        element: <AdminBundles />,
+      },
+      {
+        path: NAVIGATION_ROUTES.ADMIN.ADD_BUNDLE,
+        element: <ManageBundle />,
+      },
+      {
+        path: NAVIGATION_ROUTES.ADMIN.EDIT_DUMPS,
+        element: <ManageBundle />,
+      },
+    ],
+  },
+  {
+    path: '/',
+    element: (
+      <MainLayout>
+        <Outlet></Outlet>
+      </MainLayout>
+    ),
+    children: [
+      {
+        path: '',
+        element: <Home />,
+      },
+      {
+        path: NAVIGATION_ROUTES.PRODUCTS,
+        element: <Products />,
+      },
+      {
+        path: NAVIGATION_ROUTES.BUNDLES,
+        element: <Bundles />,
+      },
+    ],
   },
 ];
 // const protectedRoutes = [];

@@ -7,8 +7,8 @@ import { webkit_scrollbar } from '../style';
 
 const Sidebar = ({
   width,
-  onEnterSidebar,
-  onExitSidebar,
+  // onEnterSidebar,
+  // onExitSidebar,
   isCollapsed,
   isHovered,
 }: ISidebar) => {
@@ -21,10 +21,11 @@ const Sidebar = ({
       // maxW={width}
       bgColor={'white'}
       //TODO: can we add the color logic here in parent
+      borderRight={'1px solid'}
       color={'gray.300'}
       transitionDuration={'0.6s'}
-      onMouseEnter={onEnterSidebar}
-      onMouseLeave={onExitSidebar}
+      // onMouseEnter={onEnterSidebar}
+      // onMouseLeave={onExitSidebar}
       overflowY={'auto'}
       sx={{
         ...webkit_scrollbar,
@@ -36,7 +37,7 @@ const Sidebar = ({
     >
       <List>
         <ListItem mx={3} my={6}>
-          <Link as={RouterLink} to={NAVIGATION_ROUTES.DASHBOARD}>
+          <Link as={RouterLink} to={NAVIGATION_ROUTES.ADMIN.DASHBOARD}>
             {/* PUT your project LOGO here */}
           </Link>
         </ListItem>
@@ -55,8 +56,8 @@ const Sidebar = ({
 interface ISidebar {
   // Todo: this can be further simplified to be fixed value
   width: string;
-  onEnterSidebar: () => void;
-  onExitSidebar: () => void;
+  // onEnterSidebar: () => void;
+  // onExitSidebar: () => void;
   isCollapsed: boolean;
   isHovered: boolean;
 }
