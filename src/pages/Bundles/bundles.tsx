@@ -18,7 +18,7 @@ import { FiSearch } from 'react-icons/fi';
 
 const Bundles = () => {
   const [sortBy, setSortBy] = useState('popular');
-  const [page] = useState(0);
+  const [page] = useState(1);
   const { data: getAllBundles, isLoading } = useGetAllBundles(page);
   const bundles = getAllBundles?.data;
 

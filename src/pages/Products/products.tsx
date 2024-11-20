@@ -18,7 +18,7 @@ import { FiSearch } from 'react-icons/fi';
 
 const Products = () => {
   const [sortBy, setSortBy] = useState('popular');
-  const [page] = useState(0);
+  const [page] = useState(1);
   const { data: getAllProducts, isLoading } = useGetAllProducts(page);
   const products = getAllProducts?.data;
 

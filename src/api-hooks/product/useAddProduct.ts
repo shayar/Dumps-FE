@@ -1,7 +1,7 @@
 import { api } from '@dumps/service/service-api';
 import { httpClient } from '@dumps/service/service-axios';
 import { toastFail, toastSuccess } from '@dumps/service/service-toast';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 const addProductRequest = (data: FormData) => {
@@ -14,7 +14,8 @@ const addProductRequest = (data: FormData) => {
 
 const useAddProduct = () => {
   const navigate = useNavigate();
-  return useMutation(addProductRequest, {
+  return useMutation({
+    mutationFn: addProductRequest,
     onSuccess: () => {
       navigate('/dumps');
       toastSuccess('Successfully added Product.');
