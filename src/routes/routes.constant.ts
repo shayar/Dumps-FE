@@ -16,4 +16,6 @@ export const NAVIGATION_ROUTES = {
   HOME: '',
   PRODUCTS: '/products',
   BUNDLES: '/bundles',
+  PRODUCT_DETAIL: '/products/:id',
+  BUNDLE_DETAIL: '/bundles/:id',
 };
