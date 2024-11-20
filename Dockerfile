@@ -1,5 +1,5 @@
 # Set the base image
-FROM node:23-alpine:3.19
+FROM node:hydrogen-slim
 
 # Set the working directory
 WORKDIR /app
