@@ -1,55 +1,50 @@
-# Project Name
+# React + TypeScript + Vite
 
-## Description
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-`DUMPS` is a modern frontend web application built with React and TypeScript, designed for scalability and performance. The project leverages Chakra UI for a responsive and accessible design system, Zustand for state management, and integrates various popular libraries for forms, validation, animations, and more. It's well-suited for developers looking for a clean, maintainable codebase and ease of use.
+Currently, two official plugins are available:
 
-## Technologies Used
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-- **React**: ^18.2.0
-- **TypeScript**: ^4.4+
-- **Chakra UI**: ^2.8.1
-- **Zustand**: ^4.4.1
-- **React Hook Form**: ^7.46.1
-- **React Query**: ^3.39.3
-- **CKEditor 5**: ^39.0.2
-- **Framer Motion**: ^10.16.4
-- **React Router Dom**: ^6.15.0
-- **Yup** / **Zod**: Schema validation libraries for form validation
+## Expanding the ESLint configuration
 
-## Features
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-- **Responsive and Accessible UI**: Built using Chakra UI for fast and scalable interfaces across devices.
-- **Advanced Form Handling**: Using React Hook Form with Yup/Zod for schema validation.
-- **Rich Text Editing**: CKEditor 5 integration for rich text content editing.
-- **Animations**: Smooth UI transitions with Framer Motion.
-- **State Management**: Zustand for minimalistic and scalable global state management.
-- **Internationalization**: Multilingual support through React i18next.
+- Configure the top-level `parserOptions` property like this:
 
-## Installation
-
-### Prerequisites
-
-- Node.js >= 14.17.0
-- Yarn >= 1.0.0
-
-### Steps
-
-1. Clone the repository:
-
-```bash
-   git clone <repository-url>
-   cd project-name
+```js
+export default tseslint.config({
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
 ```
 
-2. Install dependencies:
+- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
+- Optionally add `...tseslint.configs.stylisticTypeChecked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
 
-```bash
-    yarn install
-```
+```js
+// eslint.config.js
+import react from 'eslint-plugin-react'
 
-3. Start the development server:
-
-```bash
-    yarn start
+export default tseslint.config({
+  // Set the react version
+  settings: { react: { version: '18.3' } },
+  plugins: {
+    // Add the react plugin
+    react,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended rules
+    ...react.configs.recommended.rules,
+    ...react.configs['jsx-runtime'].rules,
+  },
+})
 ```
