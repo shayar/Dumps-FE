@@ -112,9 +112,11 @@ export function DataTable({
   }, [table]);
 
   useEffect(() => {
-    table.getHeaderGroups().map((headerGroup) =>
-      headerGroup.headers.map(({ index }) => {
-        columns[index]?.enablePinning && setStickyColumn(index + 1);
+    table.getHeaderGroups().forEach((headerGroup) =>
+      headerGroup.headers.forEach(({ index }) => {
+        if (columns[index]?.enablePinning) {
+          setStickyColumn(index + 1);
+        }
       }),
     );
   }, [columns, data, table]);

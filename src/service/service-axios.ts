@@ -34,6 +34,24 @@ axios.interceptors.response.use(
   },
 );
 
+// Define the type for what axios will return after interceptor
+// The module declaration is needed here because you're modifying Axios's default behavior
+// through the interceptor. When your interceptor returns response.data directly, you're
+// changing the shape of what Axios returns. The declare module 'axios' tells TypeScript
+// that the AxiosResponse type should now extend Promise<T>, matching your interceptor's
+// behavior where responses are unwrapped to their data property directly.
+
+// This type augmentation ensures type safety throughout your application when using the modified Axios responses.
+declare module 'axios' {
+  export interface AxiosResponse<T = any, D = any> extends Promise<T> {
+    data: T;
+    status: number;
+    statusText: string;
+    headers: RawAxiosResponseHeaders | AxiosResponseHeaders;
+    config: InternalAxiosRequestConfig<D>;
+  }
+}
+
 const httpClient = {
   get: <T>(endpoint: ApiEndpoint, config: AxiosRequestConfig = {}) => {
     return axios.get<T>(endpoint.url, {

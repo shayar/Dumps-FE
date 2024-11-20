@@ -1,7 +1,6 @@
 import { api } from '@dumps/service/service-api';
 import { httpClient } from '@dumps/service/service-axios';
-import { toastFail, toastSuccess } from '@dumps/service/service-toast';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 
 const getBundleByIdRequest = async (id: string) => {
   return {
@@ -21,17 +20,10 @@ const getBundleByIdRequest = async (id: string) => {
 };
 
 const useGetBundleById = (id: string) => {
-  return useQuery(['bundles', id], () => getBundleByIdRequest(id), {
+  return useQuery({
+    queryKey: ['bundles', id],
+    queryFn: () => getBundleByIdRequest(id),
     enabled: !!id,
-    onSuccess: (response: any) => {
-      if (response.message) {
-        toastSuccess(response.message);
-      }
-    },
-    onError: (error: any) => {
-      toastFail('Failed to Load Bundle.');
-      console.log(error);
-    },
   });
 };
 

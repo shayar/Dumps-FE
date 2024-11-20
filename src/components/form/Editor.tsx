@@ -59,16 +59,24 @@ const Editor = ({
             }
           }
 
-          onInit && onInit(editor);
+          if (onInit) {
+            onInit(editor);
+          }
         }}
         onChange={(_event, editor) => {
           const data = editor.getData();
-          onChange && onChange(data);
+          if (onChange) {
+            onChange(data);
+          }
         }}
         onBlur={(_event, editor) => {
           const data = editor.getData();
-          onChange && onChange(data);
-          onBlur && onBlur(data);
+          if (onChange) {
+            onChange(data);
+          }
+          if (onBlur) {
+            onBlur(data);
+          }
         }}
       />
       {helperText && <FormHelperText>{helperText}</FormHelperText>}
@@ -76,4 +84,5 @@ const Editor = ({
     </FormControl>
   );
 };
+
 export default Editor;
