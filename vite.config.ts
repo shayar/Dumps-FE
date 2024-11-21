@@ -9,7 +9,6 @@ export default defineConfig({
   plugins: [
     react(),
     svgr(),
-    checker({ eslint: { lintCommand: 'eslint src' }, overlay: false }),
   ],
   resolve: {
     alias: {
