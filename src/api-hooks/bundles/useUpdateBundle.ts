@@ -17,9 +17,8 @@ const useUpdateBundle = () => {
       navigate(-1);
       toastSuccess('Successfully updated Bundle.');
     },
-    onError: (error: any) => {
+    onError: () => {
       toastFail('Failed to update Bundle.');
-      console.log(error);
     },
   });
 };

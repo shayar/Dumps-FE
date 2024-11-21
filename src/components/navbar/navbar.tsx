@@ -1,11 +1,18 @@
 import React from 'react';
-import { Box, Flex, Text, Button, Stack, IconButton } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Text,
+  Button,
+  Stack,
+  IconButton,
+  TextProps,
+} from '@chakra-ui/react';
 import { FaBars, FaCartShopping, FaDumpster, FaX } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 
-interface NavBarProps {
+interface NavBarProps extends TextProps {
   children?: React.ReactNode;
-  [key: string]: any;
 }
 
 interface MenuToggleProps {
@@ -13,10 +20,9 @@ interface MenuToggleProps {
   isOpen: boolean;
 }
 
-interface MenuItemProps {
+interface MenuItemProps extends TextProps {
   children: React.ReactNode;
   to?: string;
-  [key: string]: any;
 }
 
 interface MenuLinksProps {

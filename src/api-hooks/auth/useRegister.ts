@@ -11,12 +11,10 @@ const registerRequest = (registerDetails: RegisterDetails) => {
 const useRegister = () => {
   return useMutation({
     mutationFn: registerRequest,
-    onSuccess: (response) => {
-      console.log(response);
+    onSuccess: () => {
       toastSuccess('Register Successfully');
     },
-    onError: (error) => {
-      console.log(error);
+    onError: () => {
       toastFail('Register Failed');
     },
   });

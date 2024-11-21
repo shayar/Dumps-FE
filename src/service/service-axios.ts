@@ -43,7 +43,7 @@ axios.interceptors.response.use(
 
 // This type augmentation ensures type safety throughout your application when using the modified Axios responses.
 declare module 'axios' {
-  export interface AxiosResponse<T = any, D = any> extends Promise<T> {
+  export interface AxiosResponse<T, D> extends Promise<T> {
     data: T;
     status: number;
     statusText: string;
@@ -62,7 +62,7 @@ const httpClient = {
 
   post: <T>(
     endpoint: ApiEndpoint,
-    data: any,
+    data: T,
     config: AxiosRequestConfig = {},
   ) => {
     return axios.post<T>(endpoint.url, data, {
@@ -71,11 +71,7 @@ const httpClient = {
     });
   },
 
-  put: <T>(
-    endpoint: ApiEndpoint,
-    data: any,
-    config: AxiosRequestConfig = {},
-  ) => {
+  put: <T>(endpoint: ApiEndpoint, data: T, config: AxiosRequestConfig = {}) => {
     return axios.put<T>(endpoint.url, data, {
       ...getBaseConfig(endpoint),
       ...config,
@@ -84,7 +80,7 @@ const httpClient = {
 
   patch: <T>(
     endpoint: ApiEndpoint,
-    data: any,
+    data: T,
     config: AxiosRequestConfig = {},
   ) => {
     return axios.patch<T>(endpoint.url, data, {

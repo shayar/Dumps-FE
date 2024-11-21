@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ActionButtons } from '@dumps/components/dataTableActions';
 import { useDeleteProductById } from '@dumps/api-hooks/product/useDeleteProductById';
+import { DumpDetails } from '@dumps/api-schemas/dump';
 
 const Dump = () => {
   const navigate = useNavigate();
@@ -39,25 +40,25 @@ const Dump = () => {
     {
       header: 'Price',
       accessorKey: 'price',
-      accessorFn: (info: any) => `$${info.price}`,
+      accessorFn: (info: DumpDetails) => `$${info.price}`,
     },
     {
       header: 'Discount',
       accessorKey: 'discount',
-      accessorFn: (_cell: any) => {
+      accessorFn: (_cell: DumpDetails) => {
         return `${_cell.discount}%`;
       },
     },
     {
       header: 'Actions',
-      cell: ({ row }: { row: any }) => {
+      cell: ({ row }: { row: any }) => { // eslint-disable-line
         return (
           <ActionButtons
             row={row.original}
-            onEdit={(row: any) => {
+            onEdit={(row: any) => { // eslint-disable-line
               navigate(`manage/${row.id}`);
             }}
-            onDelete={(row: any) => {
+            onDelete={(row: any) => { // eslint-disable-line
               deleteProduct(row.id);
             }}
           />

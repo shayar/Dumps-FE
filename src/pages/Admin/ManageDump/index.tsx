@@ -40,7 +40,7 @@ const ManageDump = () => {
     resolver: zodResolver(dumpSchema),
   });
 
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState<File | null>(null);
   const [fileError, setFileError] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -62,8 +62,12 @@ const ManageDump = () => {
     }
   }, [data, setValue]);
 
-  const handleFileChange = (event: any) => {
-    const selectedFile = event.target.files[0];
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+
+    if (!files) return;
+
+    const selectedFile = files[0];
     if (selectedFile && selectedFile.type === 'application/pdf') {
       setFile(selectedFile);
       setFileError(false);

@@ -20,9 +20,8 @@ const useAddProduct = () => {
       navigate(-1);
       toastSuccess('Successfully added Product.');
     },
-    onError: (error: any) => {
+    onError: () => {
       toastFail('Failed to add Product.');
-      console.log(error);
       // return error.response.data.errors.error;
     },
   });

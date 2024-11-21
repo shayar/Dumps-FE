@@ -1,23 +1,24 @@
+import { APIResponse } from '@dumps/api-schemas/APIResponse';
+import { BundleResponse } from '@dumps/api-schemas/bundle';
 import { api } from '@dumps/service/service-api';
 import { httpClient } from '@dumps/service/service-axios';
 import { toastFail, toastSuccess } from '@dumps/service/service-toast';
 import { useMutation } from '@tanstack/react-query';
 
 const deleteBundleByIdRequest = async (id: string) => {
-  await httpClient.delete(api.bundles.deleteBundle(id));
+  return await httpClient.delete<APIResponse<BundleResponse>>(api.bundles.deleteBundle(id));
 };
 
 const useDeleteBundleById = () => {
   return useMutation({
     mutationFn: (id: string) => deleteBundleByIdRequest(id),
-    onSuccess: (response: any) => {
+    onSuccess: (response: APIResponse<BundleResponse>) => {
       if (response.message) {
         toastSuccess(response.message);
       }
     },
-    onError: (error: any) => {
+    onError: () => {
       toastFail('Failed to Delete Bundle.');
-      console.error(error);
     },
   });
 };

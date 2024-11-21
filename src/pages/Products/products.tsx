@@ -11,6 +11,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { useGetAllProducts } from '@dumps/api-hooks/product/useGetAllProducts';
+import { DumpDetails } from '@dumps/api-schemas/dump';
 import LoadingSpinner from '@dumps/components/loadingSpinner';
 import ProductCard from '@dumps/components/productCard/productCard';
 import { useState } from 'react';
@@ -76,7 +77,7 @@ const Products = () => {
           {!isLoading &&
             products &&
             products.length > 0 &&
-            products.map((product: any) => (
+            products.map((product: DumpDetails) => (
               <ProductCard key={product.id} product={product} />
             ))}
         </Grid>

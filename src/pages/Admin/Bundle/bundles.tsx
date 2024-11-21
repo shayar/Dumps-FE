@@ -1,10 +1,11 @@
 import { Box, Button, Card } from '@chakra-ui/react';
 import { useGetAllBundles } from '@dumps/api-hooks/bundles/useGetAllBundles';
+import { BundleResponse } from '@dumps/api-schemas/bundle';
 import { BreadCrumb } from '@dumps/components/breadCrumb';
 import { DataTable } from '@dumps/components/dataTable';
 import { ActionButtons } from '@dumps/components/dataTableActions';
 import LoadingSpinner from '@dumps/components/loadingSpinner';
-import { PaginationState } from '@tanstack/react-table';
+import { PaginationState, Row } from '@tanstack/react-table';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -34,15 +35,15 @@ const Bundles = () => {
     {
       header: 'Price',
       accessorKey: 'discountedPrice',
-      accessorFn: (info: any) => `$${info.discountedPrice}`,
+      accessorFn: (info: BundleResponse) => `$${info.discountedPrice}`,
     },
     {
       header: 'Actions',
-      cell: ({ row }: { row: any }) => {
+      cell: ({ row }: { row: Row<any> }) => { // eslint-disable-line
         return (
           <ActionButtons
             row={row.original}
-            onEdit={(row: any) => {
+            onEdit={(row: Row<any>) => { // eslint-disable-line
               navigate(`manage/${row.id}`);
             }}
             onDelete={() => {}}

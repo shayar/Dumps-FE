@@ -20,6 +20,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import Select from 'react-select';
 import { BundleRequest, bundleRequestSchema } from '@dumps/api-schemas/bundle';
+import { DumpDetails } from '@dumps/api-schemas/dump';
 
 interface ProductOption {
   value: string;
@@ -65,13 +66,13 @@ const ManageBundle = () => {
   useEffect(() => {
     if (productsData?.data) {
       // TODO: added just for search functionality, remove after search api is called
-      const products = productsData.data.filter((i: any) => {
+      const products = productsData.data.filter((i: DumpDetails) => {
         return searchQuery
           ? i.title.toLowerCase().includes(searchQuery.toLowerCase())
           : true;
       });
-      const options: ProductOption[] = products.map((product: any) => ({
-        value: product.id,
+      const options: ProductOption[] = products.map((product: DumpDetails) => ({
+        value: product.id!,
         label: product.title,
       }));
       setProductOptions(options);
@@ -80,7 +81,6 @@ const ManageBundle = () => {
 
   useEffect(() => {
     if (bundle) {
-      console.log(bundle);
       reset({
         id: bundle.id,
         title: bundle.title,

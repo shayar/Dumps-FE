@@ -13,14 +13,13 @@ const useLogin = () => {
   const navigate = useNavigate();
   return useMutation({
     mutationFn: loginRequest,
-    onSuccess: (response: any) => {
+    onSuccess: (response: any) => { // eslint-disable-line
       localStorage.setItem('token', response.data.token);
       navigate('/admin');
       toastSuccess('Login Successful');
     },
-    onError: (error: any) => {
+    onError: () => {
       toastFail('Login Failed');
-      console.log(error);
       // return error.response.data.errors.error;
     },
   });

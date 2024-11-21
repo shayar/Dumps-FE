@@ -20,9 +20,8 @@ const useAddBundle = () => {
       navigate(-1);
       toastSuccess('Successfully added Bundle.');
     },
-    onError: (error: any) => {
+    onError: () => {
       toastFail('Failed to add Bundle.');
-      console.log(error);
     },
   });
 };

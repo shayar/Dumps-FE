@@ -17,9 +17,8 @@ const useUpdateProduct = () => {
       navigate(-1);
       toastSuccess('Successfully updated Product.');
     },
-    onError: (error: any) => {
+    onError: () => {
       toastFail('Failed to update Product.');
-      console.log(error);
     },
   });
 };
