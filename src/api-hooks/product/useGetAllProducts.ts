@@ -1,4 +1,4 @@
-import { APIResponse } from '@dumps/api-schemas/APIResponse';
+import { ApiResponse } from '@dumps/api-schemas/APIResponse';
 import { DumpDetails } from '@dumps/api-schemas/dump';
 import { api } from '@dumps/service/service-api';
 import { httpClient } from '@dumps/service/service-axios';
@@ -17,7 +17,7 @@ const getAllProductsRequest = async (
     ...(search && { search }),
   };
 
-  return await httpClient.get<APIResponse<DumpDetails[]>>(api.product.getAll, {
+  return await httpClient.get<ApiResponse<DumpDetails[]>>(api.product.getAll, {
     params,
   });
 };

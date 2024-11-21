@@ -17,10 +17,12 @@ import LoadingSpinner from '@dumps/components/loadingSpinner';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Select from 'react-select';
 import { BundleRequest, bundleRequestSchema } from '@dumps/api-schemas/bundle';
 import { DumpDetails } from '@dumps/api-schemas/dump';
+import { handleApiError } from '@dumps/service/service-utils';
+import { toastSuccess } from '@dumps/service/service-toast';
 
 interface ProductOption {
   value: string;
@@ -28,6 +30,7 @@ interface ProductOption {
 }
 
 const ManageBundle = () => {
+  const navigate = useNavigate();
   const { id: bundleId } = useParams();
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
@@ -51,8 +54,19 @@ const ManageBundle = () => {
     resolver: zodResolver(bundleRequestSchema),
   });
 
-  const { data, isLoading } = useGetBundleById(bundleId!);
+  const { data, isLoading, isSuccess, isError, error } = useGetBundleById(
+    bundleId!,
+  );
   const bundle = data?.data;
+
+  useEffect(() => {
+    if (isSuccess) {
+      toastSuccess(data.message);
+    }
+    if (isError) {
+      handleApiError(error);
+    }
+  }, [isSuccess, isError]);
 
   const { data: productsData, refetch: refetchProducts } = useGetAllProducts(
     page,
@@ -118,10 +132,24 @@ const ManageBundle = () => {
       }
     });
 
-    if (bundleId) {
-      await updateBundleRequest({ data: formData, id: bundleId! });
-    } else {
-      await addBundleRequest(formData);
+    try {
+      if (bundleId) {
+        const editRes = await updateBundleRequest({
+          data: formData,
+          id: bundleId!,
+        });
+        if (editRes) {
+          toastSuccess(editRes.message);
+        }
+      } else {
+        const addRes = await addBundleRequest(formData);
+        if (addRes) {
+          toastSuccess(addRes.message);
+        }
+      }
+      navigate(-1);
+    } catch (error) {
+      handleApiError(error);
     }
   };
 

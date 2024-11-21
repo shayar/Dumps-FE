@@ -4,11 +4,13 @@ import { BreadCrumb } from '@dumps/components/breadCrumb';
 import { DataTable } from '@dumps/components/dataTable';
 import LoadingSpinner from '@dumps/components/loadingSpinner';
 import { PaginationState } from '@tanstack/react-table';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ActionButtons } from '@dumps/components/dataTableActions';
 import { useDeleteProductById } from '@dumps/api-hooks/product/useDeleteProductById';
 import { DumpDetails } from '@dumps/api-schemas/dump';
+import { toastSuccess } from '@dumps/service/service-toast';
+import { handleApiError } from '@dumps/service/service-utils';
 
 const Dump = () => {
   const navigate = useNavigate();
@@ -17,6 +19,21 @@ const Dump = () => {
     pageIndex: 0,
     pageSize: 5,
   });
+
+  const { data, error, isLoading, isSuccess, isError } = useGetAllProducts(
+    pageIndex,
+    pageSize,
+  );
+  const { mutateAsync: deleteProduct } = useDeleteProductById();
+
+  useEffect(() => {
+    if (isSuccess) {
+      toastSuccess(data.message);
+    }
+    if(isError) {
+      handleApiError(error);
+    }
+  }, [isSuccess, isError]);
 
   const col = [
     {
@@ -51,24 +68,31 @@ const Dump = () => {
     },
     {
       header: 'Actions',
-      cell: ({ row }: { row: any }) => { // eslint-disable-line
+      // eslint-disable-next-line
+      cell: ({ row }: { row: any }) => {
         return (
           <ActionButtons
             row={row.original}
-            onEdit={(row: any) => { // eslint-disable-line
+            // eslint-disable-next-line
+            onEdit={(row: any) => {
               navigate(`manage/${row.id}`);
             }}
-            onDelete={(row: any) => { // eslint-disable-line
-              deleteProduct(row.id);
+            // eslint-disable-next-line
+            onDelete={async (row: any) => {
+              try {
+                const res = await deleteProduct(row.id);
+                if (res) {
+                  toastSuccess(res.message);
+                }
+              } catch (error) {
+                handleApiError(error);
+              }
             }}
           />
         );
       },
     },
   ];
-
-  const { data, isLoading } = useGetAllProducts(pageIndex + 1, pageSize);
-  const { mutate: deleteProduct } = useDeleteProductById();
 
   return (
     <>

@@ -15,13 +15,16 @@ import { DumpDetails, dumpSchema } from '@dumps/api-schemas/dump';
 import { BreadCrumb } from '@dumps/components/breadCrumb';
 import { Input } from '@dumps/components/form';
 import LoadingSpinner from '@dumps/components/loadingSpinner';
+import { toastSuccess } from '@dumps/service/service-toast';
+import { handleApiError } from '@dumps/service/service-utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const ManageDump = () => {
   const { id: productId } = useParams();
+  const navigate = useNavigate();
 
   const {
     control,
@@ -47,8 +50,19 @@ const ManageDump = () => {
   const { mutateAsync: addProductRequest } = useAddProduct();
   const { mutateAsync: updateProductRequest } = useUpdateProduct();
 
-  const { data, isLoading } = useGetProductById(productId!);
+  const { data, isLoading, isSuccess, isError, error } = useGetProductById(
+    productId!,
+  );
   const product = data?.data;
+
+  useEffect(() => {
+    if (isSuccess) {
+      toastSuccess(data.message);
+    }
+    if (isError) {
+      handleApiError(error);
+    }
+  }, [isSuccess, isError]);
 
   useEffect(() => {
     if (product) {
@@ -98,11 +112,25 @@ const ManageDump = () => {
 
     formData.append('pdfFile', file);
 
-    if (productId) {
-      await updateProductRequest({ data: formData, id: productId! });
-      // edit product request
-    } else {
-      await addProductRequest(formData);
+    try {
+      if (productId) {
+        // edit product request
+        const editRes = await updateProductRequest({
+          data: formData,
+          id: productId!,
+        });
+        if (editRes) {
+          toastSuccess(editRes.message);
+        }
+      } else {
+        const addRes = await addProductRequest(formData);
+        if (addRes) {
+          toastSuccess(addRes.message);
+        }
+      }
+      navigate(-1);
+    } catch (error) {
+      handleApiError(error);
     }
   };
 

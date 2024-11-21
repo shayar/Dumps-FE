@@ -11,10 +11,14 @@ import { useRegister } from '@dumps/api-hooks/auth/useRegister';
 import { RegisterDetails, registerSchema } from '@dumps/api-schemas/auth';
 import { LoginIcon } from '@dumps/assets/svgs';
 import { Input } from '@dumps/components/form';
+import { toastSuccess } from '@dumps/service/service-toast';
+import { handleApiError } from '@dumps/service/service-utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
+  const navigate = useNavigate();
   const { control, handleSubmit } = useForm<RegisterDetails>({
     mode: 'onBlur',
     defaultValues: {
@@ -34,7 +38,15 @@ export default function Register() {
     confirmPassword,
     ...registerDetails
   }: RegisterDetails) => {
-    await registerRequest(registerDetails);
+    try {
+      const res = await registerRequest(registerDetails);
+      if (res) {
+        toastSuccess(res.message);
+      }
+      navigate('/login');
+    } catch (error) {
+      handleApiError(error);
+    }
   };
 
   return (

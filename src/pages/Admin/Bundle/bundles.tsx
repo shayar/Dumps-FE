@@ -1,12 +1,15 @@
 import { Box, Button, Card } from '@chakra-ui/react';
+import { useDeleteBundleById } from '@dumps/api-hooks/bundles/useDeleteBundleById';
 import { useGetAllBundles } from '@dumps/api-hooks/bundles/useGetAllBundles';
 import { BundleResponse } from '@dumps/api-schemas/bundle';
 import { BreadCrumb } from '@dumps/components/breadCrumb';
 import { DataTable } from '@dumps/components/dataTable';
 import { ActionButtons } from '@dumps/components/dataTableActions';
 import LoadingSpinner from '@dumps/components/loadingSpinner';
+import { toastSuccess } from '@dumps/service/service-toast';
+import { handleApiError } from '@dumps/service/service-utils';
 import { PaginationState, Row } from '@tanstack/react-table';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Bundles = () => {
@@ -16,6 +19,22 @@ const Bundles = () => {
     pageIndex: 0,
     pageSize: 5,
   });
+
+  const { data, isLoading, isSuccess, error, isError } = useGetAllBundles(
+    pageIndex + 1,
+    pageSize,
+  );
+
+  const { mutateAsync: deleteBundle } = useDeleteBundleById();
+
+  useEffect(() => {
+    if (isSuccess) {
+      toastSuccess(data.message);
+    }
+    if (isError) {
+      handleApiError(error);
+    }
+  }, [isSuccess, isError]);
 
   const col = [
     {
@@ -39,21 +58,31 @@ const Bundles = () => {
     },
     {
       header: 'Actions',
-      cell: ({ row }: { row: Row<any> }) => { // eslint-disable-line
+      // eslint-disable-next-line
+      cell: ({ row }: { row: Row<any> }) => {
         return (
           <ActionButtons
             row={row.original}
-            onEdit={(row: Row<any>) => { // eslint-disable-line
+            // eslint-disable-next-line
+            onEdit={(row: Row<any>) => {
               navigate(`manage/${row.id}`);
             }}
-            onDelete={() => {}}
+            // eslint-disable-next-line
+            onDelete={async (row: any) => {
+              try {
+                const res = await deleteBundle(row.id);
+                if (res) {
+                  toastSuccess(res.message);
+                }
+              } catch (error) {
+                handleApiError(error);
+              }
+            }}
           />
         );
       },
     },
   ];
-
-  const { data, isLoading } = useGetAllBundles(pageIndex + 1, pageSize);
 
   return (
     <>

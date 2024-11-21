@@ -1,4 +1,4 @@
-import { APIResponse } from '@dumps/api-schemas/APIResponse';
+import { ApiResponse } from '@dumps/api-schemas/APIResponse';
 import { BundleResponse } from '@dumps/api-schemas/bundle';
 import { api } from '@dumps/service/service-api';
 import { httpClient } from '@dumps/service/service-axios';
@@ -16,7 +16,7 @@ const getAllBundlesRequest = async (
     ...(sort && { sort }),
     ...(search && { search }),
   };
-  return await httpClient.get<APIResponse<BundleResponse[]>>(
+  return await httpClient.get<ApiResponse<BundleResponse[]>>(
     api.bundles.getAll,
     { params },
   );

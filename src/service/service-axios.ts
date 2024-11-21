@@ -30,7 +30,7 @@ axios.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    return Promise.reject(error);
+    return Promise.reject(error.response.data);
   },
 );
 
@@ -60,30 +60,34 @@ const httpClient = {
     });
   },
 
-  post: <T>(
+  post: <TResponse, TRequest>(
     endpoint: ApiEndpoint,
-    data: T,
+    data: TRequest,
     config: AxiosRequestConfig = {},
   ) => {
-    return axios.post<T>(endpoint.url, data, {
+    return axios.post<TResponse>(endpoint.url, data, {
       ...getBaseConfig(endpoint),
       ...config,
     });
   },
 
-  put: <T>(endpoint: ApiEndpoint, data: T, config: AxiosRequestConfig = {}) => {
-    return axios.put<T>(endpoint.url, data, {
+  put: <TResponse, TRequest>(
+    endpoint: ApiEndpoint,
+    data: TRequest,
+    config: AxiosRequestConfig = {},
+  ) => {
+    return axios.put<TResponse>(endpoint.url, data, {
       ...getBaseConfig(endpoint),
       ...config,
     });
   },
 
-  patch: <T>(
+  patch: <TResponse, TRequest>(
     endpoint: ApiEndpoint,
-    data: T,
+    data: TRequest,
     config: AxiosRequestConfig = {},
   ) => {
-    return axios.patch<T>(endpoint.url, data, {
+    return axios.patch<TResponse>(endpoint.url, data, {
       ...getBaseConfig(endpoint),
       ...config,
     });
