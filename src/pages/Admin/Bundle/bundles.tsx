@@ -10,11 +10,10 @@ import { useNavigate } from 'react-router-dom';
 
 const Bundles = () => {
   const navigate = useNavigate();
-  const { data, isLoading } = useGetAllBundles();
 
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 10,
+    pageSize: 5,
   });
 
   const col = [
@@ -53,6 +52,8 @@ const Bundles = () => {
     },
   ];
 
+  const { data, isLoading } = useGetAllBundles(pageIndex + 1, pageSize);
+
   return (
     <>
       <BreadCrumb
@@ -78,11 +79,11 @@ const Bundles = () => {
           ) : (
             <DataTable
               columns={col}
-              data={data ?? []}
+              data={data?.data ?? []}
               pagination={{
                 manual: true,
                 pageParams: { pageIndex, pageSize },
-                pageCount: 10,
+                pageCount: data?.totalPages,
                 onChangePagination: setPagination,
               }}
             />

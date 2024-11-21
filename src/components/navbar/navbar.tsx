@@ -89,7 +89,12 @@ const MenuToggle: React.FC<MenuToggleProps> = ({ toggle, isOpen }) => {
 const MenuItem: React.FC<MenuItemProps> = ({ children, to = '/', ...rest }) => {
   return (
     <Link to={to}>
-      <Text _hover={{ textDecoration: 'underline' }} fontWeight={'bold'} display="block" {...rest}>
+      <Text
+        _hover={{ textDecoration: 'underline' }}
+        fontWeight={'bold'}
+        display="block"
+        {...rest}
+      >
         {children}
       </Text>
     </Link>

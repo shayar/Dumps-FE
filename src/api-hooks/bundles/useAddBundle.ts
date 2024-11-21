@@ -17,7 +17,7 @@ const useAddBundle = () => {
   return useMutation({
     mutationFn: addBundleRequest,
     onSuccess: () => {
-      navigate('/bundles');
+      navigate(-1);
       toastSuccess('Successfully added Bundle.');
     },
     onError: (error: any) => {

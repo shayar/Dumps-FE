@@ -14,7 +14,7 @@ const useUpdateProduct = () => {
     mutationFn: ({ data, id }: { data: FormData; id: string }) =>
       updateProductRequest(data, id),
     onSuccess: () => {
-      navigate('/dumps');
+      navigate(-1);
       toastSuccess('Successfully updated Product.');
     },
     onError: (error: any) => {

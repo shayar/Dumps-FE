@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 const updateBundleRequest = (data: FormData, id: string) => {
-  return httpClient.put(api.bundles.updateBundle(id), data);
+  return httpClient.patch(api.bundles.updateBundle(id), data);
 };
 
 const useUpdateBundle = () => {
@@ -14,7 +14,7 @@ const useUpdateBundle = () => {
     mutationFn: ({ data, id }: { data: FormData; id: string }) =>
       updateBundleRequest(data, id),
     onSuccess: () => {
-      navigate('/bundles');
+      navigate(-1);
       toastSuccess('Successfully updated Bundle.');
     },
     onError: (error: any) => {

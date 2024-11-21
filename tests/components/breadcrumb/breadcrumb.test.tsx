@@ -29,13 +29,12 @@ describe('BreadCrumb', () => {
     { name: 'Item 1', route: '/item1' },
     { name: 'Item 2', route: '/item2' },
   ];
-  const title = { name: 'Home', route: '/' };
-  
+
   it('renders breadcrumb items and title correctly', () => {
     render(
       <MemoryRouter>
-        <BreadCrumb items={items} title={title} />
-      </MemoryRouter>
+        <BreadCrumb items={items} />
+      </MemoryRouter>,
     );
 
     expect(screen.getByText('Home')).toBeInTheDocument();

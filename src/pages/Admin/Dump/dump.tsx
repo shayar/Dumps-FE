@@ -14,7 +14,7 @@ const Dump = () => {
 
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 10,
+    pageSize: 5,
   });
 
   const col = [
@@ -66,7 +66,7 @@ const Dump = () => {
     },
   ];
 
-  const { data, isLoading } = useGetAllProducts();
+  const { data, isLoading } = useGetAllProducts(pageIndex + 1, pageSize);
   const { mutate: deleteProduct } = useDeleteProductById();
 
   return (
@@ -96,7 +96,7 @@ const Dump = () => {
               pagination={{
                 manual: true,
                 pageParams: { pageIndex, pageSize },
-                pageCount: 10,
+                pageCount: data?.totalPages,
                 onChangePagination: setPagination,
               }}
             />

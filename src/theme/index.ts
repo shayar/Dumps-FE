@@ -11,7 +11,7 @@ export const theme = extendTheme({
         padding: '30px',
       },
       '.max-width-app': {
-        maxWidth: '1280px'
+        maxWidth: '1280px',
       },
       body: {
         bg: '#EDF2F7',

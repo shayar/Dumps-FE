@@ -57,7 +57,13 @@ export const ActionButtons = ({
           </IconButton>
         </PopoverTrigger>
         <PopoverContent>
-          <PopoverHeader fontWeight="bold" fontSize={16} color={dumps_colors.danger}>Delete!</PopoverHeader>
+          <PopoverHeader
+            fontWeight="bold"
+            fontSize={16}
+            color={dumps_colors.danger}
+          >
+            Delete!
+          </PopoverHeader>
           <PopoverArrow />
           <PopoverCloseButton />
           <PopoverBody>Are you sure you want to continue?</PopoverBody>

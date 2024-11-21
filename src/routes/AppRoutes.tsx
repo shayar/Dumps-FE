@@ -56,7 +56,7 @@ const routes = [
         element: <ManageBundle />,
       },
       {
-        path: NAVIGATION_ROUTES.ADMIN.EDIT_DUMPS,
+        path: NAVIGATION_ROUTES.ADMIN.EDIT_BUNDLE,
         element: <ManageBundle />,
       },
     ],

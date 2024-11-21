@@ -251,7 +251,7 @@ export function DataTable({
                   table.setPageSize(Number(e.target.value));
                 }}
               >
-                {[10, 20, 30, 40, 50].map((pageSize) => (
+                {[5, 10, 20, 30, 40, 50].map((pageSize) => (
                   <option key={pageSize} value={pageSize}>
                     {pageSize}
                   </option>
@@ -259,12 +259,14 @@ export function DataTable({
               </Select>
             </FormControl>
           </HStack>
-          <Pagination
-            isBackendPaginated={true}
-            table={table}
-            pageIndex={pagination?.pageParams?.pageIndex}
-            pageCount={pagination?.pageCount}
-          />
+          {pagination.pageCount && pagination.pageCount > 1 && (
+            <Pagination
+              isBackendPaginated={true}
+              table={table}
+              pageIndex={pagination?.pageParams?.pageIndex}
+              pageCount={pagination?.pageCount}
+            />
+          )}
         </HStack>
       ) : (
         ''

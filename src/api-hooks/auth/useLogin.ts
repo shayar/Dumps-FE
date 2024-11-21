@@ -2,7 +2,7 @@ import { LoginDetails } from '@dumps/api-schemas/auth';
 import { api } from '@dumps/service/service-api';
 import { httpClient } from '@dumps/service/service-axios';
 import { toastFail, toastSuccess } from '@dumps/service/service-toast';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 const loginRequest = (loginDetails: LoginDetails) => {
@@ -11,7 +11,8 @@ const loginRequest = (loginDetails: LoginDetails) => {
 
 const useLogin = () => {
   const navigate = useNavigate();
-  return useMutation(loginRequest, {
+  return useMutation({
+    mutationFn: loginRequest,
     onSuccess: (response: any) => {
       localStorage.setItem('token', response.data.token);
       navigate('/admin');
@@ -19,7 +20,7 @@ const useLogin = () => {
     },
     onError: (error: any) => {
       toastFail('Login Failed');
-      console.log(error)
+      console.log(error);
       // return error.response.data.errors.error;
     },
   });

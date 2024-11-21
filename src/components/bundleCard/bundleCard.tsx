@@ -61,7 +61,11 @@ const BundleCard = ({ bundle }: BundleProps) => {
         </Text>
 
         {/* Products list with bundle icon */}
-        <Flex minH={'80px'} justifyContent={'space-between'} alignItems={'center'}>
+        <Flex
+          minH={'80px'}
+          justifyContent={'space-between'}
+          alignItems={'center'}
+        >
           {/* Products List */}
           <List spacing={2}>
             {bundle.products?.slice(0, productsToShow).map((product, index) => (

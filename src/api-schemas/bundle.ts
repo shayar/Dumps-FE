@@ -1,6 +1,8 @@
 import { z } from 'zod';
+import { dumpSchema } from './dump';
 
-const bundleSchema = z.object({
+// Create a separate schema for creating/updating bundle
+const bundleRequestSchema = z.object({
   id: z.string().optional(),
   title: z.string().trim().min(1, 'Title is required'),
   description: z.string().trim().min(1, 'Description is required'),
@@ -11,8 +13,18 @@ const bundleSchema = z.object({
     .min(2, 'Bundle should have at least 2 products.'),
 });
 
-// Infer types from the common schema
-type BundleDetails = z.infer<typeof bundleSchema>;
+// Schema for fetched bundle with full product details
+const bundleResponseSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  description: z.string(),
+  discountedPrice: z.string(),
+  products: z.array(dumpSchema),
+});
 
-export { bundleSchema };
-export type { BundleDetails };
+// Infer types from schemas
+type BundleRequest = z.infer<typeof bundleRequestSchema>;
+type BundleResponse = z.infer<typeof bundleResponseSchema>;
+
+export { bundleRequestSchema, bundleResponseSchema };
+export type { BundleRequest, BundleResponse };

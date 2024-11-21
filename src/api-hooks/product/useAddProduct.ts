@@ -17,7 +17,7 @@ const useAddProduct = () => {
   return useMutation({
     mutationFn: addProductRequest,
     onSuccess: () => {
-      navigate('/dumps');
+      navigate(-1);
       toastSuccess('Successfully added Product.');
     },
     onError: (error: any) => {

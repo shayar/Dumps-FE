@@ -33,7 +33,7 @@
     },
     "types": ["jest", "node","vitest"]
   },
-  "include": ["src", "types.ts", "tests/**/*.ts", "tests/**/*.tsx","vitest.config.ts","vite.config.ts"],
+  "include": ["src", "types.ts", "tests/**/*.ts", "tests/**/*.tsx"],
   "references": [
     {
       "path": "./tsconfig.node.json"

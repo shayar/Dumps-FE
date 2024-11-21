@@ -19,7 +19,7 @@ import { FiSearch } from 'react-icons/fi';
 const Products = () => {
   const [sortBy, setSortBy] = useState('popular');
   const [page] = useState(1);
-  const { data: getAllProducts, isLoading } = useGetAllProducts(page);
+  const { data: getAllProducts, isLoading } = useGetAllProducts(page, 10);
   const products = getAllProducts?.data;
 
   return (
@@ -73,7 +73,8 @@ const Products = () => {
           gap={6}
         >
           {isLoading && <LoadingSpinner />}
-          {!isLoading && products &&
+          {!isLoading &&
+            products &&
             products.length > 0 &&
             products.map((product: any) => (
               <ProductCard key={product.id} product={product} />
