@@ -11,6 +11,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { useGetAllProducts } from '@dumps/api-hooks/product/useGetAllProducts';
+import { DumpDetails } from '@dumps/api-schemas/dump';
 import LoadingSpinner from '@dumps/components/loadingSpinner';
 import ProductCard from '@dumps/components/productCard/productCard';
 import { useState } from 'react';
@@ -19,7 +20,7 @@ import { FiSearch } from 'react-icons/fi';
 const Products = () => {
   const [sortBy, setSortBy] = useState('popular');
   const [page] = useState(1);
-  const { data: getAllProducts, isLoading } = useGetAllProducts(page);
+  const { data: getAllProducts, isLoading } = useGetAllProducts(page, 10);
   const products = getAllProducts?.data;
 
   return (
@@ -73,9 +74,10 @@ const Products = () => {
           gap={6}
         >
           {isLoading && <LoadingSpinner />}
-          {!isLoading && products &&
+          {!isLoading &&
+            products &&
             products.length > 0 &&
-            products.map((product: any) => (
+            products.map((product: DumpDetails) => (
               <ProductCard key={product.id} product={product} />
             ))}
         </Grid>

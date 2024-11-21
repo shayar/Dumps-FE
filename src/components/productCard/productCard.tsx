@@ -8,6 +8,7 @@ import {
   Icon,
   Flex,
 } from '@chakra-ui/react';
+import { DumpDetails } from '@dumps/api-schemas/dump';
 import { FiShoppingCart, FiFileText } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
@@ -40,8 +41,9 @@ const RibbonBadge = ({ discount }: { discount: number }) => (
   </Box>
 );
 
-const ProductCard = ({ product }: { product: any }) => {
-  const finalPrice = product.price * (1 - (product.discount || 0) / 100);
+const ProductCard = ({ product }: { product: DumpDetails }) => {
+  const finalPrice =
+    Number(product.price) * (1 - (Number(product.discount) || 0) / 100);
 
   const navigate = useNavigate();
 
@@ -59,7 +61,9 @@ const ProductCard = ({ product }: { product: any }) => {
     >
       <Flex direction="column" height="full" gap={4}>
         {/* Discount Badge - naturally takes its height */}
-        {product?.discount > 0 && <RibbonBadge discount={product.discount} />}
+        {Number(product?.discount) > 0 && (
+          <RibbonBadge discount={Number(product.discount)} />
+        )}
 
         {/* Title - uses noOfLines instead of fixed height */}
         <Heading size="md" minH={50} noOfLines={2}>
@@ -84,7 +88,7 @@ const ProductCard = ({ product }: { product: any }) => {
                       color="gray.500"
                       fontSize="sm"
                     >
-                      ${product.price.toFixed(2)}
+                      ${Number(product.price).toFixed(2)}
                     </Text>
                     <Text fontSize="xl" fontWeight="bold" color="blue.500">
                       ${finalPrice.toFixed(2)}
@@ -92,7 +96,7 @@ const ProductCard = ({ product }: { product: any }) => {
                   </VStack>
                 ) : (
                   <Text fontSize="xl" fontWeight="bold" color="blue.500">
-                    ${product.price.toFixed(2)}
+                    ${Number(product.price).toFixed(2)}
                   </Text>
                 )}
               </Box>

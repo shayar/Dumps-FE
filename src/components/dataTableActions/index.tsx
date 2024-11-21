@@ -16,9 +16,9 @@ import { FaPenToSquare, FaTrash } from 'react-icons/fa6';
 import { dumps_colors } from '@dumps/theme/color';
 
 interface ActionButtonsProps {
-  row: any;
-  onEdit: (row: any) => void;
-  onDelete: (row: any) => void;
+  row: any; // eslint-disable-line
+  onEdit: (row: any) => void; // eslint-disable-line
+  onDelete: (row: any) => void; // eslint-disable-line
 }
 
 export const ActionButtons = ({
@@ -57,7 +57,13 @@ export const ActionButtons = ({
           </IconButton>
         </PopoverTrigger>
         <PopoverContent>
-          <PopoverHeader fontWeight="bold" fontSize={16} color={dumps_colors.danger}>Delete!</PopoverHeader>
+          <PopoverHeader
+            fontWeight="bold"
+            fontSize={16}
+            color={dumps_colors.danger}
+          >
+            Delete!
+          </PopoverHeader>
           <PopoverArrow />
           <PopoverCloseButton />
           <PopoverBody>Are you sure you want to continue?</PopoverBody>

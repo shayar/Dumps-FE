@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { NAVIGATION_ROUTES } from '@dumps/routes/routes.constant';
 import { dumps_colors } from '@dumps/theme/color';
+import { IconType } from 'react-icons';
 import { FaCircleArrowRight } from 'react-icons/fa6';
 import {
   FiAward,
@@ -32,7 +33,7 @@ export default function Home() {
     title,
     text,
   }: {
-    icon: any;
+    icon: IconType;
     title: string;
     text: string;
   }) => {
@@ -62,7 +63,7 @@ export default function Home() {
     title,
     text,
   }: {
-    icon: any;
+    icon: IconType;
     title: string;
     text: string;
   }) => {

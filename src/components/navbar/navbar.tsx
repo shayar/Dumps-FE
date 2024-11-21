@@ -1,11 +1,18 @@
 import React from 'react';
-import { Box, Flex, Text, Button, Stack, IconButton } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Text,
+  Button,
+  Stack,
+  IconButton,
+  TextProps,
+} from '@chakra-ui/react';
 import { FaBars, FaCartShopping, FaDumpster, FaX } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 
-interface NavBarProps {
+interface NavBarProps extends TextProps {
   children?: React.ReactNode;
-  [key: string]: any;
 }
 
 interface MenuToggleProps {
@@ -13,10 +20,9 @@ interface MenuToggleProps {
   isOpen: boolean;
 }
 
-interface MenuItemProps {
+interface MenuItemProps extends TextProps {
   children: React.ReactNode;
   to?: string;
-  [key: string]: any;
 }
 
 interface MenuLinksProps {
@@ -89,7 +95,12 @@ const MenuToggle: React.FC<MenuToggleProps> = ({ toggle, isOpen }) => {
 const MenuItem: React.FC<MenuItemProps> = ({ children, to = '/', ...rest }) => {
   return (
     <Link to={to}>
-      <Text _hover={{ textDecoration: 'underline' }} fontWeight={'bold'} display="block" {...rest}>
+      <Text
+        _hover={{ textDecoration: 'underline' }}
+        fontWeight={'bold'}
+        display="block"
+        {...rest}
+      >
         {children}
       </Text>
     </Link>

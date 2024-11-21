@@ -39,9 +39,18 @@ const registerSchema = z
     path: ['confirmPassword'],
   });
 
+interface LoginResponse {
+  id: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+  email: string;
+  token: string;
+}
+
 // Infer types from the common schema
 type LoginDetails = z.infer<typeof loginSchema>;
 type RegisterDetails = z.infer<typeof registerSchema>;
 
 export { loginSchema, registerSchema };
-export type { LoginDetails, RegisterDetails };
+export type { LoginDetails, RegisterDetails, LoginResponse };

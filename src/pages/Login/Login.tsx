@@ -5,8 +5,12 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLogin } from '@dumps/api-hooks/auth/useLogin';
 import { LoginDetails, loginSchema } from '@dumps/api-schemas/auth';
+import { useNavigate } from 'react-router-dom';
+import { toastSuccess } from '@dumps/service/service-toast';
+import { handleApiError } from '@dumps/service/service-utils';
 
 const Login = () => {
+  const navigate = useNavigate();
   const { control, handleSubmit } = useForm<LoginDetails>({
     mode: 'onBlur',
     resolver: zodResolver(loginSchema),
@@ -19,7 +23,16 @@ const Login = () => {
   const { mutateAsync: loginRequest } = useLogin();
 
   const onSubmitHandler = async (loginDetails: LoginDetails) => {
-    await loginRequest(loginDetails);
+    try {
+      const response = await loginRequest(loginDetails);
+      if (response.success && response.data) {
+        localStorage.setItem('token', response.data.token);
+        navigate('/admin');
+        toastSuccess(response.message);
+      }
+    } catch (error: unknown) {
+      handleApiError(error);
+    }
   };
 
   return (

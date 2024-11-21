@@ -81,11 +81,16 @@ const ProductDetail = () => {
   const { data, isLoading } = useGetProductById(productId!);
   const product = data?.data;
 
-  const finalPrice = product?.price * (1 - (product?.discount || 0) / 100);
+  const finalPrice: number = Number(
+    (
+      Number(product?.price || 0) *
+      (1 - Number(product?.discount || 0) / 100)
+    ).toFixed(2),
+  );
 
   return (
     <Container minW={'full'} position={'relative'} py={12}>
-      {productId && isLoading ? (
+      {isLoading ? (
         <LoadingSpinner></LoadingSpinner>
       ) : (
         <Flex direction={{ base: 'column', lg: 'row' }} gap={8}>
@@ -96,30 +101,30 @@ const ProductDetail = () => {
             alignItems="center"
             justifyContent="center"
           >
-            <PDFPreview title={product.title} />
+            <PDFPreview title={product?.title || ''} />
           </Box>
 
           {/* Right Column - Product Info */}
           <Box flex="1">
             <VStack align="stretch" spacing={6}>
-              <Heading size="xl">{product.title}</Heading>
+              <Heading size="xl">{product?.title}</Heading>
 
               <Text color="gray.600" fontSize="lg">
-                Code: {product.codeTitle}
+                Code: {product?.codeTitle}
               </Text>
 
               <Box>
-                {product.discount ? (
+                {product?.discount ? (
                   <HStack spacing={3}>
                     <Text
                       textDecoration="line-through"
                       color="gray.500"
                       fontSize="xl"
                     >
-                      ${product.price.toFixed(2)}
+                      ${Number(product.price).toFixed(2)}
                     </Text>
                     <Text fontSize="3xl" fontWeight="bold" color="blue.500">
-                      ${finalPrice.toFixed(2)}
+                      ${finalPrice}
                     </Text>
                     <Text
                       bg="green.500"
@@ -134,13 +139,13 @@ const ProductDetail = () => {
                   </HStack>
                 ) : (
                   <Text fontSize="3xl" fontWeight="bold" color="blue.500">
-                    ${product.price.toFixed(2)}
+                    ${Number(product?.price).toFixed(2)}
                   </Text>
                 )}
               </Box>
 
               <Text color="gray.700" fontSize="md">
-                {product.description}
+                {product?.description}
               </Text>
 
               <HStack spacing={4}>
@@ -169,5 +174,4 @@ const ProductDetail = () => {
     </Container>
   );
 };
-
 export default ProductDetail;

@@ -12,29 +12,15 @@ import {
   Icon,
   Flex,
 } from '@chakra-ui/react';
+import { BundleResponse } from '@dumps/api-schemas/bundle';
 import { FiShoppingCart, FiPackage, FiCheck } from 'react-icons/fi';
 
-interface Product {
-  title: string;
-  code: string;
-  price: number;
-}
-
-interface BundleProps {
-  bundle: {
-    title: string;
-    description: string;
-    discountedPrice: number;
-    products: Product[];
-  };
-}
-
-const BundleCard = ({ bundle }: BundleProps) => {
+const BundleCard = ({ bundle }: { bundle: BundleResponse }) => {
   const originalPrice = bundle?.products?.reduce(
-    (accumulator, currentValue) => accumulator + currentValue.price,
+    (accumulator, currentValue) => accumulator + Number(currentValue.price),
     0,
   );
-  const finalPrice = originalPrice - bundle.discountedPrice;
+  const finalPrice = originalPrice - Number(bundle.discountedPrice);
   const productsToShow =
     bundle?.products?.length > 3 ? 2 : bundle?.products?.length;
   const remainingProducts = bundle?.products?.length - productsToShow;
@@ -61,7 +47,11 @@ const BundleCard = ({ bundle }: BundleProps) => {
         </Text>
 
         {/* Products list with bundle icon */}
-        <Flex minH={'80px'} justifyContent={'space-between'} alignItems={'center'}>
+        <Flex
+          minH={'80px'}
+          justifyContent={'space-between'}
+          alignItems={'center'}
+        >
           {/* Products List */}
           <List spacing={2}>
             {bundle.products?.slice(0, productsToShow).map((product, index) => (

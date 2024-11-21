@@ -11,6 +11,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { useGetAllBundles } from '@dumps/api-hooks/bundles/useGetAllBundles';
+import { BundleResponse } from '@dumps/api-schemas/bundle';
 import BundleCard from '@dumps/components/bundleCard/bundleCard';
 import LoadingSpinner from '@dumps/components/loadingSpinner';
 import { useState } from 'react';
@@ -19,7 +20,7 @@ import { FiSearch } from 'react-icons/fi';
 const Bundles = () => {
   const [sortBy, setSortBy] = useState('popular');
   const [page] = useState(1);
-  const { data: getAllBundles, isLoading } = useGetAllBundles(page);
+  const { data: getAllBundles, isLoading } = useGetAllBundles(page, 10);
   const bundles = getAllBundles?.data;
 
   return (
@@ -76,7 +77,7 @@ const Bundles = () => {
           {!isLoading &&
             bundles &&
             bundles?.length > 0 &&
-            bundles?.map((bundle: any) => (
+            bundles?.map((bundle: BundleResponse) => (
               <BundleCard key={bundle.id} bundle={bundle} />
             ))}
         </Grid>

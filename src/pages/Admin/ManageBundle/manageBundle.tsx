@@ -11,15 +11,18 @@ import { useGetBundleById } from '@dumps/api-hooks/bundles/useGetBundleById';
 import { useGetAllProducts } from '@dumps/api-hooks/product/useGetAllProducts';
 import { useAddBundle } from '@dumps/api-hooks/bundles/useAddBundle';
 import { useUpdateBundle } from '@dumps/api-hooks/bundles/useUpdateBundle';
-import { BundleDetails, bundleSchema } from '@dumps/api-schemas/bundle';
 import { BreadCrumb } from '@dumps/components/breadCrumb';
 import { Input } from '@dumps/components/form';
 import LoadingSpinner from '@dumps/components/loadingSpinner';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Select from 'react-select';
+import { BundleRequest, bundleRequestSchema } from '@dumps/api-schemas/bundle';
+import { DumpDetails } from '@dumps/api-schemas/dump';
+import { handleApiError } from '@dumps/service/service-utils';
+import { toastSuccess } from '@dumps/service/service-toast';
 
 interface ProductOption {
   value: string;
@@ -27,6 +30,7 @@ interface ProductOption {
 }
 
 const ManageBundle = () => {
+  const navigate = useNavigate();
   const { id: bundleId } = useParams();
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
@@ -39,7 +43,7 @@ const ManageBundle = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<BundleDetails>({
+  } = useForm<BundleRequest>({
     mode: 'onBlur',
     defaultValues: {
       title: '',
@@ -47,14 +51,27 @@ const ManageBundle = () => {
       discountedPrice: '',
       productIds: [],
     },
-    resolver: zodResolver(bundleSchema),
+    resolver: zodResolver(bundleRequestSchema),
   });
 
-  const { data, isLoading } = useGetBundleById(bundleId!);
-  const bundle: BundleDetails = data?.data;
+  const { data, isLoading, isSuccess, isError, error } = useGetBundleById(
+    bundleId!,
+  );
+  const bundle = data?.data;
+
+  useEffect(() => {
+    if (isSuccess) {
+      toastSuccess(data.message);
+    }
+    if (isError) {
+      handleApiError(error);
+    }
+  }, [isSuccess, isError]);
 
   const { data: productsData, refetch: refetchProducts } = useGetAllProducts(
     page,
+    5,
+    '',
     searchQuery,
   );
   const { mutateAsync: addBundleRequest } = useAddBundle();
@@ -63,13 +80,13 @@ const ManageBundle = () => {
   useEffect(() => {
     if (productsData?.data) {
       // TODO: added just for search functionality, remove after search api is called
-      const products = productsData.data.filter((i: any) => {
+      const products = productsData.data.filter((i: DumpDetails) => {
         return searchQuery
           ? i.title.toLowerCase().includes(searchQuery.toLowerCase())
           : true;
       });
-      const options: ProductOption[] = products.map((product: any) => ({
-        value: product.id,
+      const options: ProductOption[] = products.map((product: DumpDetails) => ({
+        value: product.id!,
         label: product.title,
       }));
       setProductOptions(options);
@@ -78,39 +95,61 @@ const ManageBundle = () => {
 
   useEffect(() => {
     if (bundle) {
-      console.log(bundle);
       reset({
         id: bundle.id,
         title: bundle.title,
         description: bundle.description,
         discountedPrice: bundle.discountedPrice.toString(),
-        productIds: bundle.productIds || [],
+        productIds: bundle.products.map((i) => i.id) || [],
       });
-      // TODO: get products if not in the initial api call
-      // should get products from api and build selected list
-      if (bundle.productIds) {
-        const selectedProducts = productOptions.filter((option) =>
-          bundle.productIds.includes(option.value),
-        );
-        setSelectedOptions(selectedProducts);
+
+      // build selected list from bundle products
+      let selectedProducts: ProductOption[] = [];
+      if (bundle.products) {
+        selectedProducts = bundle.products.map((i) => {
+          const opt: ProductOption = {
+            label: i.title,
+            value: i.id!,
+          };
+          return opt;
+        });
       }
+      setSelectedOptions(selectedProducts);
     }
   }, [bundle, productOptions, reset]);
 
-  const onSubmitHandler = async ({ ...bundleDetails }: BundleDetails) => {
+  const onSubmitHandler = async ({ ...bundleDetails }: BundleRequest) => {
     const formData = new FormData();
     Object.entries(bundleDetails).forEach(([key, value]) => {
       if (value != null) {
-        formData.append(key, value as string);
+        if (key === 'productIds') {
+          (value as string[]).forEach((id) => {
+            formData.append('productIds[]', id);
+          });
+        } else {
+          formData.append(key, value as string);
+        }
       }
     });
 
-    // TODO: add product ids
-
-    if (bundleId) {
-      await updateBundleRequest({ data: formData, id: bundleId! });
-    } else {
-      await addBundleRequest(formData);
+    try {
+      if (bundleId) {
+        const editRes = await updateBundleRequest({
+          data: formData,
+          id: bundleId!,
+        });
+        if (editRes) {
+          toastSuccess(editRes.message);
+        }
+      } else {
+        const addRes = await addBundleRequest(formData);
+        if (addRes) {
+          toastSuccess(addRes.message);
+        }
+      }
+      navigate(-1);
+    } catch (error) {
+      handleApiError(error);
     }
   };
 
@@ -218,19 +257,6 @@ const ManageBundle = () => {
                   )}
                 />
               </FormControl>
-              {/* <FormControl isInvalid={fileError}>
-                <FormLabel>Pdf File</FormLabel>
-                <ChakraInput
-                  ref={fileInputRef}
-                  type={'file'}
-                  onChange={handleFileChange}
-                />
-                {fileError && (
-                  <FormErrorMessage>
-                    File should be in pdf format.
-                  </FormErrorMessage>
-                )}
-              </FormControl> */}
               <Button
                 marginTop={10}
                 type="submit"

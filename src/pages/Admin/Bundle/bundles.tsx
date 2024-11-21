@@ -1,21 +1,40 @@
 import { Box, Button, Card } from '@chakra-ui/react';
+import { useDeleteBundleById } from '@dumps/api-hooks/bundles/useDeleteBundleById';
 import { useGetAllBundles } from '@dumps/api-hooks/bundles/useGetAllBundles';
+import { BundleResponse } from '@dumps/api-schemas/bundle';
 import { BreadCrumb } from '@dumps/components/breadCrumb';
 import { DataTable } from '@dumps/components/dataTable';
 import { ActionButtons } from '@dumps/components/dataTableActions';
 import LoadingSpinner from '@dumps/components/loadingSpinner';
-import { PaginationState } from '@tanstack/react-table';
-import { useState } from 'react';
+import { toastSuccess } from '@dumps/service/service-toast';
+import { handleApiError } from '@dumps/service/service-utils';
+import { PaginationState, Row } from '@tanstack/react-table';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Bundles = () => {
   const navigate = useNavigate();
-  const { data, isLoading } = useGetAllBundles();
 
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 10,
+    pageSize: 5,
   });
+
+  const { data, isLoading, isSuccess, error, isError } = useGetAllBundles(
+    pageIndex + 1,
+    pageSize,
+  );
+
+  const { mutateAsync: deleteBundle } = useDeleteBundleById();
+
+  useEffect(() => {
+    if (isSuccess) {
+      toastSuccess(data.message);
+    }
+    if (isError) {
+      handleApiError(error);
+    }
+  }, [isSuccess, isError]);
 
   const col = [
     {
@@ -35,18 +54,30 @@ const Bundles = () => {
     {
       header: 'Price',
       accessorKey: 'discountedPrice',
-      accessorFn: (info: any) => `$${info.discountedPrice}`,
+      accessorFn: (info: BundleResponse) => `$${info.discountedPrice}`,
     },
     {
       header: 'Actions',
-      cell: ({ row }: { row: any }) => {
+      // eslint-disable-next-line
+      cell: ({ row }: { row: Row<any> }) => {
         return (
           <ActionButtons
             row={row.original}
-            onEdit={(row: any) => {
+            // eslint-disable-next-line
+            onEdit={(row: Row<any>) => {
               navigate(`manage/${row.id}`);
             }}
-            onDelete={() => {}}
+            // eslint-disable-next-line
+            onDelete={async (row: any) => {
+              try {
+                const res = await deleteBundle(row.id);
+                if (res) {
+                  toastSuccess(res.message);
+                }
+              } catch (error) {
+                handleApiError(error);
+              }
+            }}
           />
         );
       },
@@ -78,11 +109,11 @@ const Bundles = () => {
           ) : (
             <DataTable
               columns={col}
-              data={data ?? []}
+              data={data?.data ?? []}
               pagination={{
                 manual: true,
                 pageParams: { pageIndex, pageSize },
-                pageCount: 10,
+                pageCount: data?.totalPages,
                 onChangePagination: setPagination,
               }}
             />

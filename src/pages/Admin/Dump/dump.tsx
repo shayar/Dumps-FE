@@ -4,18 +4,36 @@ import { BreadCrumb } from '@dumps/components/breadCrumb';
 import { DataTable } from '@dumps/components/dataTable';
 import LoadingSpinner from '@dumps/components/loadingSpinner';
 import { PaginationState } from '@tanstack/react-table';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ActionButtons } from '@dumps/components/dataTableActions';
 import { useDeleteProductById } from '@dumps/api-hooks/product/useDeleteProductById';
+import { DumpDetails } from '@dumps/api-schemas/dump';
+import { toastSuccess } from '@dumps/service/service-toast';
+import { handleApiError } from '@dumps/service/service-utils';
 
 const Dump = () => {
   const navigate = useNavigate();
 
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 10,
+    pageSize: 5,
   });
+
+  const { data, error, isLoading, isSuccess, isError } = useGetAllProducts(
+    pageIndex,
+    pageSize,
+  );
+  const { mutateAsync: deleteProduct } = useDeleteProductById();
+
+  useEffect(() => {
+    if (isSuccess) {
+      toastSuccess(data.message);
+    }
+    if(isError) {
+      handleApiError(error);
+    }
+  }, [isSuccess, isError]);
 
   const col = [
     {
@@ -39,35 +57,42 @@ const Dump = () => {
     {
       header: 'Price',
       accessorKey: 'price',
-      accessorFn: (info: any) => `$${info.price}`,
+      accessorFn: (info: DumpDetails) => `$${info.price}`,
     },
     {
       header: 'Discount',
       accessorKey: 'discount',
-      accessorFn: (_cell: any) => {
+      accessorFn: (_cell: DumpDetails) => {
         return `${_cell.discount}%`;
       },
     },
     {
       header: 'Actions',
+      // eslint-disable-next-line
       cell: ({ row }: { row: any }) => {
         return (
           <ActionButtons
             row={row.original}
+            // eslint-disable-next-line
             onEdit={(row: any) => {
               navigate(`manage/${row.id}`);
             }}
-            onDelete={(row: any) => {
-              deleteProduct(row.id);
+            // eslint-disable-next-line
+            onDelete={async (row: any) => {
+              try {
+                const res = await deleteProduct(row.id);
+                if (res) {
+                  toastSuccess(res.message);
+                }
+              } catch (error) {
+                handleApiError(error);
+              }
             }}
           />
         );
       },
     },
   ];
-
-  const { data, isLoading } = useGetAllProducts();
-  const { mutate: deleteProduct } = useDeleteProductById();
 
   return (
     <>
@@ -96,7 +121,7 @@ const Dump = () => {
               pagination={{
                 manual: true,
                 pageParams: { pageIndex, pageSize },
-                pageCount: 10,
+                pageCount: data?.totalPages,
                 onChangePagination: setPagination,
               }}
             />
