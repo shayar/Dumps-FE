@@ -38,37 +38,13 @@
     "eject": "react-scripts eject",
     "dev": "vite",
     "preview": "vite preview",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
     "format": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
-    "prepare": "husky install",
-    "prebuild": "yarn format && yarn lint",
-    "commit": "git-cz",
-    "postinstall": "npx husky install",
-    "changelog": "conventional-changelog --preset angular --infile CHANGELOG.md --same-file --release-count 0",
     "theme": "chakra-cli tokens src/theme/index.ts",
     "theme:watch": "chakra-cli tokens src/theme/index.ts --watch",
     "test": "vitest"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "devDependencies": {
     "@chakra-ui/cli": "^2.4.1",
-    "@commitlint/cli": "^17.1.2",
-    "@commitlint/config-conventional": "^17.1.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
@@ -76,25 +52,7 @@
     "@types/jest": "^29.5.12",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "@typescript-eslint/eslint-plugin": "^8.15.0",
-    "@typescript-eslint/parser": "^8.15.0",
     "@vitejs/plugin-react": "^2.0.1",
-    "conventional-changelog-cli": "^2.2.2",
-    "cz-conventional-changelog": "^3.3.0",
-    "eslint": ">=8.0.0",
-    "eslint-config-airbnb-typescript": "^17.0.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-config-standard-with-typescript": "^22.0.0",
-    "eslint-config-xo": "^0.42.0",
-    "eslint-config-xo-typescript": "^0.53.0",
-    "eslint-plugin-import": "^2.25.2",
-    "eslint-plugin-jsx-a11y": "^6.6.1",
-    "eslint-plugin-n": "^15.0.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-promise": "^6.0.0",
-    "eslint-plugin-react": "^7.31.1",
-    "husky": "^8.0.0",
-    "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
@@ -108,24 +66,5 @@
     "node": ">= 14.17.0",
     "npm": "please-use-yarn",
     "yarn": ">= 1.0.0"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "post-merge": "if [ $HUSKY_GIT_PARAMS = 'develop' ]; then yarn; fi"
-    }
-  },
-  "lint-staged": {
-    "**/*.{js,jsx,ts,tsx}": [
-      "yarn lint",
-      "lint:fix",
-      "yarn prettier --write"
-    ]
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
   }
 }
