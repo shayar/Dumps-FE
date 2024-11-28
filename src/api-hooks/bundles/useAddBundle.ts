@@ -5,15 +5,11 @@ import { httpClient } from '@dumps/service/service-axios';
 import { useMutation } from '@tanstack/react-query';
 
 const addBundleRequest = (data: FormData) => {
-  return httpClient.post<ApiResponse<BundleResponse>, FormData>(
-    api.bundles.addBundle,
-    data,
-    {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
+  return httpClient.post<ApiResponse<BundleResponse>, FormData>(api.bundles.addBundle, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
     },
-  );
+  });
 };
 
 const useAddBundle = () => {
@@ -22,4 +18,4 @@ const useAddBundle = () => {
   });
 };
 
-export { useAddBundle };
+export default useAddBundle;

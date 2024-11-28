@@ -2,11 +2,7 @@ import { z } from 'zod';
 
 // Define a common schema for login
 const loginSchema = z.object({
-  email: z
-    .string()
-    .trim()
-    .min(1, 'Email is required')
-    .email('Please enter a valid email address'),
+  email: z.string().trim().min(1, 'Email is required').email('Please enter a valid email address'),
   password: z
     .string()
     .trim()
@@ -28,11 +24,7 @@ const registerSchema = z
       .trim()
       .min(1, 'Password is required')
       .min(8, 'Password must be at least 8 characters'),
-    confirmPassword: z
-      .string()
-      .trim()
-      .min(1, 'Password is required')
-      .optional(), // optional is added to use same schema for api (does not need confirmPassword) and form
+    confirmPassword: z.string().trim().min(1, 'Password is required').optional(), // optional is added to use same schema for api (does not need confirmPassword) and form
   })
   .refine((data) => data.password === data.confirmPassword || '', {
     message: 'Passwords does not match',

@@ -10,28 +10,24 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
-import { useGetAllProducts } from '@dumps/api-hooks/product/useGetAllProducts';
+import useGetAllProducts from '@dumps/api-hooks/product/useGetAllProducts';
 import { DumpDetails } from '@dumps/api-schemas/dump';
 import LoadingSpinner from '@dumps/components/loadingSpinner';
 import ProductCard from '@dumps/components/productCard/productCard';
 import { useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 
-const Products = () => {
+function Products() {
   const [sortBy, setSortBy] = useState('popular');
   const [page] = useState(1);
   const { data: getAllProducts, isLoading } = useGetAllProducts(page, 10);
   const products = getAllProducts?.data;
 
   return (
-    <Container minW={'full'} py={8}>
+    <Container minW="full" py={8}>
       {/* Header */}
       <VStack spacing={8} align="stretch">
-        <Stack
-          direction={{ base: 'column', md: 'row' }}
-          justify="space-between"
-          align="center"
-        >
+        <Stack direction={{ base: 'column', md: 'row' }} justify="space-between" align="center">
           <Heading size="xl">Certification Materials</Heading>
           <Text color="gray.600">Showing {products?.length} results</Text>
         </Stack>
@@ -43,7 +39,7 @@ const Products = () => {
           align="center"
           justifyContent="space-between"
         >
-          <InputGroup maxW={'full'}>
+          <InputGroup maxW="full">
             <InputLeftElement>
               <FiSearch />
             </InputLeftElement>
@@ -65,7 +61,7 @@ const Products = () => {
 
         {/* Products Grid */}
         <Grid
-          position={'relative'}
+          position="relative"
           templateColumns={{
             base: '1fr',
             md: 'repeat(2, 1fr)',
@@ -84,6 +80,6 @@ const Products = () => {
       </VStack>
     </Container>
   );
-};
+}
 
 export default Products;

@@ -2,9 +2,9 @@ import { BrowserRouter } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
 import { HelmetProvider } from 'react-helmet-async';
 import { Toaster } from 'react-hot-toast';
-import { theme } from '../theme';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import theme from '../theme';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,7 +18,7 @@ const queryClient = new QueryClient({
   },
 });
 
-const Provider = ({ children }: IProvider) => {
+function Provider({ children }: IProvider) {
   return (
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
@@ -30,7 +30,7 @@ const Provider = ({ children }: IProvider) => {
       </QueryClientProvider>
     </BrowserRouter>
   );
-};
+}
 
 interface IProvider {
   children: React.ReactNode;

@@ -1,19 +1,21 @@
+/* eslint-disable react/jsx-no-useless-fragment */
+/* eslint-disable react/require-default-props */
 import React, { useEffect, useState } from 'react';
 import Item from './Item';
 
-const NavItem = ({ name, to, icon, child, visible, isCollapsed }: INavItem) => {
+function NavItem({ name, to, icon, child, visible, isCollapsed }: INavItem) {
   const [active, setActive] = useState(false);
 
-  const activeParent = child?.some((item) => item.to === location.pathname);
+  const activeParent = child?.some((item) => item.to === window.location.pathname);
   const [showDropdown, setShowDropdown] = useState(activeParent);
 
   // For the case you are deep nested into child element and you need to make the parent element in the sidebar to be active
   const match =
-    location.pathname.match(/services/g) || location.pathname.match(/forum/g);
+    window.location.pathname.match(/services/g) || window.location.pathname.match(/forum/g);
 
   useEffect(() => {
-    setActive((!child && to === location.pathname) || to === `/${match?.[0]}`);
-  }, [location.pathname]);
+    setActive((!child && to === window.location.pathname) || to === `/${match?.[0]}`);
+  }, [window.location.pathname]);
 
   return (
     <>
@@ -44,7 +46,7 @@ const NavItem = ({ name, to, icon, child, visible, isCollapsed }: INavItem) => {
                           to={c.to}
                           ComponentIcon={c?.icon}
                           isCollapsed={isCollapsed}
-                          isChild={true}
+                          isChild
                         />
                       )}
                     </React.Fragment>
@@ -64,7 +66,7 @@ const NavItem = ({ name, to, icon, child, visible, isCollapsed }: INavItem) => {
         ))}
     </>
   );
-};
+}
 interface INavItem extends INavItemChild {
   child?: INavItemChild[];
   isCollapsed?: boolean;

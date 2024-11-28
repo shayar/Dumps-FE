@@ -4,7 +4,7 @@ import { FieldValues, useController } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { IMultiSelect, IOption } from './input/interface';
 
-const MultiSelect = <T extends FieldValues>({
+function MultiSelect<T extends FieldValues>({
   control,
   name,
   label,
@@ -12,7 +12,7 @@ const MultiSelect = <T extends FieldValues>({
   style,
   required,
   placeholder,
-}: IMultiSelect<T>) => {
+}: IMultiSelect<T>) {
   const { t } = useTranslation();
 
   const {
@@ -49,6 +49,6 @@ const MultiSelect = <T extends FieldValues>({
       {error && <FormErrorMessage>{t(error.message)}</FormErrorMessage>}
     </FormControl>
   );
-};
+}
 
 export default MultiSelect;

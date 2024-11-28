@@ -7,10 +7,7 @@ const bundleRequestSchema = z.object({
   title: z.string().trim().min(1, 'Title is required'),
   description: z.string().trim().min(1, 'Description is required'),
   discountedPrice: z.string().min(1, 'Discounted Price is required'),
-  productIds: z
-    .string()
-    .array()
-    .min(2, 'Bundle should have at least 2 products.'),
+  productIds: z.string().array().min(2, 'Bundle should have at least 2 products.'),
 });
 
 // Schema for fetched bundle with full product details

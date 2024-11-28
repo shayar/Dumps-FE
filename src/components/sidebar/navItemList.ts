@@ -1,10 +1,5 @@
-import {
-  BundleIcon,
-  DashboardIcon,
-  DumpIcon,
-  LogoutIcon,
-} from '@dumps/assets/svgs';
-import { NAVIGATION_ROUTES } from '@dumps/routes/routes.constant';
+import { BundleIcon, DashboardIcon, DumpIcon, LogoutIcon } from '@dumps/assets/svgs';
+import NAVIGATION_ROUTES from '@dumps/routes/routes.constant';
 
 const navItems = [
   {
@@ -65,4 +60,4 @@ const navItems = [
   },
 ];
 
-export { navItems };
+export default navItems;

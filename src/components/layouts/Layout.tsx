@@ -1,13 +1,14 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useState, useEffect, useMemo, useContext } from 'react';
 import { Box, Flex, IconButton, Text } from '@chakra-ui/react';
 // import Sidebar from '@dumps/components/SideBar';
 import useWindowSize from '@dumps/hooks/useWindowResize';
 // import { SidebarState } from '@dumps/hooks/useContext';
-import Sidebar from '../sidebar';
 import { SidebarState } from '@dumps/hooks/useContext';
 import { RxHamburgerMenu } from 'react-icons/rx';
-import { dumps_colors } from '@dumps/theme/color';
+import DUMPS_COLORS from '@dumps/theme/color';
 import { FaBell, FaDumpster } from 'react-icons/fa6';
+import Sidebar from '../sidebar';
 
 // Define the possible layout widths
 const LAYOUT_WIDTHS = {
@@ -15,7 +16,7 @@ const LAYOUT_WIDTHS = {
   SMALL: '80px',
 };
 
-const Layout = ({ children }: ILayout) => {
+function Layout({ children }: ILayout) {
   const { width } = useWindowSize();
   const [showSidebar, setShowSidebar] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
@@ -39,7 +40,7 @@ const Layout = ({ children }: ILayout) => {
   // Calculate the current sidebar width based on its collapsed state and hovered state
   const sidebarWidth = useMemo(
     () => (showSidebar ? LAYOUT_WIDTHS.LARGE : LAYOUT_WIDTHS.SMALL),
-    [showSidebar],
+    [showSidebar]
   );
 
   // Handle when the user hovers over the collapsed sidebar
@@ -56,52 +57,43 @@ const Layout = ({ children }: ILayout) => {
   //   }
   // };
 
+  const sidebarContextValue = useMemo(() => ({ showSidebar, setShowSidebar }), [showSidebar]);
+
   return (
     <>
-      <Box
-        as="nav"
-        bg={'white'}
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-      >
+      <Box as="nav" bg="white" display="flex" alignItems="center" justifyContent="space-between">
         <Flex
           p={3}
           width={sidebarWidth}
           alignItems="center"
           transition="all 0.6s"
-          borderRight={'1px solid'}
-          borderRightColor={dumps_colors.gray[300]}
-          height={'100%'}
+          borderRight="1px solid"
+          borderRightColor={DUMPS_COLORS.gray[300]}
+          height="100%"
         >
-          <FaDumpster size={'2em'} />
+          <FaDumpster size="2em" />
           {sidebarWidth !== LAYOUT_WIDTHS.SMALL && (
             <Text ml={3} fontWeight={500}>
               DUMPS
             </Text>
           )}
         </Flex>
-        <Flex
-          px={4}
-          flex={1}
-          alignItems={'center'}
-          justifyContent={'space-between'}
-        >
+        <Flex px={4} flex={1} alignItems="center" justifyContent="space-between">
           <Box _hover={{ cursor: 'pointer' }}>
             <RxHamburgerMenu
               fontSize={24}
-              color={dumps_colors.primary['600']}
+              color={DUMPS_COLORS.primary['600']}
               onClick={() => setShowSidebar(!showSidebar)}
             />
           </Box>
           <IconButton
-            isRound={true}
-            colorScheme={dumps_colors.primary[600]}
+            isRound
+            colorScheme={DUMPS_COLORS.primary[600]}
             aria-label="notification"
-            size={'md'}
+            size="md"
             icon={<FaBell />}
             onClick={() => {}}
-          ></IconButton>
+          />
         </Flex>
       </Box>
       <Box display="grid" gridTemplateColumns="auto 1fr">
@@ -113,17 +105,14 @@ const Layout = ({ children }: ILayout) => {
           isCollapsed={!showSidebar}
         />
         <Box height="100vh" maxH="100vh" overflowY="auto">
-          <SidebarState.Provider value={{ showSidebar, setShowSidebar }}>
-            <Box sx={{ '&::-webkit-scrollbar': { display: 'none' } }}>
-              {children}
-            </Box>
+          <SidebarState.Provider value={sidebarContextValue}>
+            <Box sx={{ '&::-webkit-scrollbar': { display: 'none' } }}>{children}</Box>
           </SidebarState.Provider>
         </Box>
       </Box>
     </>
   );
-};
-
+}
 interface ILayout {
   children: React.ReactNode;
 }

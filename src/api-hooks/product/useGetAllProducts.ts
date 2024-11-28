@@ -8,7 +8,7 @@ const getAllProductsRequest = async (
   pageNumber: number,
   pageSize: number,
   sort?: string,
-  search?: string,
+  search?: string
 ) => {
   const params = {
     page: pageNumber,
@@ -17,7 +17,7 @@ const getAllProductsRequest = async (
     ...(search && { search }),
   };
 
-  return await httpClient.get<ApiResponse<DumpDetails[]>>(api.product.getAll, {
+  return httpClient.get<ApiResponse<DumpDetails[]>>(api.product.getAll, {
     params,
   });
 };
@@ -26,11 +26,11 @@ const useGetAllProducts = (
   pageNumber: number,
   pageSize: number,
   sort?: string,
-  search?: string,
+  search?: string
 ) => {
   return useQuery({
     queryKey: ['products', pageNumber, pageSize, sort, search],
     queryFn: () => getAllProductsRequest(pageNumber, pageSize, sort, search),
   });
 };
-export { useGetAllProducts };
+export default useGetAllProducts;

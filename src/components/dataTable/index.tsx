@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable react/require-default-props */
 import {
   Box,
   FormControl,
@@ -86,7 +88,7 @@ export function DataTable({
         : {
             getPaginationRowModel: getPaginationRowModel(),
           },
-    [pagination],
+    [pagination]
   );
 
   const table = useReactTable({
@@ -117,7 +119,7 @@ export function DataTable({
         if (columns[index]?.enablePinning) {
           setStickyColumn(index + 1);
         }
-      }),
+      })
     );
   }, [columns, data, table]);
 
@@ -150,7 +152,7 @@ export function DataTable({
             borderRadius: '7xl',
           },
         }}
-        borderRadius={'5xl'}
+        borderRadius="5xl"
       >
         <Table bg="white">
           <Thead>
@@ -174,29 +176,22 @@ export function DataTable({
                       colSpan={header.colSpan}
                       textTransform="capitalize"
                       whiteSpace="nowrap"
-                      bg={'primary.500'}
-                      color={'white'}
+                      bg="primary.500"
+                      color="white"
                       fontSize={14}
                       style={{
-                        width: columns[index]?.size
-                          ? `${columns[index]?.size}%`
-                          : header.getSize(),
+                        width: columns[index]?.size ? `${columns[index]?.size}%` : header.getSize(),
                         textAlign:
-                          header.id == 'Actions' ||
-                          header.id == 'Action' ||
-                          header.colSpan > 1
+                          header.id === 'Actions' || header.id === 'Action' || header.colSpan > 1
                             ? 'center'
                             : 'left',
                       }}
                     >
-                      <HStack justifyContent={'space-between'}>
+                      <HStack justifyContent="space-between">
                         <Text flex={1}>
                           {header.isPlaceholder
                             ? null
-                            : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext(),
-                              )}
+                            : flexRender(header.column.columnDef.header, header.getContext())}
                         </Text>
                       </HStack>
                     </Th>
@@ -225,10 +220,7 @@ export function DataTable({
                 {row.getVisibleCells().map((cell) => {
                   return (
                     <Td key={cell.id} pl={4}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </Td>
                   );
                 })}
@@ -239,12 +231,12 @@ export function DataTable({
       </Box>
 
       {pagination ? (
-        <HStack justifyContent={'flex-end'} float={'right'} flexWrap="wrap">
+        <HStack justifyContent="flex-end" float="right" flexWrap="wrap">
           <HStack>
-            <FormControl variant={'floating'}>
+            <FormControl variant="floating">
               <Select
                 w="70px"
-                colorScheme={'purple'}
+                colorScheme="purple"
                 value={table.getState().pagination.pageSize}
                 onChange={(e) => {
                   table.setPageIndex(0);
@@ -261,7 +253,7 @@ export function DataTable({
           </HStack>
           {pagination.pageCount && pagination.pageCount > 1 && (
             <Pagination
-              isBackendPaginated={true}
+              isBackendPaginated
               table={table}
               pageIndex={pagination?.pageParams?.pageIndex}
               pageCount={pagination?.pageCount}

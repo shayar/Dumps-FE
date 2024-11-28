@@ -31,7 +31,7 @@ axios.interceptors.response.use(
   },
   (error) => {
     return Promise.reject(error.response.data);
-  },
+  }
 );
 
 // Define the type for what axios will return after interceptor
@@ -63,7 +63,7 @@ const httpClient = {
   post: <TResponse, TRequest>(
     endpoint: ApiEndpoint,
     data: TRequest,
-    config: AxiosRequestConfig = {},
+    config: AxiosRequestConfig = {}
   ) => {
     return axios.post<TResponse>(endpoint.url, data, {
       ...getBaseConfig(endpoint),
@@ -74,7 +74,7 @@ const httpClient = {
   put: <TResponse, TRequest>(
     endpoint: ApiEndpoint,
     data: TRequest,
-    config: AxiosRequestConfig = {},
+    config: AxiosRequestConfig = {}
   ) => {
     return axios.put<TResponse>(endpoint.url, data, {
       ...getBaseConfig(endpoint),
@@ -85,7 +85,7 @@ const httpClient = {
   patch: <TResponse, TRequest>(
     endpoint: ApiEndpoint,
     data: TRequest,
-    config: AxiosRequestConfig = {},
+    config: AxiosRequestConfig = {}
   ) => {
     return axios.patch<TResponse>(endpoint.url, data, {
       ...getBaseConfig(endpoint),
