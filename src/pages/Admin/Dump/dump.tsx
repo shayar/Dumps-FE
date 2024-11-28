@@ -21,7 +21,7 @@ const Dump = () => {
   });
 
   const { data, error, isLoading, isSuccess, isError } = useGetAllProducts(
-    pageIndex,
+    pageIndex + 1,
     pageSize,
   );
   const { mutateAsync: deleteProduct } = useDeleteProductById();

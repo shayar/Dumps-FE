@@ -1,10 +1,4 @@
 import {
-  ArrowBackIcon,
-  ArrowForwardIcon,
-  ArrowLeftIcon,
-  ArrowRightIcon,
-} from '@chakra-ui/icons';
-import {
   Box,
   Center,
   IconButton,
@@ -14,6 +8,12 @@ import {
 } from '@chakra-ui/react';
 import { Table } from '@tanstack/react-table';
 import { useMemo } from 'react';
+import {
+  FaAngleLeft,
+  FaAngleRight,
+  FaAnglesLeft,
+  FaAnglesRight,
+} from 'react-icons/fa6';
 
 interface IPagination {
   isBackendPaginated?: boolean;
@@ -82,7 +82,7 @@ function Pagination({ isBackendPaginated, pageIndex, table }: IPagination) {
             fontSize={'lg'}
             border={'none'}
             disabled={!table.getCanPreviousPage()}
-            icon={<ArrowLeftIcon />}
+            icon={<FaAnglesLeft />}
           />
           <IconButton
             variant={'outline'}
@@ -93,7 +93,7 @@ function Pagination({ isBackendPaginated, pageIndex, table }: IPagination) {
             fontSize={'lg'}
             border={'none'}
             disabled={!table.getCanPreviousPage()}
-            icon={<ArrowBackIcon />}
+            icon={<FaAngleLeft />}
           />
           {currentPage != 1 && PageNumberWrapper(currentPage - 1)}
           {PageNumberWrapper(currentPage, true)}
@@ -110,7 +110,7 @@ function Pagination({ isBackendPaginated, pageIndex, table }: IPagination) {
             size="xs"
             fontSize={'lg'}
             border="none"
-            icon={<ArrowForwardIcon />}
+            icon={<FaAngleRight />}
           />
           <Tooltip label={`Last Page: ${totalPage}`} placement="top">
             <IconButton
@@ -121,7 +121,7 @@ function Pagination({ isBackendPaginated, pageIndex, table }: IPagination) {
               size="xs"
               fontSize={'lg'}
               border="none"
-              icon={<ArrowRightIcon />}
+              icon={<FaAnglesRight />}
             />
           </Tooltip>
         </Stack>

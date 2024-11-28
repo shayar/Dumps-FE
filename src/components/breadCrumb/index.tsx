@@ -1,4 +1,3 @@
-import { ChevronRightIcon } from '@chakra-ui/icons';
 import {
   BreadcrumbItem,
   Breadcrumb,
@@ -9,6 +8,7 @@ import {
   Box,
 } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
+import { FaChevronRight } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
 interface IBreadCrumb {
   items: { name: string; route: string; isCurrentPage?: boolean }[];
@@ -24,7 +24,7 @@ export const BreadCrumb = ({ items, goBack }: IBreadCrumb) => {
       <Flex justifyContent="space-between" alignItems="center">
         <Breadcrumb
           spacing={1}
-          separator={<ChevronRightIcon color="gray.500" />}
+          separator={<FaChevronRight color="gray.500" />}
         >
           {items.map((item, i) => (
             <BreadcrumbItem key={i} isCurrentPage={item.isCurrentPage}>
