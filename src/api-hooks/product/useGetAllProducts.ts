@@ -17,7 +17,7 @@ const getAllProductsRequest = async (
     ...(search && { search }),
   };
 
-  return await httpClient.get<ApiResponse<DumpDetails[]>>(api.product.getAll, {
+  return httpClient.get<ApiResponse<DumpDetails[]>>(api.product.getAll, {
     params,
   });
 };
@@ -33,4 +33,4 @@ const useGetAllProducts = (
     queryFn: () => getAllProductsRequest(pageNumber, pageSize, sort, search),
   });
 };
-export { useGetAllProducts };
+export default useGetAllProducts;

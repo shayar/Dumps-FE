@@ -36,7 +36,7 @@ const toastPromise = (
     },
     {
       position: 'bottom-center',
-      id: id,
+      id,
     }
   );
 };

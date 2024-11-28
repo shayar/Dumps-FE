@@ -14,4 +14,4 @@ const useDeleteProductById = () => {
   });
 };
 
-export { useDeleteProductById };
+export default useDeleteProductById;

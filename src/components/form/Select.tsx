@@ -1,8 +1,9 @@
+/* eslint-disable import/prefer-default-export */
 import { FormControl, FormErrorMessage, FormLabel, Select as ChakraSelect } from '@chakra-ui/react';
 import { FieldValues, useController } from 'react-hook-form';
 import { ISelect } from './input/interface';
 
-const Select = <T extends FieldValues>({
+function Select<T extends FieldValues>({
   placeholder,
   label,
   options,
@@ -12,7 +13,7 @@ const Select = <T extends FieldValues>({
   enabled, // enables placeholder
   control,
   ...rest
-}: ISelect<T>) => {
+}: ISelect<T>) {
   const {
     field,
     fieldState: { error },
@@ -31,15 +32,15 @@ const Select = <T extends FieldValues>({
             {placeholder}
           </option>
         )}
-        {options.map(({ label, value }) => (
+        {options.map(({ label: optionLabel, value }) => (
           <option key={value} value={value}>
-            {label}
+            {optionLabel}
           </option>
         ))}
       </ChakraSelect>
       {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
     </FormControl>
   );
-};
+}
 
 export { Select };

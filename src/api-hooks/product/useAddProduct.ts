@@ -18,4 +18,4 @@ const useAddProduct = () => {
   });
 };
 
-export { useAddProduct };
+export default useAddProduct;

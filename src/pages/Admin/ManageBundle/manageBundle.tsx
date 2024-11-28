@@ -7,11 +7,11 @@ import {
   FormLabel,
   FormErrorMessage,
 } from '@chakra-ui/react';
-import { useGetBundleById } from '@dumps/api-hooks/bundles/useGetBundleById';
-import { useGetAllProducts } from '@dumps/api-hooks/product/useGetAllProducts';
-import { useAddBundle } from '@dumps/api-hooks/bundles/useAddBundle';
-import { useUpdateBundle } from '@dumps/api-hooks/bundles/useUpdateBundle';
-import { BreadCrumb } from '@dumps/components/breadCrumb';
+import useGetBundleById from '@dumps/api-hooks/bundles/useGetBundleById';
+import useGetAllProducts from '@dumps/api-hooks/product/useGetAllProducts';
+import useAddBundle from '@dumps/api-hooks/bundles/useAddBundle';
+import useUpdateBundle from '@dumps/api-hooks/bundles/useUpdateBundle';
+import BreadCrumb from '@dumps/components/breadCrumb';
 import { Input } from '@dumps/components/form';
 import LoadingSpinner from '@dumps/components/loadingSpinner';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -21,7 +21,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Select from 'react-select';
 import { BundleRequest, bundleRequestSchema } from '@dumps/api-schemas/bundle';
 import { DumpDetails } from '@dumps/api-schemas/dump';
-import { handleApiError } from '@dumps/service/service-utils';
+import handleApiError from '@dumps/service/service-utils';
 import { toastSuccess } from '@dumps/service/service-toast';
 
 interface ProductOption {
@@ -29,7 +29,7 @@ interface ProductOption {
   label: string;
 }
 
-const ManageBundle = () => {
+function ManageBundle() {
   const navigate = useNavigate();
   const { id: bundleId } = useParams();
   const [page, setPage] = useState(1);
@@ -54,7 +54,7 @@ const ManageBundle = () => {
     resolver: zodResolver(bundleRequestSchema),
   });
 
-  const { data, isLoading, isSuccess, isError, error } = useGetBundleById(bundleId!);
+  const { data, isLoading, isSuccess, isError, error: bundleError } = useGetBundleById(bundleId!);
   const bundle = data?.data;
 
   useEffect(() => {
@@ -62,7 +62,7 @@ const ManageBundle = () => {
       toastSuccess(data.message);
     }
     if (isError) {
-      handleApiError(error);
+      handleApiError(bundleError);
     }
   }, [isSuccess, isError]);
 
@@ -144,8 +144,8 @@ const ManageBundle = () => {
         }
       }
       navigate(-1);
-    } catch (error) {
-      handleApiError(error);
+    } catch (err) {
+      handleApiError(err);
     }
   };
 
@@ -191,21 +191,21 @@ const ManageBundle = () => {
       />
 
       {bundleId && isLoading ? (
-        <LoadingSpinner></LoadingSpinner>
+        <LoadingSpinner />
       ) : (
         <Card className="base-card">
           <form onSubmit={handleSubmit(onSubmitHandler)}>
             <VStack>
-              <HStack width={'100%'} spacing={10}>
-                <Input name={'title'} label={'Title'} control={control} />
+              <HStack width="100%" spacing={10}>
+                <Input name="title" label="Title" control={control} />
                 <Input
-                  name={'discountedPrice'}
+                  name="discountedPrice"
                   type="number"
-                  label={'Discounted Price'}
+                  label="Discounted Price"
                   control={control}
                 />
               </HStack>
-              <Input name={'description'} label={'Description'} control={control} />
+              <Input name="description" label="Description" control={control} />
               <FormControl isInvalid={!!errors.productIds}>
                 <FormLabel>Products</FormLabel>
                 <Controller
@@ -227,11 +227,11 @@ const ManageBundle = () => {
                         value={selectedOptions.filter((option) =>
                           Array.isArray(value) ? value.includes(option.value) : false
                         )}
-                        onChange={(selectedOptions) => {
-                          const values = selectedOptions
-                            ? selectedOptions.map((option) => option.value)
+                        onChange={(newSelectedOptions) => {
+                          const values = newSelectedOptions
+                            ? newSelectedOptions.map((option) => option.value)
                             : [];
-                          setSelectedOptions([...selectedOptions]);
+                          setSelectedOptions([...newSelectedOptions]);
                           onChange(values);
                         }}
                       />
@@ -246,7 +246,7 @@ const ManageBundle = () => {
                 width="full"
                 // isLoading={isLoading}
               >
-                {'Save'}
+                Save
               </Button>
             </VStack>
           </form>
@@ -254,6 +254,6 @@ const ManageBundle = () => {
       )}
     </>
   );
-};
+}
 
 export default ManageBundle;

@@ -14,4 +14,4 @@ const useDeleteBundleById = () => {
   });
 };
 
-export { useDeleteBundleById };
+export default useDeleteBundleById;

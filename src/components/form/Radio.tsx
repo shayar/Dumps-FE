@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import {
   Flex,
   FormControl,
@@ -11,7 +12,7 @@ import {
 import { useState } from 'react';
 import { RegisterOptions, UseFormRegister, FieldValues } from 'react-hook-form';
 
-const Radio = ({
+function Radio({
   label,
   options,
   register,
@@ -22,25 +23,25 @@ const Radio = ({
   isRequired,
   value,
   ...rest
-}: IRadio) => {
-  const [initialValue, setInitialValue] = useState(value ? value : options[0].value);
+}: IRadio) {
+  const [initialValue, setInitialValue] = useState(value || options[0].value);
 
   return (
     <FormControl isInvalid={!!error} isRequired={isRequired}>
       {label && (
-        <FormLabel fontWeight={'normal'} fontSize={'sm'} color={'black'}>
+        <FormLabel fontWeight="normal" fontSize="sm" color="black">
           {label}:
         </FormLabel>
       )}
       <RadioGroup value={initialValue} onChange={setInitialValue}>
         <Flex gap={20}>
-          {options.map(({ label, value }) => {
+          {options.map(({ label: optionLable, value: optionValue }) => {
             return (
               <ChakraRadio
-                key={value}
-                value={value}
-                fontSize={'sm'}
-                fontWeight={'normal'}
+                key={optionLable}
+                value={optionValue}
+                fontSize="sm"
+                fontWeight="normal"
                 id={name}
                 {...register(name, rules)}
                 {...rest}
@@ -55,7 +56,7 @@ const Radio = ({
       {error && <FormErrorMessage>{error}</FormErrorMessage>}
     </FormControl>
   );
-};
+}
 
 export interface IRadio<TFieldValues extends FieldValues = FieldValues> extends RadioProps {
   options: { label: string; value: string }[];

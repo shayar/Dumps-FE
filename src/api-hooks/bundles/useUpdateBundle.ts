@@ -17,4 +17,4 @@ const useUpdateBundle = () => {
   });
 };
 
-export { useUpdateBundle };
+export default useUpdateBundle;

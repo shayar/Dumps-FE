@@ -1,3 +1,5 @@
+/* eslint-disable react/require-default-props */
+/* eslint-disable @typescript-eslint/no-shadow */
 import { FormControl, FormLabel, FormHelperText, FormErrorMessage } from '@chakra-ui/react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
@@ -15,7 +17,7 @@ export interface IEditor {
   disabled?: boolean;
 }
 
-const Editor = ({
+function Editor({
   data,
   height,
   onInit,
@@ -26,7 +28,7 @@ const Editor = ({
   required,
   error,
   disabled,
-}: IEditor) => {
+}: IEditor) {
   return (
     <FormControl isInvalid={!!error}>
       {label && (
@@ -78,6 +80,6 @@ const Editor = ({
       {error && <FormErrorMessage>{error}</FormErrorMessage>}
     </FormControl>
   );
-};
+}
 
 export default Editor;

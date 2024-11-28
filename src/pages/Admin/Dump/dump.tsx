@@ -1,18 +1,18 @@
 import { Box, Button, Card } from '@chakra-ui/react';
-import { useGetAllProducts } from '@dumps/api-hooks/product/useGetAllProducts';
-import { BreadCrumb } from '@dumps/components/breadCrumb';
+import useGetAllProducts from '@dumps/api-hooks/product/useGetAllProducts';
+import BreadCrumb from '@dumps/components/breadCrumb';
 import { DataTable } from '@dumps/components/dataTable';
 import LoadingSpinner from '@dumps/components/loadingSpinner';
 import { PaginationState } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ActionButtons } from '@dumps/components/dataTableActions';
-import { useDeleteProductById } from '@dumps/api-hooks/product/useDeleteProductById';
+import ActionButtons from '@dumps/components/dataTableActions';
+import useDeleteProductById from '@dumps/api-hooks/product/useDeleteProductById';
 import { DumpDetails } from '@dumps/api-schemas/dump';
 import { toastSuccess } from '@dumps/service/service-toast';
-import { handleApiError } from '@dumps/service/service-utils';
+import handleApiError from '@dumps/service/service-utils';
 
-const Dump = () => {
+function Dump() {
   const navigate = useNavigate();
 
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
@@ -81,8 +81,8 @@ const Dump = () => {
                 if (res) {
                   toastSuccess(res.message);
                 }
-              } catch (error) {
-                handleApiError(error);
+              } catch (err) {
+                handleApiError(err);
               }
             }}
           />
@@ -96,7 +96,7 @@ const Dump = () => {
       <BreadCrumb items={[{ name: 'Dump', route: '/', isCurrentPage: true }]} />
 
       <Card className="base-card">
-        <Box display={'flex'} justifyContent={'flex-end'}>
+        <Box display="flex" justifyContent="flex-end">
           <Button
             onClick={() => {
               navigate('manage');
@@ -110,7 +110,7 @@ const Dump = () => {
       <Card className="base-card">
         <Box position="relative">
           {isLoading ? (
-            <LoadingSpinner></LoadingSpinner>
+            <LoadingSpinner />
           ) : (
             <DataTable
               columns={col}
@@ -127,6 +127,6 @@ const Dump = () => {
       </Card>
     </>
   );
-};
+}
 
 export default Dump;

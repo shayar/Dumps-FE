@@ -10,21 +10,21 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
-import { useGetAllBundles } from '@dumps/api-hooks/bundles/useGetAllBundles';
+import useGetAllBundles from '@dumps/api-hooks/bundles/useGetAllBundles';
 import { BundleResponse } from '@dumps/api-schemas/bundle';
 import BundleCard from '@dumps/components/bundleCard/bundleCard';
 import LoadingSpinner from '@dumps/components/loadingSpinner';
 import { useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 
-const Bundles = () => {
+function Bundles() {
   const [sortBy, setSortBy] = useState('popular');
   const [page] = useState(1);
   const { data: getAllBundles, isLoading } = useGetAllBundles(page, 10);
   const bundles = getAllBundles?.data;
 
   return (
-    <Container minW={'full'} py={8}>
+    <Container minW="full" py={8}>
       {/* Header */}
       <VStack spacing={8} align="stretch">
         <Stack direction={{ base: 'column', md: 'row' }} justify="space-between" align="center">
@@ -39,7 +39,7 @@ const Bundles = () => {
           align="center"
           justifyContent="space-between"
         >
-          <InputGroup maxW={'full'}>
+          <InputGroup maxW="full">
             <InputLeftElement>
               <FiSearch />
             </InputLeftElement>
@@ -61,7 +61,7 @@ const Bundles = () => {
 
         {/* Bundles Grid */}
         <Grid
-          position={'relative'}
+          position="relative"
           templateColumns={{
             base: '1fr',
             md: 'repeat(2, 1fr)',
@@ -80,6 +80,6 @@ const Bundles = () => {
       </VStack>
     </Container>
   );
-};
+}
 
 export default Bundles;

@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import {
   InputGroup,
   InputRightElement,
@@ -6,9 +7,9 @@ import {
 } from '@chakra-ui/react';
 import { FieldValues } from 'react-hook-form';
 import { ICustomInput } from './interface';
-import { Type } from './constants';
+import Type from './constants';
 
-const Password = <T extends FieldValues>({ field, ...rest }: ICustomInput<T>) => {
+function Password<T extends FieldValues>({ field, ...rest }: ICustomInput<T>) {
   const { isOpen: showPassword } = useDisclosure();
 
   return (
@@ -30,6 +31,6 @@ const Password = <T extends FieldValues>({ field, ...rest }: ICustomInput<T>) =>
       </InputRightElement>
     </InputGroup>
   );
-};
+}
 
 export { Password };

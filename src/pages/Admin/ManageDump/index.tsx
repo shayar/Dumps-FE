@@ -8,21 +8,21 @@ import {
   FormLabel,
   FormErrorMessage,
 } from '@chakra-ui/react';
-import { useAddProduct } from '@dumps/api-hooks/product/useAddProduct';
-import { useGetProductById } from '@dumps/api-hooks/product/useGetProductById';
-import { useUpdateProduct } from '@dumps/api-hooks/product/useUpdateProduct';
+import useAddProduct from '@dumps/api-hooks/product/useAddProduct';
+import useGetProductById from '@dumps/api-hooks/product/useGetProductById';
+import useUpdateProduct from '@dumps/api-hooks/product/useUpdateProduct';
+import BreadCrumb from '@dumps/components/breadCrumb';
 import { DumpDetails, dumpSchema } from '@dumps/api-schemas/dump';
-import { BreadCrumb } from '@dumps/components/breadCrumb';
 import { Input } from '@dumps/components/form';
 import LoadingSpinner from '@dumps/components/loadingSpinner';
 import { toastSuccess } from '@dumps/service/service-toast';
-import { handleApiError } from '@dumps/service/service-utils';
+import handleApiError from '@dumps/service/service-utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const ManageDump = () => {
+function ManageDump() {
   const { id: productId } = useParams();
   const navigate = useNavigate();
 
@@ -70,12 +70,12 @@ const ManageDump = () => {
       setValue('description', product.description);
       setValue('price', product.price.toString());
       setValue('discount', product.discount.toString());
-      //TODO: populating file name
+      // TODO: populating file name
     }
   }, [data, setValue]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
+    const { files } = event.target;
 
     if (!files) return;
 
@@ -100,11 +100,12 @@ const ManageDump = () => {
     }
     const formData = new FormData();
     Object.entries(dumpDetails).forEach(([key, value]) => {
+      let newVal = value;
       if (value != null) {
         if (key === 'price' || key === 'discount') {
-          value = Number(value);
+          newVal = Number(value);
         }
-        formData.append(key, value);
+        formData.append(key, newVal);
       }
     });
 
@@ -127,8 +128,8 @@ const ManageDump = () => {
         }
       }
       navigate(-1);
-    } catch (error) {
-      handleApiError(error);
+    } catch (err) {
+      handleApiError(err);
     }
   };
 
@@ -152,21 +153,21 @@ const ManageDump = () => {
       />
 
       {productId && isLoading ? (
-        <LoadingSpinner></LoadingSpinner>
+        <LoadingSpinner />
       ) : (
         <Card className="base-card">
           <form onSubmit={handleSubmit(onSubmitHandler)}>
             <VStack>
-              <Input name={'title'} label={'Title'} control={control} />
-              <Input name={'codeTitle'} label={'Code Title'} control={control} />
-              <Input name={'description'} label={'Description'} control={control} />
-              <HStack width={'100%'} spacing={10}>
-                <Input name={'price'} type="number" label={'Price'} control={control} />
-                <Input name={'discount'} type="number" label={'Discount'} control={control} />
+              <Input name="title" label="Title" control={control} />
+              <Input name="codeTitle" label="Code Title" control={control} />
+              <Input name="description" label="Description" control={control} />
+              <HStack width="100%" spacing={10}>
+                <Input name="price" type="number" label="Price" control={control} />
+                <Input name="discount" type="number" label="Discount" control={control} />
               </HStack>
               <FormControl isInvalid={fileError}>
                 <FormLabel>Pdf File</FormLabel>
-                <ChakraInput ref={fileInputRef} type={'file'} onChange={handleFileChange} />
+                <ChakraInput ref={fileInputRef} type="file" onChange={handleFileChange} />
                 {fileError && <FormErrorMessage>File should be in pdf format.</FormErrorMessage>}
               </FormControl>
               <Button
@@ -175,7 +176,7 @@ const ManageDump = () => {
                 width="full"
                 // isLoading={isLoading}
               >
-                {'Save'}
+                Save
               </Button>
             </VStack>
           </form>
@@ -183,6 +184,6 @@ const ManageDump = () => {
       )}
     </>
   );
-};
+}
 
 export default ManageDump;

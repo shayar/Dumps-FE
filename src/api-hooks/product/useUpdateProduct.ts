@@ -14,4 +14,4 @@ const useUpdateProduct = () => {
   });
 };
 
-export { useUpdateProduct };
+export default useUpdateProduct;

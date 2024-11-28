@@ -9,12 +9,12 @@ import {
   HStack,
   Icon,
 } from '@chakra-ui/react';
-import { useGetProductById } from '@dumps/api-hooks/product/useGetProductById';
+import useGetProductById from '@dumps/api-hooks/product/useGetProductById';
 import LoadingSpinner from '@dumps/components/loadingSpinner';
 import { FiShoppingCart, FiFileText } from 'react-icons/fi';
 import { useParams } from 'react-router-dom';
 
-const PDFPreview = ({ title }: { title: string }) => {
+function PDFPreview({ title }: { title: string }) {
   return (
     <Box
       width="280px"
@@ -68,9 +68,9 @@ const PDFPreview = ({ title }: { title: string }) => {
       </Box>
     </Box>
   );
-};
+}
 
-const ProductDetail = () => {
+function ProductDetail() {
   const { id: productId } = useParams();
 
   const { data, isLoading } = useGetProductById(productId!);
@@ -81,9 +81,9 @@ const ProductDetail = () => {
   );
 
   return (
-    <Container minW={'full'} position={'relative'} py={12}>
+    <Container minW="full" position="relative" py={12}>
       {isLoading ? (
-        <LoadingSpinner></LoadingSpinner>
+        <LoadingSpinner />
       ) : (
         <Flex direction={{ base: 'column', lg: 'row' }} gap={8}>
           {/* Left Column - PDF image */}
@@ -151,5 +151,5 @@ const ProductDetail = () => {
       )}
     </Container>
   );
-};
+}
 export default ProductDetail;

@@ -5,7 +5,7 @@ import { httpClient } from '@dumps/service/service-axios';
 import { useQuery } from '@tanstack/react-query';
 
 const getBundleByIdRequest = async (id: string) => {
-  return await httpClient.get<ApiResponse<BundleResponse>>(api.bundles.getBundle(id));
+  return httpClient.get<ApiResponse<BundleResponse>>(api.bundles.getBundle(id));
 };
 
 const useGetBundleById = (id: string) => {
@@ -16,4 +16,4 @@ const useGetBundleById = (id: string) => {
   });
 };
 
-export { useGetBundleById };
+export default useGetBundleById;

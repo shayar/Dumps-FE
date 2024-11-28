@@ -14,4 +14,4 @@ const useRegister = () => {
   });
 };
 
-export { useRegister };
+export default useRegister;

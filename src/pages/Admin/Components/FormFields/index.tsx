@@ -34,7 +34,7 @@ const schema = yup.object().shape({
     .required(),
 });
 
-const FormFields = () => {
+function FormFields() {
   const formControl = useForm<LoginDetails>({
     defaultValues,
     resolver: yupResolver(schema),
@@ -42,14 +42,15 @@ const FormFields = () => {
   const { control, handleSubmit } = formControl;
 
   const onSubmitHandler = (data: LoginDetails) => {
+    // eslint-disable-next-line no-alert
     alert(data);
   };
   return (
     <FormProvider {...formControl}>
       <form onSubmit={handleSubmit(onSubmitHandler)}>
-        <Flex direction={'column'} gap={3}>
-          <Input name={'userName'} label={'Username'} control={control} />
-          <Input name={'password'} label={'Password'} type={'password'} control={control} />
+        <Flex direction="column" gap={3}>
+          <Input name="userName" label="Username" control={control} />
+          <Input name="password" label="Password" type="password" control={control} />
           <Select
             name="paymentGateway"
             label="Payment Gateway"
@@ -57,14 +58,14 @@ const FormFields = () => {
             options={options}
           />
           <MultiSelect name="food" label="Food" control={control} options={foodOptions} />
-          <FileUpload name={'fileUpload'} control={control} label={'Upload file'} />
-          <TextArea name={'description'} label={'Description'} control={control} />
+          <FileUpload name="fileUpload" control={control} label="Upload file" />
+          <TextArea name="description" label="Description" control={control} />
           <Button type="submit">Submit</Button>
         </Flex>
       </form>
     </FormProvider>
   );
-};
+}
 export default FormFields;
 
 export interface LoginDetails {

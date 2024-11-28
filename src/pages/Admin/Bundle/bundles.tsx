@@ -1,13 +1,13 @@
 import { Box, Button, Card } from '@chakra-ui/react';
-import { useDeleteBundleById } from '@dumps/api-hooks/bundles/useDeleteBundleById';
-import { useGetAllBundles } from '@dumps/api-hooks/bundles/useGetAllBundles';
+import useDeleteBundleById from '@dumps/api-hooks/bundles/useDeleteBundleById';
+import useGetAllBundles from '@dumps/api-hooks/bundles/useGetAllBundles';
 import { BundleResponse } from '@dumps/api-schemas/bundle';
-import { BreadCrumb } from '@dumps/components/breadCrumb';
+import BreadCrumb from '@dumps/components/breadCrumb';
 import { DataTable } from '@dumps/components/dataTable';
-import { ActionButtons } from '@dumps/components/dataTableActions';
+import ActionButtons from '@dumps/components/dataTableActions';
 import LoadingSpinner from '@dumps/components/loadingSpinner';
 import { toastSuccess } from '@dumps/service/service-toast';
-import { handleApiError } from '@dumps/service/service-utils';
+import handleApiError from '@dumps/service/service-utils';
 import { PaginationState, Row } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -118,5 +118,4 @@ function Bundles() {
     </>
   );
 }
-
 export default Bundles;

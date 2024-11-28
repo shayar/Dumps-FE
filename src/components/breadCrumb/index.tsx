@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import {
   BreadcrumbItem,
   Breadcrumb,
@@ -10,12 +11,13 @@ import {
 import { useTranslation } from 'react-i18next';
 import { FaChevronRight } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
+
 interface IBreadCrumb {
   items: { name: string; route: string; isCurrentPage?: boolean }[];
   goBack?: string;
 }
 
-export const BreadCrumb = ({ items, goBack }: IBreadCrumb) => {
+export default function BreadCrumb({ items, goBack }: IBreadCrumb) {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -23,10 +25,10 @@ export const BreadCrumb = ({ items, goBack }: IBreadCrumb) => {
     <Box p={4}>
       <Flex justifyContent="space-between" alignItems="center">
         <Breadcrumb spacing={1} separator={<FaChevronRight color="gray.500" />}>
-          {items.map((item, i) => (
-            <BreadcrumbItem key={i} isCurrentPage={item.isCurrentPage}>
+          {items.map((item) => (
+            <BreadcrumbItem key={item.name} isCurrentPage={item.isCurrentPage}>
               <BreadcrumbLink onClick={() => navigate(item.route)}>
-                <Text fontWeight={'bold'} color={'primary.500'}>
+                <Text fontWeight="bold" color="primary.500">
                   {item.name}
                 </Text>
               </BreadcrumbLink>
@@ -35,7 +37,7 @@ export const BreadCrumb = ({ items, goBack }: IBreadCrumb) => {
         </Breadcrumb>
         {goBack && (
           <Button
-            size={'xs'}
+            size="xs"
             onClick={() => {
               navigate(goBack);
             }}
@@ -46,4 +48,4 @@ export const BreadCrumb = ({ items, goBack }: IBreadCrumb) => {
       </Flex>
     </Box>
   );
-};
+}

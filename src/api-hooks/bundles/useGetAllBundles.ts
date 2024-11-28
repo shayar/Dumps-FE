@@ -16,7 +16,7 @@ const getAllBundlesRequest = async (
     ...(sort && { sort }),
     ...(search && { search }),
   };
-  return await httpClient.get<ApiResponse<BundleResponse[]>>(api.bundles.getAll, { params });
+  return httpClient.get<ApiResponse<BundleResponse[]>>(api.bundles.getAll, { params });
 };
 
 const useGetAllBundles = (pageNumber: number, pageSize: number, sort?: string, search?: string) => {
@@ -26,4 +26,4 @@ const useGetAllBundles = (pageNumber: number, pageSize: number, sort?: string, s
   });
 };
 
-export { useGetAllBundles };
+export default useGetAllBundles;

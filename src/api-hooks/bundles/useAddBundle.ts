@@ -18,4 +18,4 @@ const useAddBundle = () => {
   });
 };
 
-export { useAddBundle };
+export default useAddBundle;

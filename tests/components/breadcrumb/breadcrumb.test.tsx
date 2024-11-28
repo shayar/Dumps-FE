@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, vi } from 'vitest';
 import { MemoryRouter } from 'react-router-dom';
-import { BreadCrumb } from '@dumps/components/breadCrumb';
+import BreadCrumb from '@dumps/components/breadCrumb';
 
 // Mock dependencies
 vi.mock('react-i18next', () => ({

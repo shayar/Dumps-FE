@@ -3,43 +3,45 @@ import { DumpDetails } from '@dumps/api-schemas/dump';
 import { FiShoppingCart, FiFileText } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
-const RibbonBadge = ({ discount }: { discount: number }) => (
-  <Box
-    position="absolute"
-    top={0}
-    right={0}
-    borderTopRightRadius={'md'}
-    bg="green.500"
-    color="white"
-    fontSize="xs"
-    fontWeight="semibold"
-    px={2}
-    py={0.5}
-    _after={{
-      content: '""',
-      position: 'absolute',
-      left: 0,
-      bottom: '-8px',
-      width: 0,
-      height: 0,
-      borderLeft: '12px solid transparent',
-      borderRight: '12px solid transparent',
-      borderTop: '8px solid green.500',
-      borderTopColor: 'green.500',
-    }}
-  >
-    {discount}% OFF
-  </Box>
-);
+function RibbonBadge({ discount }: { discount: number }) {
+  return (
+    <Box
+      position="absolute"
+      top={0}
+      right={0}
+      borderTopRightRadius="md"
+      bg="green.500"
+      color="white"
+      fontSize="xs"
+      fontWeight="semibold"
+      px={2}
+      py={0.5}
+      _after={{
+        content: '""',
+        position: 'absolute',
+        left: 0,
+        bottom: '-8px',
+        width: 0,
+        height: 0,
+        borderLeft: '12px solid transparent',
+        borderRight: '12px solid transparent',
+        borderTop: '8px solid green.500',
+        borderTopColor: 'green.500',
+      }}
+    >
+      {discount}% OFF
+    </Box>
+  );
+}
 
-const ProductCard = ({ product }: { product: DumpDetails }) => {
+function ProductCard({ product }: { product: DumpDetails }) {
   const finalPrice = Number(product.price) * (1 - (Number(product.discount) || 0) / 100);
 
   const navigate = useNavigate();
 
   return (
     <Box
-      position={'relative'}
+      position="relative"
       bg="white"
       borderRadius="md"
       boxShadow="base"
@@ -100,6 +102,6 @@ const ProductCard = ({ product }: { product: DumpDetails }) => {
       </Flex>
     </Box>
   );
-};
+}
 
 export default ProductCard;

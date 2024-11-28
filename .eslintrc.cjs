@@ -12,6 +12,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
   ],
+  ignorePatterns: ['setupTests.ts', 'jest.config.ts', 'dist/', 'node_modules/'],
   overrides: [],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -31,5 +32,7 @@ module.exports = {
     ],
     'no-throw-literal': 0,
     '@typescript-eslint/no-throw-literal': ['error'],
+    'import/no-extraneous-dependencies': 0,
+    'react/jsx-props-no-spreading': 0,
   },
 };
