@@ -12,7 +12,7 @@ import { PaginationState, Row } from '@tanstack/react-table';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Bundles = () => {
+function Bundles() {
   const navigate = useNavigate();
 
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
@@ -20,10 +20,7 @@ const Bundles = () => {
     pageSize: 5,
   });
 
-  const { data, isLoading, isSuccess, error, isError } = useGetAllBundles(
-    pageIndex + 1,
-    pageSize,
-  );
+  const { data, isLoading, isSuccess, error, isError } = useGetAllBundles(pageIndex + 1, pageSize);
 
   const { mutateAsync: deleteBundle } = useDeleteBundleById();
 
@@ -74,8 +71,8 @@ const Bundles = () => {
                 if (res) {
                   toastSuccess(res.message);
                 }
-              } catch (error) {
-                handleApiError(error);
+              } catch (err) {
+                handleApiError(err);
               }
             }}
           />
@@ -86,12 +83,10 @@ const Bundles = () => {
 
   return (
     <>
-      <BreadCrumb
-        items={[{ name: 'Bundles', route: '/', isCurrentPage: true }]}
-      />
+      <BreadCrumb items={[{ name: 'Bundles', route: '/', isCurrentPage: true }]} />
 
       <Card className="base-card">
-        <Box display={'flex'} justifyContent={'flex-end'}>
+        <Box display="flex" justifyContent="flex-end">
           <Button
             onClick={() => {
               navigate('manage');
@@ -105,7 +100,7 @@ const Bundles = () => {
       <Card className="base-card">
         <Box position="relative">
           {isLoading ? (
-            <LoadingSpinner></LoadingSpinner>
+            <LoadingSpinner />
           ) : (
             <DataTable
               columns={col}
@@ -122,6 +117,6 @@ const Bundles = () => {
       </Card>
     </>
   );
-};
+}
 
 export default Bundles;

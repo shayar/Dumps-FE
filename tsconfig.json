@@ -33,7 +33,7 @@
     },
     "types": ["jest", "vitest"]
   },
-  "include": ["src", "tests/**/*.ts", "tests/**/*.tsx"],
+  "include": ["src", "tests/**/*.ts", "tests/**/*.tsx", ".eslintrc.cjs"],
   "references": [
     {
       "path": "./tsconfig.node.json"
