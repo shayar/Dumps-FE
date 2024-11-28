@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  HStack,
-  Link,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
+import { Box, Button, Flex, HStack, Link, Text, VStack } from '@chakra-ui/react';
 import { useRegister } from '@dumps/api-hooks/auth/useRegister';
 import { RegisterDetails, registerSchema } from '@dumps/api-schemas/auth';
 import { LoginIcon } from '@dumps/assets/svgs';
@@ -58,19 +50,12 @@ export default function Register() {
       background={'white'}
       p={4}
     >
-      <Flex
-        flexDirection={{ base: 'column-reverse', md: 'row' }}
-        justifyContent={'space-between'}
-      >
+      <Flex flexDirection={{ base: 'column-reverse', md: 'row' }} justifyContent={'space-between'}>
         <Flex flex={1} mr={{ base: '0', md: '8' }} mt={{ base: '8', md: '0' }}>
           <LoginIcon style={{ width: '100%' }} />
         </Flex>
         <Flex flex={1} flexDirection={'column'} justifyContent={'center'}>
-          <Flex
-            direction={{ base: 'column', md: 'row' }}
-            fontSize={'xl'}
-            fontWeight={'normal'}
-          >
+          <Flex direction={{ base: 'column', md: 'row' }} fontSize={'xl'} fontWeight={'normal'}>
             <Text color={'black'}>{'Welcome to'}&nbsp;</Text>
             <Text color={'primary.500'}>dumps</Text>
           </Flex>
@@ -81,24 +66,11 @@ export default function Register() {
           <form onSubmit={handleSubmit(onSubmitHandler)}>
             <VStack pt={6} spacing={8}>
               <HStack w="100%" spacing={8}>
-                <Input
-                  name={'firstName'}
-                  label={'Fist Name'}
-                  control={control}
-                />
-                <Input
-                  name={'lastName'}
-                  label={'Last Name'}
-                  control={control}
-                />
+                <Input name={'firstName'} label={'Fist Name'} control={control} />
+                <Input name={'lastName'} label={'Last Name'} control={control} />
               </HStack>
               <Input name={'email'} label={'Email'} control={control} />
-              <Input
-                name={'password'}
-                label={'Password'}
-                type={'password'}
-                control={control}
-              />
+              <Input name={'password'} label={'Password'} type={'password'} control={control} />
               <Input
                 name={'confirmPassword'}
                 label={'Confirm Password'}

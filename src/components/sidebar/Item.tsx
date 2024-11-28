@@ -64,13 +64,7 @@ const Item = ({
           mb={3}
           p={2}
           borderRadius={'md'}
-          bgColor={
-            activeParent || showDropdown
-              ? 'primary.400'
-              : active
-              ? 'primary.500'
-              : ''
-          }
+          bgColor={activeParent || showDropdown ? 'primary.400' : active ? 'primary.500' : ''}
           color={activeTab ? 'white' : 'gray.500'}
           transition="all ease-in-out"
           sx={{

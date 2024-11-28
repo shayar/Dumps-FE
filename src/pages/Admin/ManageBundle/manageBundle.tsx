@@ -54,9 +54,7 @@ const ManageBundle = () => {
     resolver: zodResolver(bundleRequestSchema),
   });
 
-  const { data, isLoading, isSuccess, isError, error } = useGetBundleById(
-    bundleId!,
-  );
+  const { data, isLoading, isSuccess, isError, error } = useGetBundleById(bundleId!);
   const bundle = data?.data;
 
   useEffect(() => {
@@ -72,7 +70,7 @@ const ManageBundle = () => {
     page,
     5,
     '',
-    searchQuery,
+    searchQuery
   );
   const { mutateAsync: addBundleRequest } = useAddBundle();
   const { mutateAsync: updateBundleRequest } = useUpdateBundle();
@@ -81,9 +79,7 @@ const ManageBundle = () => {
     if (productsData?.data) {
       // TODO: added just for search functionality, remove after search api is called
       const products = productsData.data.filter((i: DumpDetails) => {
-        return searchQuery
-          ? i.title.toLowerCase().includes(searchQuery.toLowerCase())
-          : true;
+        return searchQuery ? i.title.toLowerCase().includes(searchQuery.toLowerCase()) : true;
       });
       const options: ProductOption[] = products.map((product: DumpDetails) => ({
         value: product.id!,
@@ -209,21 +205,14 @@ const ManageBundle = () => {
                   control={control}
                 />
               </HStack>
-              <Input
-                name={'description'}
-                label={'Description'}
-                control={control}
-              />
+              <Input name={'description'} label={'Description'} control={control} />
               <FormControl isInvalid={!!errors.productIds}>
                 <FormLabel>Products</FormLabel>
                 <Controller
                   name="productIds"
                   control={control}
                   defaultValue={[]}
-                  render={({
-                    field: { onChange, value },
-                    fieldState: { error },
-                  }) => (
+                  render={({ field: { onChange, value }, fieldState: { error } }) => (
                     <>
                       <Select
                         isMulti
@@ -234,13 +223,9 @@ const ManageBundle = () => {
                         onMenuClose={() => {
                           setSearchQuery('');
                         }}
-                        onInputChange={(newValue, { action }) =>
-                          setSearchTerm(newValue, action)
-                        }
+                        onInputChange={(newValue, { action }) => setSearchTerm(newValue, action)}
                         value={selectedOptions.filter((option) =>
-                          Array.isArray(value)
-                            ? value.includes(option.value)
-                            : false,
+                          Array.isArray(value) ? value.includes(option.value) : false
                         )}
                         onChange={(selectedOptions) => {
                           const values = selectedOptions
@@ -250,9 +235,7 @@ const ManageBundle = () => {
                           onChange(values);
                         }}
                       />
-                      {error && (
-                        <FormErrorMessage>{error.message}</FormErrorMessage>
-                      )}
+                      {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
                     </>
                   )}
                 />

@@ -1,19 +1,7 @@
-import {
-  Box,
-  Center,
-  IconButton,
-  Stack,
-  Text,
-  Tooltip,
-} from '@chakra-ui/react';
+import { Box, Center, IconButton, Stack, Text, Tooltip } from '@chakra-ui/react';
 import { Table } from '@tanstack/react-table';
 import { useMemo } from 'react';
-import {
-  FaAngleLeft,
-  FaAngleRight,
-  FaAnglesLeft,
-  FaAnglesRight,
-} from 'react-icons/fa6';
+import { FaAngleLeft, FaAngleRight, FaAnglesLeft, FaAnglesRight } from 'react-icons/fa6';
 
 interface IPagination {
   isBackendPaginated?: boolean;
@@ -28,9 +16,7 @@ function Pagination({ isBackendPaginated, pageIndex, table }: IPagination) {
   }, [table.getPageCount()]);
 
   const currentPage = useMemo(() => {
-    return isBackendPaginated
-      ? (pageIndex ?? 0) + 1
-      : table.getState().pagination.pageIndex + 1;
+    return isBackendPaginated ? (pageIndex ?? 0) + 1 : table.getState().pagination.pageIndex + 1;
   }, [isBackendPaginated, pageIndex, table.getState().pagination.pageIndex]);
 
   const PageNumberWrapper = (item: number, isActive?: boolean) => {
@@ -65,12 +51,7 @@ function Pagination({ isBackendPaginated, pageIndex, table }: IPagination) {
   };
 
   return (
-    <Box
-      display={'flex'}
-      justifyContent="flex-end"
-      alignItems={'center'}
-      height={'50px'}
-    >
+    <Box display={'flex'} justifyContent="flex-end" alignItems={'center'} height={'50px'}>
       <Box marginX={'16px'}>
         <Stack direction={'row'} alignItems="center" columnGap={0}>
           <IconButton
@@ -98,9 +79,7 @@ function Pagination({ isBackendPaginated, pageIndex, table }: IPagination) {
           {currentPage != 1 && PageNumberWrapper(currentPage - 1)}
           {PageNumberWrapper(currentPage, true)}
           {currentPage < totalPage && PageNumberWrapper(currentPage + 1)}
-          {totalPage < currentPage - 1 &&
-            totalPage - 1 > 0 &&
-            PageNumberWrapper(totalPage - 1)}
+          {totalPage < currentPage - 1 && totalPage - 1 > 0 && PageNumberWrapper(totalPage - 1)}
 
           <IconButton
             aria-label="Next Page"

@@ -1,9 +1,4 @@
-import {
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Select as ChakraSelect,
-} from '@chakra-ui/react';
+import { FormControl, FormErrorMessage, FormLabel, Select as ChakraSelect } from '@chakra-ui/react';
 import { FieldValues, useController } from 'react-hook-form';
 import { ISelect } from './input/interface';
 

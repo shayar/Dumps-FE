@@ -1,9 +1,4 @@
-import {
-  FormControl,
-  FormLabel,
-  FormHelperText,
-  FormErrorMessage,
-} from '@chakra-ui/react';
+import { FormControl, FormLabel, FormHelperText, FormErrorMessage } from '@chakra-ui/react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 
@@ -54,7 +49,7 @@ const Editor = ({
 
             if (rootElement) {
               editor.editing.view.change((writer) =>
-                writer.setStyle('height', `${height ?? 200}px`, rootElement),
+                writer.setStyle('height', `${height ?? 200}px`, rootElement)
               );
             }
           }

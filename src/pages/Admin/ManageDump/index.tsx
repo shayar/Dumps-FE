@@ -50,9 +50,7 @@ const ManageDump = () => {
   const { mutateAsync: addProductRequest } = useAddProduct();
   const { mutateAsync: updateProductRequest } = useUpdateProduct();
 
-  const { data, isLoading, isSuccess, isError, error } = useGetProductById(
-    productId!,
-  );
+  const { data, isLoading, isSuccess, isError, error } = useGetProductById(productId!);
   const product = data?.data;
 
   useEffect(() => {
@@ -160,42 +158,16 @@ const ManageDump = () => {
           <form onSubmit={handleSubmit(onSubmitHandler)}>
             <VStack>
               <Input name={'title'} label={'Title'} control={control} />
-              <Input
-                name={'codeTitle'}
-                label={'Code Title'}
-                control={control}
-              />
-              <Input
-                name={'description'}
-                label={'Description'}
-                control={control}
-              />
+              <Input name={'codeTitle'} label={'Code Title'} control={control} />
+              <Input name={'description'} label={'Description'} control={control} />
               <HStack width={'100%'} spacing={10}>
-                <Input
-                  name={'price'}
-                  type="number"
-                  label={'Price'}
-                  control={control}
-                />
-                <Input
-                  name={'discount'}
-                  type="number"
-                  label={'Discount'}
-                  control={control}
-                />
+                <Input name={'price'} type="number" label={'Price'} control={control} />
+                <Input name={'discount'} type="number" label={'Discount'} control={control} />
               </HStack>
               <FormControl isInvalid={fileError}>
                 <FormLabel>Pdf File</FormLabel>
-                <ChakraInput
-                  ref={fileInputRef}
-                  type={'file'}
-                  onChange={handleFileChange}
-                />
-                {fileError && (
-                  <FormErrorMessage>
-                    File should be in pdf format.
-                  </FormErrorMessage>
-                )}
+                <ChakraInput ref={fileInputRef} type={'file'} onChange={handleFileChange} />
+                {fileError && <FormErrorMessage>File should be in pdf format.</FormErrorMessage>}
               </FormControl>
               <Button
                 marginTop={10}

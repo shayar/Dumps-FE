@@ -21,11 +21,7 @@ interface ActionButtonsProps {
   onDelete: (row: any) => void; // eslint-disable-line
 }
 
-export const ActionButtons = ({
-  row,
-  onEdit,
-  onDelete,
-}: ActionButtonsProps) => {
+export const ActionButtons = ({ row, onEdit, onDelete }: ActionButtonsProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleDelete = () => {
@@ -57,11 +53,7 @@ export const ActionButtons = ({
           </IconButton>
         </PopoverTrigger>
         <PopoverContent>
-          <PopoverHeader
-            fontWeight="bold"
-            fontSize={16}
-            color={dumps_colors.danger}
-          >
+          <PopoverHeader fontWeight="bold" fontSize={16} color={dumps_colors.danger}>
             Delete!
           </PopoverHeader>
           <PopoverArrow />

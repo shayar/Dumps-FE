@@ -18,11 +18,10 @@ import { FiShoppingCart, FiPackage, FiCheck } from 'react-icons/fi';
 const BundleCard = ({ bundle }: { bundle: BundleResponse }) => {
   const originalPrice = bundle?.products?.reduce(
     (accumulator, currentValue) => accumulator + Number(currentValue.price),
-    0,
+    0
   );
   const finalPrice = originalPrice - Number(bundle.discountedPrice);
-  const productsToShow =
-    bundle?.products?.length > 3 ? 2 : bundle?.products?.length;
+  const productsToShow = bundle?.products?.length > 3 ? 2 : bundle?.products?.length;
   const remainingProducts = bundle?.products?.length - productsToShow;
 
   return (
@@ -47,11 +46,7 @@ const BundleCard = ({ bundle }: { bundle: BundleResponse }) => {
         </Text>
 
         {/* Products list with bundle icon */}
-        <Flex
-          minH={'80px'}
-          justifyContent={'space-between'}
-          alignItems={'center'}
-        >
+        <Flex minH={'80px'} justifyContent={'space-between'} alignItems={'center'}>
           {/* Products List */}
           <List spacing={2}>
             {bundle.products?.slice(0, productsToShow).map((product, index) => (
@@ -80,11 +75,7 @@ const BundleCard = ({ bundle }: { bundle: BundleResponse }) => {
         <Box>
           <HStack justify="space-between" align="flex-end">
             <VStack align="flex-start" spacing={1}>
-              <Text
-                textDecoration="line-through"
-                color="gray.500"
-                fontSize="sm"
-              >
+              <Text textDecoration="line-through" color="gray.500" fontSize="sm">
                 ${originalPrice?.toFixed(2)}
               </Text>
               <Text fontSize="2xl" fontWeight="bold" color="blue.500">
@@ -98,12 +89,7 @@ const BundleCard = ({ bundle }: { bundle: BundleResponse }) => {
         </Box>
 
         {/* Button Container */}
-        <Button
-          colorScheme="blue"
-          rightIcon={<FiShoppingCart />}
-          width="full"
-          size="lg"
-        >
+        <Button colorScheme="blue" rightIcon={<FiShoppingCart />} width="full" size="lg">
           Add Bundle to Cart
         </Button>
       </VStack>

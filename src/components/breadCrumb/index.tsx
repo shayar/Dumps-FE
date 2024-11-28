@@ -22,10 +22,7 @@ export const BreadCrumb = ({ items, goBack }: IBreadCrumb) => {
   return (
     <Box p={4}>
       <Flex justifyContent="space-between" alignItems="center">
-        <Breadcrumb
-          spacing={1}
-          separator={<FaChevronRight color="gray.500" />}
-        >
+        <Breadcrumb spacing={1} separator={<FaChevronRight color="gray.500" />}>
           {items.map((item, i) => (
             <BreadcrumbItem key={i} isCurrentPage={item.isCurrentPage}>
               <BreadcrumbLink onClick={() => navigate(item.route)}>

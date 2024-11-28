@@ -42,11 +42,7 @@ const Sidebar = ({
           </Link>
         </ListItem>
         {navItems.map((item) => (
-          <NavItem
-            key={item.name}
-            {...item}
-            isCollapsed={isCollapsed && !isHovered}
-          />
+          <NavItem key={item.name} {...item} isCollapsed={isCollapsed && !isHovered} />
         ))}
       </List>
     </Box>

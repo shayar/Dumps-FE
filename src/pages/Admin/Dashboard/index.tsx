@@ -42,9 +42,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <BreadCrumb
-        items={[{ name: 'Dashboard', route: '/admin', isCurrentPage: true }]}
-      />
+      <BreadCrumb items={[{ name: 'Dashboard', route: '/admin', isCurrentPage: true }]} />
 
       <Card className="base-card">
         <DataTable

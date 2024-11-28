@@ -25,9 +25,7 @@ const Number = <T extends FieldValues>({
         </InputLeftElement>
       )}
       <ChakraInput
-        onKeyDown={(evt) =>
-          ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
-        }
+        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
         type="number"
         {...field}
         {...rest}

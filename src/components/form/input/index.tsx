@@ -1,10 +1,4 @@
-import {
-  FormControl,
-  FormLabel,
-  Box,
-  Flex,
-  FormErrorMessage,
-} from '@chakra-ui/react';
+import { FormControl, FormLabel, Box, Flex, FormErrorMessage } from '@chakra-ui/react';
 import { FieldValues, useController } from 'react-hook-form';
 import { IInputField } from './interface';
 import Text from './text';
@@ -31,8 +25,7 @@ const Input = <T extends FieldValues>(props: IInputField<T>) => {
     fieldState: { error },
   } = useController({ name, control });
 
-  const FieldComponent =
-    type === Type.PASSWORD ? Password : type === 'number' ? Number : Text;
+  const FieldComponent = type === Type.PASSWORD ? Password : type === 'number' ? Number : Text;
 
   return (
     <FormControl isInvalid={!!error} {...formControlProps}>

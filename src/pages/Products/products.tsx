@@ -27,11 +27,7 @@ const Products = () => {
     <Container minW={'full'} py={8}>
       {/* Header */}
       <VStack spacing={8} align="stretch">
-        <Stack
-          direction={{ base: 'column', md: 'row' }}
-          justify="space-between"
-          align="center"
-        >
+        <Stack direction={{ base: 'column', md: 'row' }} justify="space-between" align="center">
           <Heading size="xl">Certification Materials</Heading>
           <Text color="gray.600">Showing {products?.length} results</Text>
         </Stack>

@@ -4,12 +4,10 @@ import { api } from '@dumps/service/service-api';
 import { httpClient } from '@dumps/service/service-axios';
 import { useMutation } from '@tanstack/react-query';
 
-const loginRequest = async (
-  loginDetails: LoginDetails,
-): Promise<ApiResponse<LoginResponse>> => {
+const loginRequest = async (loginDetails: LoginDetails): Promise<ApiResponse<LoginResponse>> => {
   return await httpClient.post<ApiResponse<LoginResponse>, LoginDetails>(
     api.auth.login,
-    loginDetails,
+    loginDetails
   );
 };
 

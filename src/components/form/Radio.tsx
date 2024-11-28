@@ -23,9 +23,7 @@ const Radio = ({
   value,
   ...rest
 }: IRadio) => {
-  const [initialValue, setInitialValue] = useState(
-    value ? value : options[0].value,
-  );
+  const [initialValue, setInitialValue] = useState(value ? value : options[0].value);
 
   return (
     <FormControl isInvalid={!!error} isRequired={isRequired}>
@@ -59,8 +57,7 @@ const Radio = ({
   );
 };
 
-export interface IRadio<TFieldValues extends FieldValues = FieldValues>
-  extends RadioProps {
+export interface IRadio<TFieldValues extends FieldValues = FieldValues> extends RadioProps {
   options: { label: string; value: string }[];
   label?: string;
   name: string;

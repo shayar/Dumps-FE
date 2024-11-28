@@ -5,9 +5,7 @@ import { httpClient } from '@dumps/service/service-axios';
 import { useQuery } from '@tanstack/react-query';
 
 const getProductByIdRequest = async (id: string) => {
-  return await httpClient.get<ApiResponse<DumpDetails>>(
-    api.product.getProduct(id),
-  );
+  return await httpClient.get<ApiResponse<DumpDetails>>(api.product.getProduct(id));
 };
 
 const useGetProductById = (id: string) => {

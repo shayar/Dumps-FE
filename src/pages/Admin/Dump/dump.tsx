@@ -20,17 +20,14 @@ const Dump = () => {
     pageSize: 5,
   });
 
-  const { data, error, isLoading, isSuccess, isError } = useGetAllProducts(
-    pageIndex + 1,
-    pageSize,
-  );
+  const { data, error, isLoading, isSuccess, isError } = useGetAllProducts(pageIndex + 1, pageSize);
   const { mutateAsync: deleteProduct } = useDeleteProductById();
 
   useEffect(() => {
     if (isSuccess) {
       toastSuccess(data.message);
     }
-    if(isError) {
+    if (isError) {
       handleApiError(error);
     }
   }, [isSuccess, isError]);

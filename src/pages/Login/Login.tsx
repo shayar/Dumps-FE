@@ -44,16 +44,9 @@ const Login = () => {
       background={'white'}
       p={4}
     >
-      <Flex
-        flexDirection={{ base: 'column-reverse', md: 'row' }}
-        justifyContent={'space-between'}
-      >
+      <Flex flexDirection={{ base: 'column-reverse', md: 'row' }} justifyContent={'space-between'}>
         <Flex flex={1} flexDirection={'column'} justifyContent={'center'}>
-          <Flex
-            direction={{ base: 'column', md: 'row' }}
-            fontSize={'xl'}
-            fontWeight={'normal'}
-          >
+          <Flex direction={{ base: 'column', md: 'row' }} fontSize={'xl'} fontWeight={'normal'}>
             <Text color={'black'}>{'Welcome to'}&nbsp;</Text>
             <Text color={'primary.500'}>dumps</Text>
           </Flex>
@@ -64,12 +57,7 @@ const Login = () => {
           <form onSubmit={handleSubmit(onSubmitHandler)}>
             <VStack pt={6} spacing={8}>
               <Input name={'email'} label={'Email'} control={control} />
-              <Input
-                name={'password'}
-                label={'Password'}
-                type={'password'}
-                control={control}
-              />
+              <Input name={'password'} label={'Password'} type={'password'} control={control} />
               <Text>
                 Don&apos;t have an account? &nbsp;
                 <Link variant="underline" href="/register" color="#2B67B1">

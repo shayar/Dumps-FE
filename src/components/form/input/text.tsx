@@ -8,11 +8,7 @@ import {
 import { FieldValues } from 'react-hook-form';
 import { ICustomInput } from './interface';
 
-const Text = <T extends FieldValues>({
-  leftIcon,
-  rightIcon,
-  field,
-}: ICustomInput<T>) => {
+const Text = <T extends FieldValues>({ leftIcon, rightIcon, field }: ICustomInput<T>) => {
   return (
     <InputGroup>
       {leftIcon && (

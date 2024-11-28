@@ -1,5 +1,5 @@
-import { ApiError } from "@dumps/api-schemas/APIResponse";
-import { toastFail } from "./service-toast";
+import { ApiError } from '@dumps/api-schemas/APIResponse';
+import { toastFail } from './service-toast';
 
 export const handleApiError = (error: unknown) => {
   const err = error as ApiError;

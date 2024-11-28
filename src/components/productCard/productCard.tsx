@@ -1,13 +1,4 @@
-import {
-  Box,
-  Button,
-  Heading,
-  HStack,
-  Text,
-  VStack,
-  Icon,
-  Flex,
-} from '@chakra-ui/react';
+import { Box, Button, Heading, HStack, Text, VStack, Icon, Flex } from '@chakra-ui/react';
 import { DumpDetails } from '@dumps/api-schemas/dump';
 import { FiShoppingCart, FiFileText } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
@@ -42,8 +33,7 @@ const RibbonBadge = ({ discount }: { discount: number }) => (
 );
 
 const ProductCard = ({ product }: { product: DumpDetails }) => {
-  const finalPrice =
-    Number(product.price) * (1 - (Number(product.discount) || 0) / 100);
+  const finalPrice = Number(product.price) * (1 - (Number(product.discount) || 0) / 100);
 
   const navigate = useNavigate();
 
@@ -61,9 +51,7 @@ const ProductCard = ({ product }: { product: DumpDetails }) => {
     >
       <Flex direction="column" height="full" gap={4}>
         {/* Discount Badge - naturally takes its height */}
-        {Number(product?.discount) > 0 && (
-          <RibbonBadge discount={Number(product.discount)} />
-        )}
+        {Number(product?.discount) > 0 && <RibbonBadge discount={Number(product.discount)} />}
 
         {/* Title - uses noOfLines instead of fixed height */}
         <Heading size="md" minH={50} noOfLines={2}>
@@ -83,11 +71,7 @@ const ProductCard = ({ product }: { product: DumpDetails }) => {
               <Box mt={2}>
                 {product.discount ? (
                   <VStack align="flex-start" spacing={1}>
-                    <Text
-                      textDecoration="line-through"
-                      color="gray.500"
-                      fontSize="sm"
-                    >
+                    <Text textDecoration="line-through" color="gray.500" fontSize="sm">
                       ${Number(product.price).toFixed(2)}
                     </Text>
                     <Text fontSize="xl" fontWeight="bold" color="blue.500">
@@ -109,11 +93,7 @@ const ProductCard = ({ product }: { product: DumpDetails }) => {
 
         {/* Button - stays at bottom */}
         <Box flex="0">
-          <Button
-            colorScheme="blue"
-            rightIcon={<FiShoppingCart />}
-            width="full"
-          >
+          <Button colorScheme="blue" rightIcon={<FiShoppingCart />} width="full">
             Add to Cart
           </Button>
         </Box>

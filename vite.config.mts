@@ -5,10 +5,7 @@ import { defineConfig } from 'vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    svgr(),
-  ],
+  plugins: [react(), svgr()],
   resolve: {
     alias: {
       src: path.resolve('src/'),

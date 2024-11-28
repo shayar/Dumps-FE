@@ -34,7 +34,7 @@ describe('BreadCrumb', () => {
     render(
       <MemoryRouter>
         <BreadCrumb items={items} />
-      </MemoryRouter>,
+      </MemoryRouter>
     );
 
     expect(screen.getByText('Home')).toBeInTheDocument();

@@ -8,8 +8,7 @@ const NavItem = ({ name, to, icon, child, visible, isCollapsed }: INavItem) => {
   const [showDropdown, setShowDropdown] = useState(activeParent);
 
   // For the case you are deep nested into child element and you need to make the parent element in the sidebar to be active
-  const match =
-    location.pathname.match(/services/g) || location.pathname.match(/forum/g);
+  const match = location.pathname.match(/services/g) || location.pathname.match(/forum/g);
 
   useEffect(() => {
     setActive((!child && to === location.pathname) || to === `/${match?.[0]}`);

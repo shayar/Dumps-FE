@@ -1,9 +1,4 @@
-import {
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Textarea,
-} from '@chakra-ui/react';
+import { FormControl, FormErrorMessage, FormLabel, Textarea } from '@chakra-ui/react';
 import { FieldValues, useController } from 'react-hook-form';
 import { ITextArea } from './input/interface';
 const TextArea = <T extends FieldValues>({

@@ -8,7 +8,7 @@ const getAllProductsRequest = async (
   pageNumber: number,
   pageSize: number,
   sort?: string,
-  search?: string,
+  search?: string
 ) => {
   const params = {
     page: pageNumber,
@@ -26,7 +26,7 @@ const useGetAllProducts = (
   pageNumber: number,
   pageSize: number,
   sort?: string,
-  search?: string,
+  search?: string
 ) => {
   return useQuery({
     queryKey: ['products', pageNumber, pageSize, sort, search],

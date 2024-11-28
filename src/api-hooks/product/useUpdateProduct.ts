@@ -5,16 +5,12 @@ import { httpClient } from '@dumps/service/service-axios';
 import { useMutation } from '@tanstack/react-query';
 
 const updateProductRequest = (data: FormData, id: string) => {
-  return httpClient.put<ApiResponse<DumpDetails>, FormData>(
-    api.product.updateProduct(id),
-    data,
-  );
+  return httpClient.put<ApiResponse<DumpDetails>, FormData>(api.product.updateProduct(id), data);
 };
 
 const useUpdateProduct = () => {
   return useMutation({
-    mutationFn: ({ data, id }: { data: FormData; id: string }) =>
-      updateProductRequest(data, id),
+    mutationFn: ({ data, id }: { data: FormData; id: string }) => updateProductRequest(data, id),
   });
 };
 

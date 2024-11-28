@@ -39,7 +39,7 @@ const Layout = ({ children }: ILayout) => {
   // Calculate the current sidebar width based on its collapsed state and hovered state
   const sidebarWidth = useMemo(
     () => (showSidebar ? LAYOUT_WIDTHS.LARGE : LAYOUT_WIDTHS.SMALL),
-    [showSidebar],
+    [showSidebar]
   );
 
   // Handle when the user hovers over the collapsed sidebar
@@ -58,13 +58,7 @@ const Layout = ({ children }: ILayout) => {
 
   return (
     <>
-      <Box
-        as="nav"
-        bg={'white'}
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-      >
+      <Box as="nav" bg={'white'} display="flex" alignItems="center" justifyContent="space-between">
         <Flex
           p={3}
           width={sidebarWidth}
@@ -81,12 +75,7 @@ const Layout = ({ children }: ILayout) => {
             </Text>
           )}
         </Flex>
-        <Flex
-          px={4}
-          flex={1}
-          alignItems={'center'}
-          justifyContent={'space-between'}
-        >
+        <Flex px={4} flex={1} alignItems={'center'} justifyContent={'space-between'}>
           <Box _hover={{ cursor: 'pointer' }}>
             <RxHamburgerMenu
               fontSize={24}
@@ -114,9 +103,7 @@ const Layout = ({ children }: ILayout) => {
         />
         <Box height="100vh" maxH="100vh" overflowY="auto">
           <SidebarState.Provider value={{ showSidebar, setShowSidebar }}>
-            <Box sx={{ '&::-webkit-scrollbar': { display: 'none' } }}>
-              {children}
-            </Box>
+            <Box sx={{ '&::-webkit-scrollbar': { display: 'none' } }}>{children}</Box>
           </SidebarState.Provider>
         </Box>
       </Box>

@@ -86,7 +86,7 @@ export function DataTable({
         : {
             getPaginationRowModel: getPaginationRowModel(),
           },
-    [pagination],
+    [pagination]
   );
 
   const table = useReactTable({
@@ -117,7 +117,7 @@ export function DataTable({
         if (columns[index]?.enablePinning) {
           setStickyColumn(index + 1);
         }
-      }),
+      })
     );
   }, [columns, data, table]);
 
@@ -178,13 +178,9 @@ export function DataTable({
                       color={'white'}
                       fontSize={14}
                       style={{
-                        width: columns[index]?.size
-                          ? `${columns[index]?.size}%`
-                          : header.getSize(),
+                        width: columns[index]?.size ? `${columns[index]?.size}%` : header.getSize(),
                         textAlign:
-                          header.id == 'Actions' ||
-                          header.id == 'Action' ||
-                          header.colSpan > 1
+                          header.id == 'Actions' || header.id == 'Action' || header.colSpan > 1
                             ? 'center'
                             : 'left',
                       }}
@@ -193,10 +189,7 @@ export function DataTable({
                         <Text flex={1}>
                           {header.isPlaceholder
                             ? null
-                            : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext(),
-                              )}
+                            : flexRender(header.column.columnDef.header, header.getContext())}
                         </Text>
                       </HStack>
                     </Th>
@@ -225,10 +218,7 @@ export function DataTable({
                 {row.getVisibleCells().map((cell) => {
                   return (
                     <Td key={cell.id} pl={4}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </Td>
                   );
                 })}

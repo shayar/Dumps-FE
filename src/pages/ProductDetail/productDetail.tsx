@@ -61,12 +61,7 @@ const PDFPreview = ({ title }: { title: string }) => {
           width="90%"
           textAlign="center"
         >
-          <Text
-            fontSize="md"
-            fontWeight="bold"
-            color="gray.700"
-            wordBreak="break-word"
-          >
+          <Text fontSize="md" fontWeight="bold" color="gray.700" wordBreak="break-word">
             {title}
           </Text>
         </Box>
@@ -82,10 +77,7 @@ const ProductDetail = () => {
   const product = data?.data;
 
   const finalPrice: number = Number(
-    (
-      Number(product?.price || 0) *
-      (1 - Number(product?.discount || 0) / 100)
-    ).toFixed(2),
+    (Number(product?.price || 0) * (1 - Number(product?.discount || 0) / 100)).toFixed(2)
   );
 
   return (
@@ -95,12 +87,7 @@ const ProductDetail = () => {
       ) : (
         <Flex direction={{ base: 'column', lg: 'row' }} gap={8}>
           {/* Left Column - PDF image */}
-          <Box
-            flex="1"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-          >
+          <Box flex="1" display="flex" alignItems="center" justifyContent="center">
             <PDFPreview title={product?.title || ''} />
           </Box>
 
@@ -116,11 +103,7 @@ const ProductDetail = () => {
               <Box>
                 {product?.discount ? (
                   <HStack spacing={3}>
-                    <Text
-                      textDecoration="line-through"
-                      color="gray.500"
-                      fontSize="xl"
-                    >
+                    <Text textDecoration="line-through" color="gray.500" fontSize="xl">
                       ${Number(product.price).toFixed(2)}
                     </Text>
                     <Text fontSize="3xl" fontWeight="bold" color="blue.500">
@@ -149,12 +132,7 @@ const ProductDetail = () => {
               </Text>
 
               <HStack spacing={4}>
-                <Button
-                  size="lg"
-                  colorScheme="blue"
-                  rightIcon={<FiShoppingCart />}
-                  flex="1"
-                >
+                <Button size="lg" colorScheme="blue" rightIcon={<FiShoppingCart />} flex="1">
                   Add to Cart
                 </Button>
                 {/* <Button

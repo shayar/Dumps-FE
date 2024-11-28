@@ -5,9 +5,7 @@ import { httpClient } from '@dumps/service/service-axios';
 import { useMutation } from '@tanstack/react-query';
 
 const deleteBundleByIdRequest = async (id: string) => {
-  return httpClient.delete<ApiResponse<BundleResponse>>(
-    api.bundles.deleteBundle(id),
-  );
+  return httpClient.delete<ApiResponse<BundleResponse>>(api.bundles.deleteBundle(id));
 };
 
 const useDeleteBundleById = () => {

@@ -7,14 +7,13 @@ import { useMutation } from '@tanstack/react-query';
 const updateBundleRequest = (data: FormData, id: string) => {
   return httpClient.patch<ApiResponse<BundleResponse>, FormData>(
     api.bundles.updateBundle(id),
-    data,
+    data
   );
 };
 
 const useUpdateBundle = () => {
   return useMutation({
-    mutationFn: ({ data, id }: { data: FormData; id: string }) =>
-      updateBundleRequest(data, id),
+    mutationFn: ({ data, id }: { data: FormData; id: string }) => updateBundleRequest(data, id),
   });
 };
 

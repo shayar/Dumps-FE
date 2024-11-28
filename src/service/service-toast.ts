@@ -25,7 +25,7 @@ const toastPromise = (
   id?: string,
   loadingMessage?: string,
   successMessage?: string,
-  errorMessage?: string,
+  errorMessage?: string
 ) => {
   toast.promise(
     promiseAction,
@@ -37,7 +37,7 @@ const toastPromise = (
     {
       position: 'bottom-center',
       id: id,
-    },
+    }
   );
 };
 

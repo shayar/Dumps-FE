@@ -5,9 +5,7 @@ import { httpClient } from '@dumps/service/service-axios';
 import { useMutation } from '@tanstack/react-query';
 
 const deleteProductByIdRequest = async (id: string) => {
-  return httpClient.delete<ApiResponse<DumpDetails>>(
-    api.product.deleteProduct(id),
-  );
+  return httpClient.delete<ApiResponse<DumpDetails>>(api.product.deleteProduct(id));
 };
 
 const useDeleteProductById = () => {

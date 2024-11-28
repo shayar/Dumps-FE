@@ -8,7 +8,7 @@ const getAllBundlesRequest = async (
   pageNumber: number,
   pageSize: number,
   sort?: string,
-  search?: string,
+  search?: string
 ) => {
   const params = {
     page: pageNumber,
@@ -16,18 +16,10 @@ const getAllBundlesRequest = async (
     ...(sort && { sort }),
     ...(search && { search }),
   };
-  return await httpClient.get<ApiResponse<BundleResponse[]>>(
-    api.bundles.getAll,
-    { params },
-  );
+  return await httpClient.get<ApiResponse<BundleResponse[]>>(api.bundles.getAll, { params });
 };
 
-const useGetAllBundles = (
-  pageNumber: number,
-  pageSize: number,
-  sort?: string,
-  search?: string,
-) => {
+const useGetAllBundles = (pageNumber: number, pageSize: number, sort?: string, search?: string) => {
   return useQuery({
     queryKey: ['bundles', pageNumber, pageSize, sort, search],
     queryFn: () => getAllBundlesRequest(pageNumber, pageSize, sort, search),
