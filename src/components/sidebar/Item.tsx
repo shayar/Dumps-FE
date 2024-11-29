@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { ListItem, Link, Text, Icon } from '@chakra-ui/react';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 import { RightArrowIcon } from '@dumps/assets/svgs';
+import { IconType } from 'react-icons';
 
 function Item({
   name,
@@ -20,7 +21,7 @@ function Item({
 }: {
   name: string;
   to: string;
-  ComponentIcon: React.FC<React.SVGProps<SVGSVGElement>>;
+  ComponentIcon: IconType;
   isCollapsed?: boolean;
 
   showDropdown?: boolean;
@@ -92,7 +93,7 @@ function Item({
           fontSize="md"
           fontWeight="semibold"
         >
-          <ComponentIcon strokeWidth={0} width={30} height={30} />
+          <Icon as={ComponentIcon} width={30} height={30} />
           {!isCollapsed && <Text whiteSpace="nowrap">{t(name)}</Text>}
 
           {!!children && (

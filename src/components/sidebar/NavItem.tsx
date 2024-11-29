@@ -1,20 +1,25 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable react/require-default-props */
 import React, { useEffect, useState } from 'react';
+import { IconType } from 'react-icons';
+import { useLocation } from 'react-router-dom';
 import Item from './Item';
 
 function NavItem({ name, to, icon, child, visible, isCollapsed }: INavItem) {
+  const location = useLocation();
   const [active, setActive] = useState(false);
 
   const activeParent = child?.some((item) => item.to === window.location.pathname);
   const [showDropdown, setShowDropdown] = useState(activeParent);
 
   // For the case you are deep nested into child element and you need to make the parent element in the sidebar to be active
-  const match =
-    window.location.pathname.match(/services/g) || window.location.pathname.match(/forum/g);
+  const match = location.pathname.match(/services/g) || location.pathname.match(/forum/g);
 
   useEffect(() => {
-    setActive((!child && to === window.location.pathname) || to === `/${match?.[0]}`);
+    setActive(
+      (!child && `/admin${to ? `/${to}` : to}` === location.pathname) ||
+        `/admin${to ? `/${to}` : to}` === `/${match?.[0]}`
+    );
   }, [window.location.pathname]);
 
   return (
@@ -77,6 +82,6 @@ interface INavItemChild {
   //   TODO: instead of making this string assign this to be amongst the navigation path
   to: string;
   //   TODO: intelligence for svg index suggestion
-  icon: React.FC<React.SVGProps<SVGSVGElement>>;
+  icon: IconType;
 }
 export default NavItem;

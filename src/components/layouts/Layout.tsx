@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useState, useEffect, useMemo, useContext } from 'react';
-import { Box, Flex, IconButton, Text } from '@chakra-ui/react';
+import { Box, Flex, IconButton, Text, Icon } from '@chakra-ui/react';
 // import Sidebar from '@dumps/components/SideBar';
 import useWindowSize from '@dumps/hooks/useWindowResize';
 // import { SidebarState } from '@dumps/hooks/useContext';
@@ -71,7 +71,7 @@ function Layout({ children }: ILayout) {
           borderRightColor={DUMPS_COLORS.gray[300]}
           height="100%"
         >
-          <FaDumpster size="2em" />
+          <Icon as={FaDumpster} boxSize={8} />
           {sidebarWidth !== LAYOUT_WIDTHS.SMALL && (
             <Text ml={3} fontWeight={500}>
               DUMPS
