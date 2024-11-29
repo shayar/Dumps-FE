@@ -3,6 +3,8 @@ import DUMPS_COLORS from './color';
 import buttonTheme from './button';
 import fontSizes from './fontsize';
 
+const colors = DUMPS_COLORS;
+
 const theme = extendTheme({
   styles: {
     global: () => ({
@@ -22,7 +24,7 @@ const theme = extendTheme({
     base: 'rgba(0, 0, 0, 0.16) 0px 1px 4px',
   },
   fontSizes,
-  DUMPS_COLORS,
+  colors,
   borderRadius: {
     radii: {
       none: '0',
