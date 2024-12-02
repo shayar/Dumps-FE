@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import {
   InputGroup,
   InputLeftElement,
@@ -8,7 +9,7 @@ import {
 import { FieldValues } from 'react-hook-form';
 import { ICustomInput } from './interface';
 
-const Number = <T extends FieldValues>({
+function Number<T extends FieldValues>({
   leftIcon,
   rightIcon,
   field,
@@ -16,7 +17,7 @@ const Number = <T extends FieldValues>({
   max = 1000,
   step = 1,
   ...rest
-}: ICustomInput<T>) => {
+}: ICustomInput<T>) {
   return (
     <InputGroup>
       {leftIcon && (
@@ -25,9 +26,7 @@ const Number = <T extends FieldValues>({
         </InputLeftElement>
       )}
       <ChakraInput
-        onKeyDown={(evt) =>
-          ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
-        }
+        onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
         type="number"
         {...field}
         {...rest}
@@ -43,6 +42,6 @@ const Number = <T extends FieldValues>({
       )}
     </InputGroup>
   );
-};
+}
 
 export { Number };

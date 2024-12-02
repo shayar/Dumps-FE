@@ -1,5 +1,4 @@
 import { Outlet, useRoutes } from 'react-router-dom';
-import { NAVIGATION_ROUTES } from './routes.constant';
 import Dashboard from '@dumps/pages/Admin/Dashboard/index';
 import Layout from '@dumps/components/layouts/Layout';
 import Login from '@dumps/pages/Login/Login';
@@ -12,6 +11,8 @@ import Home from '@dumps/pages/User/Home/home';
 import MainLayout from '@dumps/components/MainLayout/mainLayout';
 import Products from '@dumps/pages/Products/products';
 import Bundles from '@dumps/pages/Bundles/bundles';
+import ProductDetail from '@dumps/pages/ProductDetail/productDetail';
+import NAVIGATION_ROUTES from './routes.constant';
 
 const routes = [
   {
@@ -26,7 +27,7 @@ const routes = [
     path: '/admin',
     element: (
       <Layout>
-        <Outlet></Outlet>
+        <Outlet />
       </Layout>
     ),
     children: [
@@ -55,7 +56,7 @@ const routes = [
         element: <ManageBundle />,
       },
       {
-        path: NAVIGATION_ROUTES.ADMIN.EDIT_DUMPS,
+        path: NAVIGATION_ROUTES.ADMIN.EDIT_BUNDLE,
         element: <ManageBundle />,
       },
     ],
@@ -64,7 +65,7 @@ const routes = [
     path: '/',
     element: (
       <MainLayout>
-        <Outlet></Outlet>
+        <Outlet />
       </MainLayout>
     ),
     children: [
@@ -79,6 +80,14 @@ const routes = [
       {
         path: NAVIGATION_ROUTES.BUNDLES,
         element: <Bundles />,
+      },
+      {
+        path: NAVIGATION_ROUTES.PRODUCT_DETAIL,
+        element: <ProductDetail />,
+      },
+      {
+        path: NAVIGATION_ROUTES.BUNDLE_DETAIL,
+        element: <ProductDetail />,
       },
     ],
   },

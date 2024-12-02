@@ -13,19 +13,15 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { FaPenToSquare, FaTrash } from 'react-icons/fa6';
-import { dumps_colors } from '@dumps/theme/color';
+import DUMPS_COLORS from '@dumps/theme/color';
 
 interface ActionButtonsProps {
-  row: any;
-  onEdit: (row: any) => void;
-  onDelete: (row: any) => void;
+  row: any; // eslint-disable-line
+  onEdit: (row: any) => void; // eslint-disable-line
+  onDelete: (row: any) => void; // eslint-disable-line
 }
 
-export const ActionButtons = ({
-  row,
-  onEdit,
-  onDelete,
-}: ActionButtonsProps) => {
+export default function ActionButtons({ row, onEdit, onDelete }: ActionButtonsProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleDelete = () => {
@@ -34,10 +30,10 @@ export const ActionButtons = ({
   };
 
   return (
-    <ButtonGroup justifyContent={'center'}>
+    <ButtonGroup justifyContent="center">
       <IconButton
-        variant={'ghost'}
-        color={dumps_colors.primary['500']}
+        variant="ghost"
+        color={DUMPS_COLORS.primary['500']}
         aria-label="edit"
         onClick={() => {
           onEdit(row);
@@ -48,8 +44,8 @@ export const ActionButtons = ({
       <Popover isOpen={isOpen} onClose={onClose}>
         <PopoverTrigger>
           <IconButton
-            variant={'ghost'}
-            color={dumps_colors.danger}
+            variant="ghost"
+            color={DUMPS_COLORS.danger}
             aria-label="delete"
             onClick={onOpen}
           >
@@ -57,7 +53,9 @@ export const ActionButtons = ({
           </IconButton>
         </PopoverTrigger>
         <PopoverContent>
-          <PopoverHeader fontWeight="bold" fontSize={16} color={dumps_colors.danger}>Delete!</PopoverHeader>
+          <PopoverHeader fontWeight="bold" fontSize={16} color={DUMPS_COLORS.danger}>
+            Delete!
+          </PopoverHeader>
           <PopoverArrow />
           <PopoverCloseButton />
           <PopoverBody>Are you sure you want to continue?</PopoverBody>
@@ -66,7 +64,7 @@ export const ActionButtons = ({
               <Button variant="outline" onClick={onClose}>
                 Cancel
               </Button>
-              <Button background={dumps_colors.danger} onClick={handleDelete}>
+              <Button background={DUMPS_COLORS.danger} onClick={handleDelete}>
                 Delete
               </Button>
             </ButtonGroup>
@@ -75,4 +73,4 @@ export const ActionButtons = ({
       </Popover>
     </ButtonGroup>
   );
-};
+}

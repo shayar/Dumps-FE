@@ -1,33 +1,36 @@
+import { ApiResponse } from '@dumps/api-schemas/APIResponse';
+import { DumpDetails } from '@dumps/api-schemas/dump';
 import { api } from '@dumps/service/service-api';
 import { httpClient } from '@dumps/service/service-axios';
-import { toastFail, toastSuccess } from '@dumps/service/service-toast';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 
-const getAllProductsRequest = async (page: number, search?: string) => {
+const getAllProductsRequest = async (
+  pageNumber: number,
+  pageSize: number,
+  sort?: string,
+  search?: string
+) => {
   const params = {
-    page,
-    ...(search && { search }), // Only add 'search' if it's defined
+    page: pageNumber,
+    pageSize,
+    ...(sort && { sort }),
+    ...(search && { search }),
   };
 
-  return await httpClient.get(api.product.getAll, { params });
+  return httpClient.get<ApiResponse<DumpDetails[]>>(api.product.getAll, {
+    params,
+  });
 };
 
-const useGetAllProducts = (page: number, search?: string) => {
-  return useQuery(
-    ['products', page, search],
-    () => getAllProductsRequest(page, search),
-    {
-      onSuccess: (response: any) => {
-        if (response.message) {
-          toastSuccess(response.message);
-        }
-      },
-      onError: (error: any) => {
-        toastFail('Failed to Load Dumps.');
-        console.log(error);
-      },
-    },
-  );
+const useGetAllProducts = (
+  pageNumber: number,
+  pageSize: number,
+  sort?: string,
+  search?: string
+) => {
+  return useQuery({
+    queryKey: ['products', pageNumber, pageSize, sort, search],
+    queryFn: () => getAllProductsRequest(pageNumber, pageSize, sort, search),
+  });
 };
-
-export { useGetAllProducts };
+export default useGetAllProducts;

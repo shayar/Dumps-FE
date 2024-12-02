@@ -1,11 +1,11 @@
+/* eslint-disable react/require-default-props */
 import React from 'react';
-import { Box, Flex, Text, Button, Stack, IconButton } from '@chakra-ui/react';
+import { Box, Flex, Text, Button, Stack, IconButton, TextProps } from '@chakra-ui/react';
 import { FaBars, FaCartShopping, FaDumpster, FaX } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 
-interface NavBarProps {
+interface NavBarProps extends TextProps {
   children?: React.ReactNode;
-  [key: string]: any;
 }
 
 interface MenuToggleProps {
@@ -13,90 +13,63 @@ interface MenuToggleProps {
   isOpen: boolean;
 }
 
-interface MenuItemProps {
+interface MenuItemProps extends TextProps {
   children: React.ReactNode;
   to?: string;
-  [key: string]: any;
 }
 
 interface MenuLinksProps {
   isOpen: boolean;
 }
 
-const NavBar: React.FC = (props: NavBarProps) => {
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
-  const toggle = () => setIsOpen(!isOpen);
-
+function CartButton() {
   return (
-    <NavBarContainer {...props}>
-      <FaDumpster size={'2em'} />
-      {/* Desktop Navigation */}
-      <Flex display={{ base: 'none', md: 'flex' }} alignItems="center" gap={4}>
-        <MenuLinks isOpen={isOpen} />
-        <LoginButton />
-        <CartButton />
-      </Flex>
-
-      {/* Mobile Navigation */}
-      <Flex display={{ base: 'flex', md: 'none' }} alignItems="center" gap={2}>
-        <LoginButton />
-        <CartButton />
-        <MenuToggle toggle={toggle} isOpen={isOpen} />
-      </Flex>
-
-      {/* Mobile Menu Links */}
-      <Box display={{ base: 'block', md: 'none' }} width="100%">
-        <MenuLinks isOpen={isOpen} />
-      </Box>
-    </NavBarContainer>
+    <IconButton
+      isRound
+      colorScheme="white"
+      aria-label="cart"
+      size="md"
+      icon={<FaCartShopping size="20px" />}
+    />
   );
-};
+}
 
-const CartButton = () => (
-  <IconButton
-    isRound
-    colorScheme="white"
-    aria-label="cart"
-    size="md"
-    icon={<FaCartShopping size={'20px'} />}
-  />
-);
+function LoginButton() {
+  return (
+    <Link to="/login">
+      <Button
+        size="sm"
+        rounded="md"
+        color="primary.500"
+        bg="white"
+        _hover={{
+          bg: 'primary.100',
+        }}
+      >
+        Login
+      </Button>
+    </Link>
+  );
+}
 
-const LoginButton = () => (
-  <Link to={'/login'}>
-    <Button
-      size="sm"
-      rounded="md"
-      color="primary.500"
-      bg="white"
-      _hover={{
-        bg: 'primary.100',
-      }}
-    >
-      Login
-    </Button>
-  </Link>
-);
-
-const MenuToggle: React.FC<MenuToggleProps> = ({ toggle, isOpen }) => {
+function MenuToggle({ toggle, isOpen }: MenuToggleProps) {
   return (
     <Box display={{ base: 'block', md: 'none' }} onClick={toggle}>
-      {isOpen ? <FaX size={'18px'} /> : <FaBars size={'24px'} />}
+      {isOpen ? <FaX size="18px" /> : <FaBars size="24px" />}
     </Box>
   );
-};
-
-const MenuItem: React.FC<MenuItemProps> = ({ children, to = '/', ...rest }) => {
+}
+function MenuItem({ children, to = '/', ...rest }: MenuItemProps) {
   return (
     <Link to={to}>
-      <Text _hover={{ textDecoration: 'underline' }} fontWeight={'bold'} display="block" {...rest}>
+      <Text _hover={{ textDecoration: 'underline' }} fontWeight="bold" display="block" {...rest}>
         {children}
       </Text>
     </Link>
   );
-};
+}
 
-const MenuLinks: React.FC<MenuLinksProps> = ({ isOpen }) => {
+function MenuLinks({ isOpen }: MenuLinksProps) {
   return (
     <Box
       display={{ base: isOpen ? 'block' : 'none', md: 'block' }}
@@ -117,9 +90,9 @@ const MenuLinks: React.FC<MenuLinksProps> = ({ isOpen }) => {
       </Stack>
     </Box>
   );
-};
+}
 
-const NavBarContainer: React.FC<NavBarProps> = ({ children, ...props }) => {
+function NavBarContainer({ children, ...props }: NavBarProps) {
   return (
     <Flex
       as="nav"
@@ -127,8 +100,8 @@ const NavBarContainer: React.FC<NavBarProps> = ({ children, ...props }) => {
       justify="space-between"
       wrap="wrap"
       w="100%"
-      bg={'primary.500'}
-      color={'white'}
+      bg="primary.500"
+      color="white"
       position="sticky"
       top={0}
       zIndex={1000}
@@ -149,6 +122,35 @@ const NavBarContainer: React.FC<NavBarProps> = ({ children, ...props }) => {
       </Flex>
     </Flex>
   );
-};
+}
+
+function NavBar(props: NavBarProps) {
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const toggle = () => setIsOpen(!isOpen);
+
+  return (
+    <NavBarContainer {...props}>
+      <FaDumpster size="2em" />
+      {/* Desktop Navigation */}
+      <Flex display={{ base: 'none', md: 'flex' }} alignItems="center" gap={4}>
+        <MenuLinks isOpen={isOpen} />
+        <LoginButton />
+        <CartButton />
+      </Flex>
+
+      {/* Mobile Navigation */}
+      <Flex display={{ base: 'flex', md: 'none' }} alignItems="center" gap={2}>
+        <LoginButton />
+        <CartButton />
+        <MenuToggle toggle={toggle} isOpen={isOpen} />
+      </Flex>
+
+      {/* Mobile Menu Links */}
+      <Box display={{ base: 'block', md: 'none' }} width="100%">
+        <MenuLinks isOpen={isOpen} />
+      </Box>
+    </NavBarContainer>
+  );
+}
 
 export default NavBar;

@@ -1,10 +1,13 @@
+/* eslint-disable react/require-default-props */
+/* eslint-disable no-param-reassign */
 import { Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ListItem, Link, Text, Icon } from '@chakra-ui/react';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 import { RightArrowIcon } from '@dumps/assets/svgs';
+import { IconType } from 'react-icons';
 
-const Item = ({
+function Item({
   name,
   to,
   ComponentIcon,
@@ -18,7 +21,7 @@ const Item = ({
 }: {
   name: string;
   to: string;
-  ComponentIcon: React.FC<React.SVGProps<SVGSVGElement>>;
+  ComponentIcon: IconType;
   isCollapsed?: boolean;
 
   showDropdown?: boolean;
@@ -28,10 +31,10 @@ const Item = ({
   active: boolean;
   isChild?: boolean;
   children?: ReactNode;
-}) => {
+}) {
   const { t } = useTranslation();
 
-  if (location.pathname === to) active = true;
+  if (window.location.pathname === to) active = true;
 
   // The navItem should be active when,
   // 1. active: the path in the url matches the url of the navItem
@@ -39,12 +42,22 @@ const Item = ({
   // 3. activeParent: it is the parent of the navItem with active children
   const activeTab = active || showDropdown || activeParent;
 
+  const getBgColor = () => {
+    if (activeParent || showDropdown) {
+      return 'primary.400';
+    }
+    if (active) {
+      return 'primary.500';
+    }
+    return '';
+  };
+
   return (
     <>
       <Link
         as={RouterLink}
         to={to}
-        color={'white'}
+        color="white"
         // there is a default textDecoration, to remove it ⬇️
         sx={{
           '&:hover': {
@@ -53,8 +66,8 @@ const Item = ({
         }}
       >
         <ListItem
-          display={'flex'}
-          alignItems={'center'}
+          display="flex"
+          alignItems="center"
           gap={isCollapsed ? 1 : 2}
           mr={4}
           ml={{
@@ -63,14 +76,8 @@ const Item = ({
           }}
           mb={3}
           p={2}
-          borderRadius={'md'}
-          bgColor={
-            activeParent || showDropdown
-              ? 'primary.400'
-              : active
-              ? 'primary.500'
-              : ''
-          }
+          borderRadius="md"
+          bgColor={getBgColor()}
           color={activeTab ? 'white' : 'gray.500'}
           transition="all ease-in-out"
           sx={{
@@ -86,7 +93,7 @@ const Item = ({
           fontSize="md"
           fontWeight="semibold"
         >
-          <ComponentIcon strokeWidth={0} width={30} height={30} />
+          <Icon as={ComponentIcon} width={30} height={30} />
           {!isCollapsed && <Text whiteSpace="nowrap">{t(name)}</Text>}
 
           {!!children && (
@@ -105,6 +112,6 @@ const Item = ({
       {children}
     </>
   );
-};
+}
 
 export default Item;

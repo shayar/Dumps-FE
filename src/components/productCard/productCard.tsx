@@ -1,50 +1,47 @@
-import {
-  Box,
-  Button,
-  Heading,
-  HStack,
-  Text,
-  VStack,
-  Icon,
-  Flex,
-} from '@chakra-ui/react';
+import { Box, Button, Heading, HStack, Text, VStack, Icon, Flex } from '@chakra-ui/react';
+import { DumpDetails } from '@dumps/api-schemas/dump';
 import { FiShoppingCart, FiFileText } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 
-const RibbonBadge = ({ discount }: { discount: number }) => (
-  <Box
-    position="absolute"
-    top={0}
-    right={0}
-    borderTopRightRadius={'md'}
-    bg="green.500"
-    color="white"
-    fontSize="xs"
-    fontWeight="semibold"
-    px={2}
-    py={0.5}
-    _after={{
-      content: '""',
-      position: 'absolute',
-      left: 0,
-      bottom: '-8px',
-      width: 0,
-      height: 0,
-      borderLeft: '12px solid transparent',
-      borderRight: '12px solid transparent',
-      borderTop: '8px solid green.500',
-      borderTopColor: 'green.500',
-    }}
-  >
-    {discount}% OFF
-  </Box>
-);
+function RibbonBadge({ discount }: { discount: number }) {
+  return (
+    <Box
+      position="absolute"
+      top={0}
+      right={0}
+      borderTopRightRadius="md"
+      bg="green.500"
+      color="white"
+      fontSize="xs"
+      fontWeight="semibold"
+      px={2}
+      py={0.5}
+      _after={{
+        content: '""',
+        position: 'absolute',
+        left: 0,
+        bottom: '-8px',
+        width: 0,
+        height: 0,
+        borderLeft: '12px solid transparent',
+        borderRight: '12px solid transparent',
+        borderTop: '8px solid green.500',
+        borderTopColor: 'green.500',
+      }}
+    >
+      {discount}% OFF
+    </Box>
+  );
+}
 
-const ProductCard = ({ product }: { product: any }) => {
-  const finalPrice = product.price * (1 - (product.discount || 0) / 100);
+function ProductCard({ product }: { product: DumpDetails }) {
+  const finalPrice = Number(product.price) * (1 - (Number(product.discount) || 0) / 100);
+
+  const navigate = useNavigate();
 
   return (
     <Box
-      position={'relative'}
+      position="relative"
       bg="white"
       borderRadius="md"
       boxShadow="base"
@@ -52,12 +49,11 @@ const ProductCard = ({ product }: { product: any }) => {
       transition="all 0.3s"
       _hover={{ transform: 'translateY(-4px)' }}
       height="full"
+      onClick={() => navigate(`/products/${product.id}`)}
     >
       <Flex direction="column" height="full" gap={4}>
         {/* Discount Badge - naturally takes its height */}
-        {(product?.discount > 0) && (
-          <RibbonBadge discount={product.discount} />
-        )}
+        {Number(product?.discount) > 0 && <RibbonBadge discount={Number(product.discount)} />}
 
         {/* Title - uses noOfLines instead of fixed height */}
         <Heading size="md" minH={50} noOfLines={2}>
@@ -77,12 +73,8 @@ const ProductCard = ({ product }: { product: any }) => {
               <Box mt={2}>
                 {product.discount ? (
                   <VStack align="flex-start" spacing={1}>
-                    <Text
-                      textDecoration="line-through"
-                      color="gray.500"
-                      fontSize="sm"
-                    >
-                      ${product.price.toFixed(2)}
+                    <Text textDecoration="line-through" color="gray.500" fontSize="sm">
+                      ${Number(product.price).toFixed(2)}
                     </Text>
                     <Text fontSize="xl" fontWeight="bold" color="blue.500">
                       ${finalPrice.toFixed(2)}
@@ -90,7 +82,7 @@ const ProductCard = ({ product }: { product: any }) => {
                   </VStack>
                 ) : (
                   <Text fontSize="xl" fontWeight="bold" color="blue.500">
-                    ${product.price.toFixed(2)}
+                    ${Number(product.price).toFixed(2)}
                   </Text>
                 )}
               </Box>
@@ -103,17 +95,13 @@ const ProductCard = ({ product }: { product: any }) => {
 
         {/* Button - stays at bottom */}
         <Box flex="0">
-          <Button
-            colorScheme="blue"
-            rightIcon={<FiShoppingCart />}
-            width="full"
-          >
+          <Button colorScheme="blue" rightIcon={<FiShoppingCart />} width="full">
             Add to Cart
           </Button>
         </Box>
       </Flex>
     </Box>
   );
-};
+}
 
 export default ProductCard;

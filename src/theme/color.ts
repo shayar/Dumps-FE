@@ -2,7 +2,7 @@
     Take these colors from figma --> style guide
 */
 
-export const dumps_colors = {
+const DUMPS_COLORS = {
   black: '#000000',
   white: '#FFFFFF',
   danger: '#ff3333',
@@ -47,3 +47,5 @@ export const dumps_colors = {
     50: '#F7FAFC',
   },
 };
+
+export default DUMPS_COLORS;

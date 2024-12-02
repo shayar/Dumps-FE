@@ -1,16 +1,6 @@
-import {
-  FormControlProps,
-  InputProps,
-  SelectProps,
-  TextareaProps,
-} from '@chakra-ui/react';
+import { FormControlProps, InputProps, SelectProps, TextareaProps } from '@chakra-ui/react';
 import { FunctionComponent, SVGProps } from 'react';
-import {
-  Control,
-  ControllerRenderProps,
-  FieldValues,
-  Path,
-} from 'react-hook-form';
+import { Control, ControllerRenderProps, FieldValues, Path } from 'react-hook-form';
 
 type IField<T extends FieldValues> = {
   control: Control<T, unknown>;
@@ -26,12 +16,8 @@ type IOptionField = {
   label?: string;
   formControlProps?: FormControlProps;
   orientation?: 'horizontal' | 'vertical';
-  leftIcon?: FunctionComponent<
-    SVGProps<SVGSVGElement> & { title?: string | undefined }
-  >;
-  rightIcon?: FunctionComponent<
-    SVGProps<SVGSVGElement> & { title?: string | undefined }
-  >;
+  leftIcon?: FunctionComponent<SVGProps<SVGSVGElement> & { title?: string | undefined }>;
+  rightIcon?: FunctionComponent<SVGProps<SVGSVGElement> & { title?: string | undefined }>;
   required?: boolean;
 };
 

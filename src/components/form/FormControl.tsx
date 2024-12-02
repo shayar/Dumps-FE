@@ -1,6 +1,6 @@
+import { FieldValues } from 'react-hook-form';
 import Radio, { IRadio } from './Radio';
 import Editor, { IEditor } from './Editor';
-import { FieldValues } from 'react-hook-form';
 
 // TODO: use formControl instead of index to export file
 function FormControl(props: IFormControlProps) {

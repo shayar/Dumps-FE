@@ -1,20 +1,18 @@
-import {
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Textarea,
-} from '@chakra-ui/react';
+/* eslint-disable react/require-default-props */
+/* eslint-disable import/prefer-default-export */
+import { FormControl, FormErrorMessage, FormLabel, Textarea } from '@chakra-ui/react';
 import { FieldValues, useController } from 'react-hook-form';
 import { ITextArea } from './input/interface';
-const TextArea = <T extends FieldValues>({
+
+function TextArea<T extends FieldValues>({
   name,
   control,
   label,
   isRequired,
   required,
   ...rest
-}: //TODO: isRequired and required both looks dubious
-ITextArea<T> & { isRequired?: boolean; required?: boolean }) => {
+}: // TODO: isRequired and required both looks dubious
+ITextArea<T> & { isRequired?: boolean; required?: boolean }) {
   const {
     field,
     fieldState: { error },
@@ -28,10 +26,10 @@ ITextArea<T> & { isRequired?: boolean; required?: boolean }) => {
           {required && <span style={{ color: 'red' }}>&nbsp;*</span>}
         </FormLabel>
       )}
-      <Textarea resize={'none'} {...field} {...rest} />
+      <Textarea resize="none" {...field} {...rest} />
       {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
     </FormControl>
   );
-};
+}
 
 export { TextArea };

@@ -18,7 +18,7 @@ const schema = yup.object().shape({
   paymentGateway: yup.string().required('Payment gateway is required'),
 });
 
-const TestForm = () => {
+function TestForm() {
   const methods = useForm<TestFormValues>({
     defaultValues: { paymentGateway: '' },
     resolver: yupResolver(schema),
@@ -37,7 +37,7 @@ const TestForm = () => {
       </form>
     </FormProvider>
   );
-};
+}
 
 describe('Select Component', () => {
   test('renders without crashing', () => {

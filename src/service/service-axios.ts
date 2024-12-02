@@ -30,9 +30,27 @@ axios.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    return Promise.reject(error);
-  },
+    return Promise.reject(error.response.data);
+  }
 );
+
+// Define the type for what axios will return after interceptor
+// The module declaration is needed here because you're modifying Axios's default behavior
+// through the interceptor. When your interceptor returns response.data directly, you're
+// changing the shape of what Axios returns. The declare module 'axios' tells TypeScript
+// that the AxiosResponse type should now extend Promise<T>, matching your interceptor's
+// behavior where responses are unwrapped to their data property directly.
+
+// This type augmentation ensures type safety throughout your application when using the modified Axios responses.
+declare module 'axios' {
+  export interface AxiosResponse<T, D> extends Promise<T> {
+    data: T;
+    status: number;
+    statusText: string;
+    headers: RawAxiosResponseHeaders | AxiosResponseHeaders;
+    config: InternalAxiosRequestConfig<D>;
+  }
+}
 
 const httpClient = {
   get: <T>(endpoint: ApiEndpoint, config: AxiosRequestConfig = {}) => {
@@ -42,34 +60,34 @@ const httpClient = {
     });
   },
 
-  post: <T>(
+  post: <TResponse, TRequest>(
     endpoint: ApiEndpoint,
-    data: any,
-    config: AxiosRequestConfig = {},
+    data: TRequest,
+    config: AxiosRequestConfig = {}
   ) => {
-    return axios.post<T>(endpoint.url, data, {
+    return axios.post<TResponse>(endpoint.url, data, {
       ...getBaseConfig(endpoint),
       ...config,
     });
   },
 
-  put: <T>(
+  put: <TResponse, TRequest>(
     endpoint: ApiEndpoint,
-    data: any,
-    config: AxiosRequestConfig = {},
+    data: TRequest,
+    config: AxiosRequestConfig = {}
   ) => {
-    return axios.put<T>(endpoint.url, data, {
+    return axios.put<TResponse>(endpoint.url, data, {
       ...getBaseConfig(endpoint),
       ...config,
     });
   },
 
-  patch: <T>(
+  patch: <TResponse, TRequest>(
     endpoint: ApiEndpoint,
-    data: any,
-    config: AxiosRequestConfig = {},
+    data: TRequest,
+    config: AxiosRequestConfig = {}
   ) => {
-    return axios.patch<T>(endpoint.url, data, {
+    return axios.patch<TResponse>(endpoint.url, data, {
       ...getBaseConfig(endpoint),
       ...config,
     });

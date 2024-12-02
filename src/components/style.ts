@@ -1,5 +1,5 @@
 // TODO: need better way of doing this
-export const webkit_scrollbar = {
+const WEBKIT_SCROLLBAR = {
   '&::-webkit-scrollbar': {
     width: '3px',
   },
@@ -7,3 +7,5 @@ export const webkit_scrollbar = {
     backgroundColor: 'primary.500',
   },
 };
+
+export default WEBKIT_SCROLLBAR;
