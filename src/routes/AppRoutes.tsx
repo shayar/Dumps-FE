@@ -12,6 +12,7 @@ import MainLayout from '@dumps/components/MainLayout/mainLayout';
 import Products from '@dumps/pages/Products/products';
 import Bundles from '@dumps/pages/Bundles/bundles';
 import ProductDetail from '@dumps/pages/ProductDetail/productDetail';
+import BundleDetail from '@dumps/pages/BundleDetail/bundleDetail';
 import NAVIGATION_ROUTES from './routes.constant';
 
 const routes = [
@@ -87,7 +88,7 @@ const routes = [
       },
       {
         path: NAVIGATION_ROUTES.BUNDLE_DETAIL,
-        element: <ProductDetail />,
+        element: <BundleDetail />,
       },
     ],
   },

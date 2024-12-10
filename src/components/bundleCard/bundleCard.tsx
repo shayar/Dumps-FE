@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { BundleResponse } from '@dumps/api-schemas/bundle';
 import { FiShoppingCart, FiPackage, FiCheck } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 
 function BundleCard({ bundle }: { bundle: BundleResponse }) {
   const originalPrice =
@@ -25,8 +26,11 @@ function BundleCard({ bundle }: { bundle: BundleResponse }) {
   const productsToShow = bundle?.products?.length > 3 ? 2 : bundle?.products?.length;
   const remainingProducts = (bundle?.products?.length ?? 0) - productsToShow;
 
+  const navigate = useNavigate();
+
   return (
     <Box
+      cursor="pointer"
       bg="white"
       borderRadius="md"
       boxShadow="base"
@@ -34,6 +38,7 @@ function BundleCard({ bundle }: { bundle: BundleResponse }) {
       transition="all 0.3s"
       _hover={{ transform: 'translateY(-4px)' }}
       height="full"
+      onClick={() => navigate(`/bundles/${bundle.id}`)}
     >
       <VStack align="stretch" spacing={4} height="full">
         {/* Title Container */}
