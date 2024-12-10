@@ -84,7 +84,7 @@ function MenuLinks({ isOpen }: MenuLinksProps) {
         pt={[4, 4, 0, 0]}
       >
         <MenuItem to="/">Home</MenuItem>
-        <MenuItem to="/products">Certifications</MenuItem>
+        <MenuItem to="/products">Dumps</MenuItem>
         <MenuItem to="/bundles">Bundles</MenuItem>
         <MenuItem to="/support">Support</MenuItem>
       </Stack>

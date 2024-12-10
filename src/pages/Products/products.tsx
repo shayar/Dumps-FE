@@ -14,21 +14,46 @@ import useGetAllProducts from '@dumps/api-hooks/product/useGetAllProducts';
 import { DumpDetails } from '@dumps/api-schemas/dump';
 import LoadingSpinner from '@dumps/components/loadingSpinner';
 import ProductCard from '@dumps/components/productCard/productCard';
-import { useState } from 'react';
+import Sort from '@dumps/enums/sort.enum';
+import { useEffect, useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 
 function Products() {
-  const [sortBy, setSortBy] = useState('popular');
+  const [sortBy, setSortBy] = useState<Sort>(Sort.NEWEST);
+  const [searchInput, setSearchInput] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
   const [page] = useState(1);
-  const { data: getAllProducts, isLoading } = useGetAllProducts(page, 10);
+  const { data: getAllProducts, isLoading } = useGetAllProducts(page, 10, sortBy, debouncedSearch);
   const products = getAllProducts?.data;
+
+  useEffect(() => {
+    // Create a timeout to delay the search
+    const handler = setTimeout(() => {
+      setDebouncedSearch(searchInput);
+    }, 500); // 500ms delay
+
+    // Cleanup function to cancel the timeout if the input changes
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchInput]);
+
+  // Handler for search input
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(e.target.value);
+  };
+
+  // Handler for sort selection
+  const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSortBy(e.target.value as Sort);
+  };
 
   return (
     <Container minW="full" py={8}>
       {/* Header */}
       <VStack spacing={8} align="stretch">
         <Stack direction={{ base: 'column', md: 'row' }} justify="space-between" align="center">
-          <Heading size="xl">Certification Materials</Heading>
+          <Heading size="xl">Dumps</Heading>
           <Text color="gray.600">Showing {products?.length} results</Text>
         </Stack>
 
@@ -43,19 +68,17 @@ function Products() {
             <InputLeftElement>
               <FiSearch />
             </InputLeftElement>
-            <Input placeholder="Search certifications..." />
+            <Input
+              placeholder="Search certifications..."
+              value={searchInput}
+              onChange={handleSearchChange}
+            />
           </InputGroup>
 
-          <Select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-            maxW={{ base: 'full', md: '200px' }}
-          >
-            <option value="popular">Most Popular</option>
-            <option value="newest">Newest</option>
-            <option value="price-low">Price: Low to High</option>
-            <option value="price-high">Price: High to Low</option>
-            <option value="rating">Highest Rated</option>
+          <Select value={sortBy} onChange={handleSortChange} maxW={{ base: 'full', md: '200px' }}>
+            <option value={Sort.NEWEST}>Newest</option>
+            <option value={Sort.PRICE_LOW_TO_HIGH}>Price: Low to High</option>
+            <option value={Sort.PRICE_HIGH_TO_LOW}>Price: High to Low</option>
           </Select>
         </Stack>
 
