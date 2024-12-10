@@ -14,6 +14,7 @@ import useGetAllBundles from '@dumps/api-hooks/bundles/useGetAllBundles';
 import { BundleResponse } from '@dumps/api-schemas/bundle';
 import BundleCard from '@dumps/components/bundleCard/bundleCard';
 import LoadingSpinner from '@dumps/components/loadingSpinner';
+import Paging from '@dumps/components/paging/paging';
 import Sort from '@dumps/enums/sort.enum';
 import { useEffect, useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
@@ -22,7 +23,7 @@ function Bundles() {
   const [sortBy, setSortBy] = useState<Sort>(Sort.NEWEST);
   const [searchInput, setSearchInput] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
-  const [page] = useState(1);
+  const [page, setPage] = useState(1);
   const { data: getAllBundles, isLoading } = useGetAllBundles(page, 10, sortBy, debouncedSearch);
   const bundles = getAllBundles?.data;
 
@@ -100,6 +101,13 @@ function Bundles() {
               <BundleCard key={bundle.id} bundle={bundle} />
             ))}
         </Grid>
+        <Paging
+          pageNumber={page}
+          pageSize={getAllBundles?.pageSize ?? 10}
+          totalPages={getAllBundles?.totalPages ?? 1}
+          totalRecords={getAllBundles?.totalRecords ?? 0}
+          onPageChange={setPage}
+        />
       </VStack>
     </Container>
   );

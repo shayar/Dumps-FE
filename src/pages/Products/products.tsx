@@ -13,6 +13,7 @@ import {
 import useGetAllProducts from '@dumps/api-hooks/product/useGetAllProducts';
 import { DumpDetails } from '@dumps/api-schemas/dump';
 import LoadingSpinner from '@dumps/components/loadingSpinner';
+import Paging from '@dumps/components/paging/paging';
 import ProductCard from '@dumps/components/productCard/productCard';
 import Sort from '@dumps/enums/sort.enum';
 import { useEffect, useState } from 'react';
@@ -22,7 +23,7 @@ function Products() {
   const [sortBy, setSortBy] = useState<Sort>(Sort.NEWEST);
   const [searchInput, setSearchInput] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
-  const [page] = useState(1);
+  const [page, setPage] = useState(1);
   const { data: getAllProducts, isLoading } = useGetAllProducts(page, 10, sortBy, debouncedSearch);
   const products = getAllProducts?.data;
 
@@ -100,9 +101,15 @@ function Products() {
               <ProductCard key={product.id} product={product} />
             ))}
         </Grid>
+        <Paging
+          pageNumber={page}
+          pageSize={getAllProducts?.pageSize ?? 10}
+          totalPages={getAllProducts?.totalPages ?? 1}
+          totalRecords={getAllProducts?.totalRecords ?? 0}
+          onPageChange={setPage}
+        />
       </VStack>
     </Container>
   );
 }
-
 export default Products;
