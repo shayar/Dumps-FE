@@ -1,5 +1,5 @@
-export const NAVIGATION_ROUTES = {
-  /** NOTE: ------->  use "snake_case"  while naming the routes*/
+const NAVIGATION_ROUTES = {
+  /** NOTE: ------->  use "snake_case"  while naming the routes */
   ADMIN: {
     DASHBOARD: '',
     BUTTON: 'button',
@@ -16,4 +16,8 @@ export const NAVIGATION_ROUTES = {
   HOME: '',
   PRODUCTS: '/products',
   BUNDLES: '/bundles',
+  PRODUCT_DETAIL: '/products/:id',
+  BUNDLE_DETAIL: '/bundles/:id',
 };
+
+export default NAVIGATION_ROUTES;

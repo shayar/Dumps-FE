@@ -1,5 +1,5 @@
 import { defineStyle, defineStyleConfig } from '@chakra-ui/react';
-import { dumps_colors } from './color';
+import DUMPS_COLORS from './color';
 
 const baseStyles = {
   px: 4,
@@ -9,26 +9,26 @@ const baseStyles = {
 
 const primary = defineStyle({
   ...baseStyles,
-  background: dumps_colors.primary[500],
+  background: DUMPS_COLORS.primary[500],
   color: 'white',
   _hover: {
     background: 'primary.400',
     _disabled: {
-      backgroundColor: `${dumps_colors.primary[500]} `,
+      backgroundColor: `${DUMPS_COLORS.primary[500]} `,
     },
   },
 });
 
 const outline = defineStyle({
   ...baseStyles,
-  color: dumps_colors.primary[500],
+  color: DUMPS_COLORS.primary[500],
   _hover: {
     background: 'transparent',
   },
-  borderColor: dumps_colors.primary[500],
+  borderColor: DUMPS_COLORS.primary[500],
 });
 
-export const buttonTheme = defineStyleConfig({
+const buttonTheme = defineStyleConfig({
   variants: {
     primary,
     outline,
@@ -49,3 +49,5 @@ export const buttonTheme = defineStyleConfig({
   },
   defaultProps: { variant: 'primary', size: 'lg' },
 });
+
+export default buttonTheme;

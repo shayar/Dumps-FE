@@ -1,7 +1,7 @@
 import { Box, Spinner, Text } from '@chakra-ui/react';
-import { dumps_colors } from '@dumps/theme/color';
+import DUMPS_COLORS from '@dumps/theme/color';
 
-const LoadingSpinner = () => {
+function LoadingSpinner() {
   return (
     <Box
       position="absolute"
@@ -19,10 +19,10 @@ const LoadingSpinner = () => {
       backdropFilter="blur(5px)"
       zIndex={9999}
     >
-      <Spinner size="xl" color={dumps_colors.primary[500]} />
+      <Spinner size="xl" color={DUMPS_COLORS.primary[500]} />
       <Text marginTop={4}> Loading... </Text>
     </Box>
   );
-};
+}
 
 export default LoadingSpinner;

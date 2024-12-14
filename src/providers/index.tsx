@@ -1,15 +1,15 @@
 import { BrowserRouter } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
 import { HelmetProvider } from 'react-helmet-async';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 import { Toaster } from 'react-hot-toast';
-import { theme } from '../theme';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import theme from '../theme';
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      retry: false,
+      retry: 1,
       refetchOnWindowFocus: false,
       refetchOnReconnect: true,
       staleTime: 30 * 1000,
@@ -18,19 +18,19 @@ const queryClient = new QueryClient({
   },
 });
 
-const Provider = ({ children }: IProvider) => {
+function Provider({ children }: IProvider) {
   return (
     <BrowserRouter>
-      <ChakraProvider theme={theme}>
-        <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <ChakraProvider theme={theme}>
           <Toaster position="bottom-right" />
           <HelmetProvider>{children}</HelmetProvider>
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
-      </ChakraProvider>
+        </ChakraProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </BrowserRouter>
   );
-};
+}
 
 interface IProvider {
   children: React.ReactNode;

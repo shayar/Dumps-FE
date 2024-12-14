@@ -31,9 +31,9 @@
       "@dumps/service/*": ["service/*"],
       "@dumps/theme/*": ["theme/*"]
     },
-    "types": ["jest", "node","vitest"]
+    "types": ["jest", "vitest"]
   },
-  "include": ["src", "types.ts", "tests/**/*.ts", "tests/**/*.tsx","vitest.config.ts","vite.config.ts"],
+  "include": ["src", "tests/**/*.ts", "tests/**/*.tsx", ".eslintrc.cjs"],
   "references": [
     {
       "path": "./tsconfig.node.json"

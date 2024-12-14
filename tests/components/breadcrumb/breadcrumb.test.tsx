@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, vi } from 'vitest';
 import { MemoryRouter } from 'react-router-dom';
-import { BreadCrumb } from '@dumps/components/breadCrumb';
+import BreadCrumb from '@dumps/components/breadCrumb';
 
 // Mock dependencies
 vi.mock('react-i18next', () => ({
@@ -29,12 +29,11 @@ describe('BreadCrumb', () => {
     { name: 'Item 1', route: '/item1' },
     { name: 'Item 2', route: '/item2' },
   ];
-  const title = { name: 'Home', route: '/' };
-  
+
   it('renders breadcrumb items and title correctly', () => {
     render(
       <MemoryRouter>
-        <BreadCrumb items={items} title={title} />
+        <BreadCrumb items={items} />
       </MemoryRouter>
     );
 
