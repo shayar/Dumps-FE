@@ -20,6 +20,7 @@
     "jsx": "react-jsx",
     "noFallthroughCasesInSwitch": true,
     "paths": {
+      "@dumps/enums/*": ["enums/*"],
       "@dumps/assets/*": ["assets/*"],
       "@dumps/hooks/*": ["hooks/*"],
       "@dumps/api-hooks/*": ["api-hooks/*"],
