@@ -1,16 +1,11 @@
-import {
-  BundleIcon,
-  DashboardIcon,
-  DumpIcon,
-  LogoutIcon,
-} from '@dumps/assets/svgs';
-import { NAVIGATION_ROUTES } from '@dumps/routes/routes.constant';
+import NAVIGATION_ROUTES from '@dumps/routes/routes.constant';
+import { LuFileScan, LuFileStack, LuLayoutDashboard, LuLogOut } from 'react-icons/lu';
 
 const navItems = [
   {
     name: 'Dashboard',
     to: NAVIGATION_ROUTES.ADMIN.DASHBOARD,
-    icon: DashboardIcon,
+    icon: LuLayoutDashboard,
     // Sometime you will have to disable some view to the user
     // this visible boolean will be used in such scenario
     // TODO: needs discussion if this is actually good approach or
@@ -19,7 +14,7 @@ const navItems = [
   {
     name: 'Hidden Page',
     to: NAVIGATION_ROUTES.ADMIN.DASHBOARD,
-    icon: DashboardIcon,
+    icon: LuLayoutDashboard,
     // Sometime you will have to disable some view to the user
     // this visible boolean will be used in such scenario
     // TODO: needs discussion if this is actually good approach or
@@ -28,13 +23,13 @@ const navItems = [
   {
     name: 'Dumps',
     to: NAVIGATION_ROUTES.ADMIN.DUMPS,
-    icon: DumpIcon,
+    icon: LuFileScan,
     visible: true,
   },
   {
     name: 'Bundles',
     to: NAVIGATION_ROUTES.ADMIN.BUNDLES,
-    icon: BundleIcon,
+    icon: LuFileStack,
     visible: true,
   },
   // {
@@ -60,9 +55,9 @@ const navItems = [
   {
     name: 'Logout',
     to: NAVIGATION_ROUTES.LOGIN,
-    icon: LogoutIcon,
+    icon: LuLogOut,
     visible: true,
   },
 ];
 
-export { navItems };
+export default navItems;

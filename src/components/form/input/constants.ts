@@ -4,4 +4,4 @@ enum Type {
   NUMBER = 'number',
 }
 
-export { Type };
+export default Type;
