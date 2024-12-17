@@ -50,6 +50,7 @@ function ProductCard({ product }: { product: DumpDetails }) {
       _hover={{ transform: 'translateY(-4px)' }}
       height="full"
       onClick={() => navigate(`/products/${product.id}`)}
+      cursor="pointer"
     >
       <Flex direction="column" height="full" gap={4}>
         {/* Discount Badge - naturally takes its height */}
