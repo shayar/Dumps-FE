@@ -13,69 +13,73 @@ import {
   List,
   ListItem,
   ListIcon,
+  Heading,
 } from '@chakra-ui/react';
+import useGetUserCartItems from '@dumps/api-hooks/cart/useGetCartByUserId';
 import { BundleResponse } from '@dumps/api-schemas/bundle';
 import { DumpDetails } from '@dumps/api-schemas/dump';
 import { FiCheck, FiTrash } from 'react-icons/fi';
 
 export default function Cart() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const cartItems: any = [
-    {
-      id: 'prod1',
-      title: 'Advanced Python Programming',
-      codeTitle: 'PYTHON-ADV-001',
-      description: 'A comprehensive guide to advanced Python techniques and best practices',
-      price: '20',
-      discount: '5',
-      pdfFile: {}, // Placeholder for PDF file
-    },
-    {
-      id: 'prod2',
-      title: 'React Design Patterns',
-      codeTitle: 'REACT-DESIGN-002',
-      description: 'Master modern React development with proven design patterns',
-      price: '30',
-      discount: '0',
-      pdfFile: {}, // Placeholder for PDF file
-    },
-    {
-      id: 'bundle1',
-      title: 'Full Stack Web Development Bundle',
-      description: 'Complete package for becoming a full stack web developer',
-      discountedPrice: 35,
-      totalPrice: 40,
-      products: [
-        {
-          id: 'bundle1-prod1',
-          title: 'Modern JavaScript Deep Dive',
-          codeTitle: 'JS-DEEP-001',
-          description: 'Advanced JavaScript concepts and techniques',
-          price: '59.99',
-          discount: '79.99',
-          pdfFile: {},
-        },
-        {
-          id: 'bundle1-prod2',
-          title: 'Node.js Backend Development',
-          codeTitle: 'NODE-BACK-002',
-          description: 'Build scalable backend applications with Node.js',
-          price: '69.99',
-          discount: '89.99',
-          pdfFile: {},
-        },
-        {
-          id: 'bundle1-prod3',
-          title: 'React Mastery',
-          codeTitle: 'REACT-MASTER-003',
-          description: 'From basics to advanced React development',
-          price: '59.99',
-          discount: '79.99',
-          pdfFile: {},
-        },
-      ],
-    },
-  ];
+  // const cartItems: any = [
+  //   {
+  //     id: 'prod1',
+  //     title: 'Advanced Python Programming',
+  //     codeTitle: 'PYTHON-ADV-001',
+  //     description: 'A comprehensive guide to advanced Python techniques and best practices',
+  //     price: '20',
+  //     discount: '5',
+  //     pdfFile: {}, // Placeholder for PDF file
+  //   },
+  //   {
+  //     id: 'prod2',
+  //     title: 'React Design Patterns',
+  //     codeTitle: 'REACT-DESIGN-002',
+  //     description: 'Master modern React development with proven design patterns',
+  //     price: '30',
+  //     discount: '0',
+  //     pdfFile: {}, // Placeholder for PDF file
+  //   },
+  //   {
+  //     id: 'bundle1',
+  //     title: 'Full Stack Web Development Bundle',
+  //     description: 'Complete package for becoming a full stack web developer',
+  //     discountedPrice: 35,
+  //     totalPrice: 40,
+  //     products: [
+  //       {
+  //         id: 'bundle1-prod1',
+  //         title: 'Modern JavaScript Deep Dive',
+  //         codeTitle: 'JS-DEEP-001',
+  //         description: 'Advanced JavaScript concepts and techniques',
+  //         price: '59.99',
+  //         discount: '79.99',
+  //         pdfFile: {},
+  //       },
+  //       {
+  //         id: 'bundle1-prod2',
+  //         title: 'Node.js Backend Development',
+  //         codeTitle: 'NODE-BACK-002',
+  //         description: 'Build scalable backend applications with Node.js',
+  //         price: '69.99',
+  //         discount: '89.99',
+  //         pdfFile: {},
+  //       },
+  //       {
+  //         id: 'bundle1-prod3',
+  //         title: 'React Mastery',
+  //         codeTitle: 'REACT-MASTER-003',
+  //         description: 'From basics to advanced React development',
+  //         price: '59.99',
+  //         discount: '79.99',
+  //         pdfFile: {},
+  //       },
+  //     ],
+  //   },
+  // ];
+  const { data: cart } = useGetUserCartItems();
+  const cartItems = cart?.data.items || [];
 
   const onRemoveItem = (item: DumpDetails | BundleResponse) => {
     console.log('item removed', item.id);
@@ -83,24 +87,14 @@ export default function Cart() {
 
   const TAX_RATE = 0.08; // 8% tax rate
 
-  const calculateItemPrice = (item: DumpDetails | BundleResponse) => {
-    if ('discountedPrice' in item) {
-      return item.discountedPrice;
-    }
-    return parseFloat(item.price);
-  };
-
   const calculateTotal = () => {
-    const subtotal = cartItems.reduce(
-      (total: number, item: DumpDetails | BundleResponse) => total + calculateItemPrice(item),
-      0
-    );
+    const subtotal = Number(cart?.data.totalPrice) || 0;
     const tax = subtotal * TAX_RATE;
     return { subtotal, tax, total: subtotal + tax };
   };
 
   const renderProductDetails = (item: DumpDetails | BundleResponse) => {
-    const isBundle = 'products' in item;
+    const isBundle = 'isBundle' in item;
     const displayProducts = isBundle ? item.products.slice(0, 2) : [];
     const remainingProductCount = isBundle ? Math.max(0, item.products.length - 2) : 0;
 
@@ -155,9 +149,11 @@ export default function Cart() {
                 <Text fontWeight="bold" color="green.500" fontSize="lg">
                   ${itemPrice.toFixed(2)}
                 </Text>
-                <Text color="gray.500" textDecoration="line-through" fontSize="sm">
-                  ${originalItemPrice.toFixed(2)}
-                </Text>
+                {itemPrice !== originalItemPrice && (
+                  <Text color="gray.500" textDecoration="line-through" fontSize="sm">
+                    ${originalItemPrice.toFixed(2)}
+                  </Text>
+                )}
               </VStack>
             </Flex>
 
@@ -180,7 +176,7 @@ export default function Cart() {
 
   const { subtotal, tax, total } = calculateTotal();
 
-  return (
+  return cartItems && cartItems.length > 0 ? (
     <Flex p={12} mx="auto" direction={{ base: 'column', md: 'row' }} gap={6}>
       {/* Items Section */}
       <VStack width={{ base: '100%', md: '70%' }} spacing={4} align="stretch">
@@ -228,6 +224,12 @@ export default function Cart() {
           <Button width="full">Proceed to Checkout</Button>
         </Box>
       </VStack>
+    </Flex>
+  ) : (
+    <Flex minH="calc(100% - 72px)" justifyContent="center" alignItems="center">
+      <Heading as="h2" size="xl" noOfLines={1}>
+        No items in cart
+      </Heading>
     </Flex>
   );
 }

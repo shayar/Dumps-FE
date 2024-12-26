@@ -18,6 +18,7 @@ const bundleResponseSchema = z.object({
   discountedPrice: z.number(),
   totalPrice: z.number(),
   products: z.array(dumpSchema),
+  isBundle: z.boolean(),
 });
 
 // Infer types from schemas
