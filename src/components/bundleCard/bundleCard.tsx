@@ -17,12 +17,6 @@ import { FiShoppingCart, FiPackage, FiCheck } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
 function BundleCard({ bundle }: { bundle: BundleResponse }) {
-  const originalPrice =
-    bundle?.products?.reduce(
-      (accumulator, currentValue) => accumulator + Number(currentValue.price),
-      0
-    ) ?? 0;
-  const finalPrice = (originalPrice ?? 0) - Number(bundle.discountedPrice);
   const productsToShow = bundle?.products?.length > 3 ? 2 : bundle?.products?.length;
   const remainingProducts = (bundle?.products?.length ?? 0) - productsToShow;
 
@@ -82,14 +76,14 @@ function BundleCard({ bundle }: { bundle: BundleResponse }) {
           <HStack justify="space-between" align="flex-end">
             <VStack align="flex-start" spacing={1}>
               <Text textDecoration="line-through" color="gray.500" fontSize="sm">
-                ${originalPrice.toFixed(2)}
+                ${bundle.totalPrice.toFixed(2)}
               </Text>
               <Text fontSize="2xl" fontWeight="bold" color="blue.500">
-                ${finalPrice.toFixed(2)}
+                ${bundle.discountedPrice.toFixed(2)}
               </Text>
             </VStack>
             <Badge colorScheme="green" fontSize="sm">
-              Save ${(originalPrice - finalPrice).toFixed(2)}
+              Save ${(bundle.totalPrice - bundle.discountedPrice).toFixed(2)}
             </Badge>
           </HStack>
         </Box>

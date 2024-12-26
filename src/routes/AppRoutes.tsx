@@ -13,6 +13,7 @@ import Products from '@dumps/pages/Products/products';
 import Bundles from '@dumps/pages/Bundles/bundles';
 import ProductDetail from '@dumps/pages/ProductDetail/productDetail';
 import BundleDetail from '@dumps/pages/BundleDetail/bundleDetail';
+import Cart from '@dumps/pages/User/Cart/cart';
 import NAVIGATION_ROUTES from './routes.constant';
 
 const routes = [
@@ -89,6 +90,10 @@ const routes = [
       {
         path: NAVIGATION_ROUTES.BUNDLE_DETAIL,
         element: <BundleDetail />,
+      },
+      {
+        path: NAVIGATION_ROUTES.CART,
+        element: <Cart />,
       },
     ],
   },
