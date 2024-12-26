@@ -21,63 +21,6 @@ import { DumpDetails } from '@dumps/api-schemas/dump';
 import { FiCheck, FiTrash } from 'react-icons/fi';
 
 export default function Cart() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // const cartItems: any = [
-  //   {
-  //     id: 'prod1',
-  //     title: 'Advanced Python Programming',
-  //     codeTitle: 'PYTHON-ADV-001',
-  //     description: 'A comprehensive guide to advanced Python techniques and best practices',
-  //     price: '20',
-  //     discount: '5',
-  //     pdfFile: {}, // Placeholder for PDF file
-  //   },
-  //   {
-  //     id: 'prod2',
-  //     title: 'React Design Patterns',
-  //     codeTitle: 'REACT-DESIGN-002',
-  //     description: 'Master modern React development with proven design patterns',
-  //     price: '30',
-  //     discount: '0',
-  //     pdfFile: {}, // Placeholder for PDF file
-  //   },
-  //   {
-  //     id: 'bundle1',
-  //     title: 'Full Stack Web Development Bundle',
-  //     description: 'Complete package for becoming a full stack web developer',
-  //     discountedPrice: 35,
-  //     totalPrice: 40,
-  //     products: [
-  //       {
-  //         id: 'bundle1-prod1',
-  //         title: 'Modern JavaScript Deep Dive',
-  //         codeTitle: 'JS-DEEP-001',
-  //         description: 'Advanced JavaScript concepts and techniques',
-  //         price: '59.99',
-  //         discount: '79.99',
-  //         pdfFile: {},
-  //       },
-  //       {
-  //         id: 'bundle1-prod2',
-  //         title: 'Node.js Backend Development',
-  //         codeTitle: 'NODE-BACK-002',
-  //         description: 'Build scalable backend applications with Node.js',
-  //         price: '69.99',
-  //         discount: '89.99',
-  //         pdfFile: {},
-  //       },
-  //       {
-  //         id: 'bundle1-prod3',
-  //         title: 'React Mastery',
-  //         codeTitle: 'REACT-MASTER-003',
-  //         description: 'From basics to advanced React development',
-  //         price: '59.99',
-  //         discount: '79.99',
-  //         pdfFile: {},
-  //       },
-  //     ],
-  //   },
-  // ];
   const { data: cart } = useGetUserCartItems();
   const cartItems = cart?.data.items || [];
 
