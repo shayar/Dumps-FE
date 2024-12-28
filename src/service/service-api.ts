@@ -22,4 +22,7 @@ export const api = {
     updateBundle: (id: string) => ({ url: `/bundles/${id}` }),
     deleteBundle: (id: string) => ({ url: `/bundles/${id}` }),
   },
+  cart: {
+    getUserCart: { url: '/cart/getByUserId', requiresAuth: true },
+  },
 };
