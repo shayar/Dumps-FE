@@ -18,6 +18,7 @@ export default defineConfig({
       '@dumps/hooks': path.resolve('hooks'),
       '@dumps/api-hooks': path.resolve('api-hooks'),
       '@dumps/api-schemas': path.resolve('api-schemas'),
+      '@dumps/enums': path.resolve('enums'),
     },
   },
 });

@@ -18,6 +18,7 @@ const NAVIGATION_ROUTES = {
   BUNDLES: '/bundles',
   PRODUCT_DETAIL: '/products/:id',
   BUNDLE_DETAIL: '/bundles/:id',
+  CART: '/cart',
 };
 
 export default NAVIGATION_ROUTES;

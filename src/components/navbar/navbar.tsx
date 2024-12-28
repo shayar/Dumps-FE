@@ -2,7 +2,7 @@
 import React from 'react';
 import { Box, Flex, Text, Button, Stack, IconButton, TextProps } from '@chakra-ui/react';
 import { FaBars, FaCartShopping, FaDumpster, FaX } from 'react-icons/fa6';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface NavBarProps extends TextProps {
   children?: React.ReactNode;
@@ -23,8 +23,13 @@ interface MenuLinksProps {
 }
 
 function CartButton() {
+  const navigate = useNavigate();
+
   return (
     <IconButton
+      onClick={() => {
+        navigate('cart');
+      }}
       isRound
       colorScheme="white"
       aria-label="cart"
@@ -84,7 +89,7 @@ function MenuLinks({ isOpen }: MenuLinksProps) {
         pt={[4, 4, 0, 0]}
       >
         <MenuItem to="/">Home</MenuItem>
-        <MenuItem to="/products">Certifications</MenuItem>
+        <MenuItem to="/products">Dumps</MenuItem>
         <MenuItem to="/bundles">Bundles</MenuItem>
         <MenuItem to="/support">Support</MenuItem>
       </Stack>

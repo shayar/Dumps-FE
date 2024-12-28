@@ -21,6 +21,7 @@ export default defineConfig({
       '@dumps/assets': path.resolve('assets'),
       '@dumps/routes': path.resolve('routes'),
       '@dumps/hooks': path.resolve('hooks'),
+      '@dumps/enums': path.resolve('enums'),
     },
   },
 });
