@@ -27,7 +27,7 @@ const registerSchema = z
     path: ['confirmPassword'],
   });
 
-interface LoginResponse {
+interface UserResponse {
   id: string;
   firstName: string;
   lastName: string;
@@ -41,4 +41,4 @@ type LoginDetails = z.infer<typeof loginSchema>;
 type RegisterDetails = z.infer<typeof registerSchema>;
 
 export { loginSchema, registerSchema };
-export type { LoginDetails, RegisterDetails, LoginResponse };
+export type { LoginDetails, RegisterDetails, UserResponse };
