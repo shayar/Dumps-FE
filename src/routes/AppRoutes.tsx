@@ -1,6 +1,6 @@
 import { Outlet, useRoutes } from 'react-router-dom';
+
 import Dashboard from '@dumps/pages/Admin/Dashboard/index';
-import Layout from '@dumps/components/layouts/Layout';
 import Login from '@dumps/pages/Login/Login';
 import Register from '@dumps/pages/Register/Register';
 import Dump from '@dumps/pages/Admin/Dump/dump';
@@ -15,6 +15,7 @@ import ProductDetail from '@dumps/pages/ProductDetail/productDetail';
 import BundleDetail from '@dumps/pages/BundleDetail/bundleDetail';
 import Cart from '@dumps/pages/User/Cart/cart';
 import NAVIGATION_ROUTES from './routes.constant';
+import AdminGuard from './admin.guard';
 
 const routes = [
   {
@@ -27,11 +28,7 @@ const routes = [
   },
   {
     path: '/admin',
-    element: (
-      <Layout>
-        <Outlet />
-      </Layout>
-    ),
+    element: <AdminGuard />,
     children: [
       {
         path: NAVIGATION_ROUTES.ADMIN.DASHBOARD,

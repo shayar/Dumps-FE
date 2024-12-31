@@ -9,10 +9,14 @@ import {
   HStack,
   Icon,
 } from '@chakra-ui/react';
-import useGetProductById from '@dumps/api-hooks/product/useGetProductById';
-import LoadingSpinner from '@dumps/components/loadingSpinner';
 import { FiShoppingCart, FiFileText } from 'react-icons/fi';
 import { useParams } from 'react-router-dom';
+
+import useGetProductById from '@dumps/api-hooks/product/useGetProductById';
+import LoadingSpinner from '@dumps/components/loadingSpinner';
+import useAddToCart from '@dumps/api-hooks/cart/useAddToCart';
+import handleApiError from '@dumps/service/service-utils';
+import { toastSuccess } from '@dumps/service/service-toast';
 
 function PDFPreview({ title }: { title: string }) {
   return (
@@ -76,9 +80,26 @@ function ProductDetail() {
   const { data, isLoading } = useGetProductById(productId!);
   const product = data?.data;
 
+  const { mutateAsync: addToCartRequest } = useAddToCart();
+
   const finalPrice: number = Number(
     (Number(product?.price || 0) * (1 - Number(product?.discount || 0) / 100)).toFixed(2)
   );
+
+  const onAddToCartHandler = async () => {
+    if (!productId) return;
+    try {
+      const res = await addToCartRequest({
+        bundleIds: [],
+        productIds: [productId],
+      });
+      if (res) {
+        toastSuccess(res.message);
+      }
+    } catch (error) {
+      handleApiError(error);
+    }
+  };
 
   return (
     <Container minW="full" position="relative" py={12}>
@@ -132,7 +153,13 @@ function ProductDetail() {
               </Text>
 
               <HStack spacing={4}>
-                <Button size="lg" colorScheme="blue" rightIcon={<FiShoppingCart />} flex="1">
+                <Button
+                  onClick={onAddToCartHandler}
+                  size="lg"
+                  colorScheme="blue"
+                  rightIcon={<FiShoppingCart />}
+                  flex="1"
+                >
                   Add to Cart
                 </Button>
                 {/* <Button
