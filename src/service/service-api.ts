@@ -7,6 +7,7 @@ export const api = {
   auth: {
     login: { url: '/account/login' },
     register: { url: '/account/register' },
+    isAdmin: { url: '/roles/is-admin', requiresAuth: true },
   },
   product: {
     getAll: { url: '/products' },
@@ -24,5 +25,6 @@ export const api = {
   },
   cart: {
     getUserCart: { url: '/cart/getByUserId', requiresAuth: true },
+    addToCart: { url: '/cart/add', requiresAuth: true },
   },
 };
