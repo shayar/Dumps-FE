@@ -12,10 +12,14 @@ import {
   Collapse,
 } from '@chakra-ui/react';
 import LoadingSpinner from '@dumps/components/loadingSpinner';
-import { FiShoppingCart, FiFileText, FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import { useParams } from 'react-router-dom';
+import { FiShoppingCart, FiFileText, FiChevronDown, FiChevronUp } from 'react-icons/fi';
+
 import { DumpDetails } from '@dumps/api-schemas/dump';
 import useGetBundleById from '@dumps/api-hooks/bundles/useGetBundleById';
+import useAddToCart from '@dumps/api-hooks/cart/useAddToCart';
+import { toastSuccess } from '@dumps/service/service-toast';
+import handleApiError from '@dumps/service/service-utils';
 
 function PDFPreview({ title, products }: { title: string; products: DumpDetails[] }) {
   // Show first 3 products
@@ -109,6 +113,8 @@ function BundleDetail() {
   const { data, isLoading } = useGetBundleById(bundleId!);
   const bundle = data?.data;
 
+  const { mutateAsync: addToCartRequest, isPending: isBtnLoading } = useAddToCart();
+
   // Calculate total original price and discounted price
   const bundlePricing = useMemo(() => {
     if (!bundle?.products)
@@ -139,6 +145,21 @@ function BundleDetail() {
   // Initial 3 products to display
   const initialProducts = bundle?.products?.slice(0, 3) || [];
   const remainingProducts = bundle?.products?.slice(3) || [];
+
+  const onAddToCartHandler = async () => {
+    if (!bundleId) return;
+    try {
+      const res = await addToCartRequest({
+        bundleIds: [bundleId],
+        productIds: [],
+      });
+      if (res) {
+        toastSuccess(res.message);
+      }
+    } catch (error) {
+      handleApiError(error);
+    }
+  };
 
   return (
     <Container minW="full" position="relative" py={12}>
@@ -248,7 +269,14 @@ function BundleDetail() {
               </Box>
 
               <HStack spacing={4}>
-                <Button size="lg" colorScheme="blue" rightIcon={<FiShoppingCart />} flex="1">
+                <Button
+                  isLoading={isBtnLoading}
+                  onClick={onAddToCartHandler}
+                  size="lg"
+                  colorScheme="blue"
+                  rightIcon={<FiShoppingCart />}
+                  flex="1"
+                >
                   Add to Cart
                 </Button>
               </HStack>

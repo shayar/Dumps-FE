@@ -5,8 +5,7 @@ import { ApiResponse } from '@dumps/api-schemas/APIResponse';
 import { api } from '@dumps/service/service-api';
 
 const isAdminRequest = async () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const res = await httpClient.get<ApiResponse<any>>(api.auth.isAdmin);
+  const res = await httpClient.get<ApiResponse<boolean>>(api.auth.isAdmin);
   return res.data;
 };
 

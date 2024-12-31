@@ -80,7 +80,7 @@ function ProductDetail() {
   const { data, isLoading } = useGetProductById(productId!);
   const product = data?.data;
 
-  const { mutateAsync: addToCartRequest } = useAddToCart();
+  const { mutateAsync: addToCartRequest, isPending: isBtnLoading } = useAddToCart();
 
   const finalPrice: number = Number(
     (Number(product?.price || 0) * (1 - Number(product?.discount || 0) / 100)).toFixed(2)
@@ -154,6 +154,7 @@ function ProductDetail() {
 
               <HStack spacing={4}>
                 <Button
+                  isLoading={isBtnLoading}
                   onClick={onAddToCartHandler}
                   size="lg"
                   colorScheme="blue"
@@ -162,15 +163,6 @@ function ProductDetail() {
                 >
                   Add to Cart
                 </Button>
-                {/* <Button
-                size="lg"
-                colorScheme="blue"
-                variant="outline"
-                rightIcon={<FiDownload />}
-                flex="1"
-              >
-                Download Demo
-              </Button> */}
               </HStack>
             </VStack>
           </Box>
