@@ -1,8 +1,26 @@
 /* eslint-disable react/require-default-props */
-import React from 'react';
-import { Box, Flex, Text, Button, Stack, IconButton, TextProps } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import {
+  Box,
+  Flex,
+  Text,
+  Button,
+  Stack,
+  IconButton,
+  TextProps,
+  Avatar,
+  Menu,
+  MenuList,
+  MenuButton,
+  MenuGroup,
+  MenuItem,
+  MenuDivider,
+} from '@chakra-ui/react';
 import { FaBars, FaCartShopping, FaDumpster, FaX } from 'react-icons/fa6';
 import { Link, useNavigate } from 'react-router-dom';
+
+import { UserResponse } from '@dumps/api-schemas/auth';
+import DUMPS_COLORS from '@dumps/theme/color';
 
 interface NavBarProps extends TextProps {
   children?: React.ReactNode;
@@ -13,7 +31,7 @@ interface MenuToggleProps {
   isOpen: boolean;
 }
 
-interface MenuItemProps extends TextProps {
+interface MenuLinkItemProps extends TextProps {
   children: React.ReactNode;
   to?: string;
 }
@@ -64,7 +82,7 @@ function MenuToggle({ toggle, isOpen }: MenuToggleProps) {
     </Box>
   );
 }
-function MenuItem({ children, to = '/', ...rest }: MenuItemProps) {
+function MenuLinkItem({ children, to = '/', ...rest }: MenuLinkItemProps) {
   return (
     <Link to={to}>
       <Text _hover={{ textDecoration: 'underline' }} fontWeight="bold" display="block" {...rest}>
@@ -88,10 +106,10 @@ function MenuLinks({ isOpen }: MenuLinksProps) {
         direction={{ base: 'column', md: 'row' }}
         pt={[4, 4, 0, 0]}
       >
-        <MenuItem to="/">Home</MenuItem>
-        <MenuItem to="/products">Dumps</MenuItem>
-        <MenuItem to="/bundles">Bundles</MenuItem>
-        <MenuItem to="/support">Support</MenuItem>
+        <MenuLinkItem to="/">Home</MenuLinkItem>
+        <MenuLinkItem to="/products">Dumps</MenuLinkItem>
+        <MenuLinkItem to="/bundles">Bundles</MenuLinkItem>
+        <MenuLinkItem to="/support">Support</MenuLinkItem>
       </Stack>
     </Box>
   );
@@ -129,8 +147,53 @@ function NavBarContainer({ children, ...props }: NavBarProps) {
   );
 }
 
+function UserLogin() {
+  const navigate = useNavigate();
+  const [user, setUser] = useState<UserResponse | null>(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setUser(null);
+    navigate('/');
+  };
+
+  if (user) {
+    return (
+      <Menu>
+        <MenuButton>
+          <Avatar size="sm" name={`${user.firstName} ${user.lastName}`} />
+        </MenuButton>
+        <MenuList color={DUMPS_COLORS.gray[600]}>
+          <MenuGroup>
+            <Box p={3}>
+              <Text textTransform="capitalize" as="b">{`${user.firstName} ${user.lastName}`}</Text>
+            </Box>
+          </MenuGroup>
+          <MenuDivider />
+          <MenuGroup>
+            <MenuItem onClick={() => navigate('/profile')}>Profile</MenuItem>
+            <MenuItem onClick={() => navigate('/orders')}>Orders</MenuItem>
+            <MenuDivider />
+            <MenuItem onClick={logout}>Logout</MenuItem>
+          </MenuGroup>
+        </MenuList>
+      </Menu>
+    );
+  }
+
+  return <LoginButton />;
+}
+
 function NavBar(props: NavBarProps) {
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const toggle = () => setIsOpen(!isOpen);
 
   return (
@@ -139,13 +202,13 @@ function NavBar(props: NavBarProps) {
       {/* Desktop Navigation */}
       <Flex display={{ base: 'none', md: 'flex' }} alignItems="center" gap={4}>
         <MenuLinks isOpen={isOpen} />
-        <LoginButton />
+        <UserLogin />
         <CartButton />
       </Flex>
 
       {/* Mobile Navigation */}
       <Flex display={{ base: 'flex', md: 'none' }} alignItems="center" gap={2}>
-        <LoginButton />
+        <UserLogin />
         <CartButton />
         <MenuToggle toggle={toggle} isOpen={isOpen} />
       </Flex>
