@@ -11,6 +11,9 @@ const NAVIGATION_ROUTES = {
     ADD_BUNDLE: 'bundles/manage',
     EDIT_BUNDLE: 'bundles/manage/:id',
   },
+  USER: {
+    PROFILE: 'profile',
+  },
   LOGIN: '/login',
   REGISTER: '/register',
   HOME: '',
