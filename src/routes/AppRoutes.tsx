@@ -16,6 +16,7 @@ import BundleDetail from '@dumps/pages/BundleDetail/bundleDetail';
 import Cart from '@dumps/pages/Cart/cart';
 import UserLayout from '@dumps/components/UserLayout/userLayout';
 import UserProfile from '@dumps/pages/User/Profile/userProfile';
+import UserOrders from '@dumps/pages/User/Order/userOrders';
 import NAVIGATION_ROUTES from './routes.constant';
 import AdminGuard from './admin.guard';
 
@@ -101,6 +102,10 @@ const routes = [
           {
             path: NAVIGATION_ROUTES.USER.PROFILE,
             element: <UserProfile />,
+          },
+          {
+            path: NAVIGATION_ROUTES.USER.ORDERS,
+            element: <UserOrders />,
           },
         ],
       },

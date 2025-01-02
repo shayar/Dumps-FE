@@ -13,6 +13,7 @@ const NAVIGATION_ROUTES = {
   },
   USER: {
     PROFILE: 'profile',
+    ORDERS: 'orders',
   },
   LOGIN: '/login',
   REGISTER: '/register',
