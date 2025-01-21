@@ -26,5 +26,7 @@ export const api = {
   cart: {
     getUserCart: { url: '/cart/getByUserId', requiresAuth: true },
     addToCart: { url: '/cart/add', requiresAuth: true },
+    removeItem: { url: 'cart/remove', requiresAuth: true },
+    clear: { url: 'cart/clear', requiresAuth: true },
   },
 };
