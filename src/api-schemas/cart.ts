@@ -9,8 +9,14 @@ const cartSchema = z.object({
   items: z.array(z.union([dumpSchema, bundleResponseSchema])),
 });
 
+const addToCartSchema = z.object({
+  productIds: z.array(z.string()),
+  bundleIds: z.array(z.string()),
+});
+
 // Infer types from the common schema
 type CartResponse = z.infer<typeof cartSchema>;
+type AddToCartRequest = z.infer<typeof addToCartSchema>;
 
-export { cartSchema };
-export type { CartResponse };
+export { cartSchema, addToCartSchema };
+export type { CartResponse, AddToCartRequest };

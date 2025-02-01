@@ -26,7 +26,9 @@ function Login() {
     try {
       const response = await loginRequest(loginDetails);
       if (response.success && response.data) {
+        const { token, ...user } = response.data;
         localStorage.setItem('token', response.data.token);
+        localStorage.setItem('user', JSON.stringify(user));
         navigate('/admin');
         toastSuccess(response.message);
       }

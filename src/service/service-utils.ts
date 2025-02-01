@@ -3,7 +3,7 @@ import { toastFail } from './service-toast';
 
 const handleApiError = (error: unknown) => {
   const err = error as ApiError;
-  if ('errors' in err) {
+  if (err && 'errors' in err) {
     toastFail(err.errors);
   } else {
     toastFail('An unexpected error occurred');

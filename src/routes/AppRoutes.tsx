@@ -1,20 +1,24 @@
 import { Outlet, useRoutes } from 'react-router-dom';
+
 import Dashboard from '@dumps/pages/Admin/Dashboard/index';
-import Layout from '@dumps/components/layouts/Layout';
 import Login from '@dumps/pages/Login/Login';
 import Register from '@dumps/pages/Register/Register';
 import Dump from '@dumps/pages/Admin/Dump/dump';
 import AdminBundles from '@dumps/pages/Admin/Bundle/bundles';
 import ManageDump from '@dumps/pages/Admin/ManageDump';
 import ManageBundle from '@dumps/pages/Admin/ManageBundle/manageBundle';
-import Home from '@dumps/pages/User/Home/home';
+import Home from '@dumps/pages/Home/home';
 import MainLayout from '@dumps/components/MainLayout/mainLayout';
 import Products from '@dumps/pages/Products/products';
 import Bundles from '@dumps/pages/Bundles/bundles';
 import ProductDetail from '@dumps/pages/ProductDetail/productDetail';
 import BundleDetail from '@dumps/pages/BundleDetail/bundleDetail';
-import Cart from '@dumps/pages/User/Cart/cart';
+import Cart from '@dumps/pages/Cart/cart';
+import UserLayout from '@dumps/components/UserLayout/userLayout';
+import UserProfile from '@dumps/pages/User/Profile/userProfile';
+import UserOrders from '@dumps/pages/User/Order/userOrders';
 import NAVIGATION_ROUTES from './routes.constant';
+import AdminGuard from './admin.guard';
 
 const routes = [
   {
@@ -27,11 +31,7 @@ const routes = [
   },
   {
     path: '/admin',
-    element: (
-      <Layout>
-        <Outlet />
-      </Layout>
-    ),
+    element: <AdminGuard />,
     children: [
       {
         path: NAVIGATION_ROUTES.ADMIN.DASHBOARD,
@@ -94,6 +94,20 @@ const routes = [
       {
         path: NAVIGATION_ROUTES.CART,
         element: <Cart />,
+      },
+      {
+        path: 'user',
+        element: <UserLayout />,
+        children: [
+          {
+            path: NAVIGATION_ROUTES.USER.PROFILE,
+            element: <UserProfile />,
+          },
+          {
+            path: NAVIGATION_ROUTES.USER.ORDERS,
+            element: <UserOrders />,
+          },
+        ],
       },
     ],
   },

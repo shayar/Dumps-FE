@@ -18,6 +18,7 @@ const getBaseConfig = (endpoint: ApiEndpoint): AxiosRequestConfig => {
     const token = localStorage.getItem('token');
     if (token) {
       config.headers!.Authorization = `Bearer ${token}`;
+      config.withCredentials = true;
     }
   }
 

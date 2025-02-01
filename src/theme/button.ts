@@ -28,10 +28,36 @@ const outline = defineStyle({
   borderColor: DUMPS_COLORS.primary[500],
 });
 
+const danger = defineStyle({
+  ...baseStyles,
+  background: DUMPS_COLORS.red[500],
+  color: 'white',
+  _hover: {
+    background: DUMPS_COLORS.red[400],
+    _disabled: {
+      backgroundColor: `${DUMPS_COLORS.red[500]} `,
+    },
+  },
+});
+
+const success = defineStyle({
+  ...baseStyles,
+  background: DUMPS_COLORS.green[500],
+  color: 'white',
+  _hover: {
+    background: DUMPS_COLORS.green[400],
+    _disabled: {
+      backgroundColor: `${DUMPS_COLORS.green[500]} `,
+    },
+  },
+});
+
 const buttonTheme = defineStyleConfig({
   variants: {
     primary,
     outline,
+    danger,
+    success,
   },
   sizes: {
     xs: {
