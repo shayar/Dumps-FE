@@ -31,7 +31,14 @@ export default function Register() {
     ...registerDetails
   }: RegisterDetails) => {
     try {
-      const res = await registerRequest(registerDetails);
+      const formData = new FormData();
+
+      // eslint-disable-next-line no-restricted-syntax
+      for (const [key, value] of Object.entries(registerDetails)) {
+        formData.append(key, value);
+      }
+
+      const res = await registerRequest(formData);
       if (res) {
         toastSuccess(res.message);
       }
