@@ -10,8 +10,8 @@ const cartSchema = z.object({
 });
 
 const addToCartSchema = z.object({
-  productIds: z.array(z.string()),
-  bundleIds: z.array(z.string()),
+  productId: z.string().optional(),
+  bundleId: z.string().optional(),
 });
 
 // Infer types from the common schema
