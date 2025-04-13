@@ -150,8 +150,8 @@ function BundleDetail() {
     if (!bundleId) return;
     try {
       const res = await addToCartRequest({
-        bundleIds: [bundleId],
-        productIds: [],
+        bundleId,
+        // productId: '',
       });
       if (res) {
         toastSuccess(res.message);

@@ -8,11 +8,11 @@ export default function Cart() {
   const cartItems = cart?.data.items || [];
 
   return cartItems && cartItems.length > 0 ? (
-    <CartCheckoutItems orderItem={cart!.data} />
+    <CartCheckoutItems isCheckout orderItem={cart!.data} />
   ) : (
     <Flex minH="calc(100vh - 72px)" justifyContent="center" alignItems="center">
       <Heading as="h2" size="xl" noOfLines={1}>
-        No items in cart
+        No items in your cart to checkout
       </Heading>
     </Flex>
   );
