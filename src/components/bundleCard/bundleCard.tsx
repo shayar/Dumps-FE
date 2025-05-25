@@ -13,7 +13,7 @@ import {
   Flex,
 } from '@chakra-ui/react';
 import { BundleResponse } from '@dumps/api-schemas/bundle';
-import { FiShoppingCart, FiPackage, FiCheck } from 'react-icons/fi';
+import { FiPackage, FiCheck } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
 function BundleCard({ bundle }: { bundle: BundleResponse }) {
@@ -89,8 +89,8 @@ function BundleCard({ bundle }: { bundle: BundleResponse }) {
         </Box>
 
         {/* Button Container */}
-        <Button colorScheme="blue" rightIcon={<FiShoppingCart />} width="full" size="lg">
-          Add Bundle to Cart
+        <Button colorScheme="blue" width="full" size="lg">
+          View Details
         </Button>
       </VStack>
     </Box>

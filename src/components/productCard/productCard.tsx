@@ -1,6 +1,6 @@
 import { Box, Button, Heading, HStack, Text, VStack, Icon, Flex } from '@chakra-ui/react';
 import { DumpDetails } from '@dumps/api-schemas/dump';
-import { FiShoppingCart, FiFileText } from 'react-icons/fi';
+import { FiFileText } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 
 function RibbonBadge({ discount }: { discount: number }) {
@@ -96,8 +96,8 @@ function ProductCard({ product }: { product: DumpDetails }) {
 
         {/* Button - stays at bottom */}
         <Box flex="0">
-          <Button colorScheme="blue" rightIcon={<FiShoppingCart />} width="full">
-            Add to Cart
+          <Button colorScheme="blue" width="full">
+            View Details
           </Button>
         </Box>
       </Flex>

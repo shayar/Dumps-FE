@@ -14,6 +14,7 @@ import Bundles from '@dumps/pages/Bundles/bundles';
 import ProductDetail from '@dumps/pages/ProductDetail/productDetail';
 import BundleDetail from '@dumps/pages/BundleDetail/bundleDetail';
 import Cart from '@dumps/pages/Cart/cart';
+import Checkout from '@dumps/pages/Checkout/checkout';
 import UserLayout from '@dumps/components/UserLayout/userLayout';
 import UserProfile from '@dumps/pages/User/Profile/userProfile';
 import UserOrders from '@dumps/pages/User/Order/userOrders';
@@ -94,6 +95,10 @@ const routes = [
       {
         path: NAVIGATION_ROUTES.CART,
         element: <Cart />,
+      },
+      {
+        path: NAVIGATION_ROUTES.CHECKOUT,
+        element: <Checkout />,
       },
       {
         path: 'user',

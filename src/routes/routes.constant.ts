@@ -23,6 +23,7 @@ const NAVIGATION_ROUTES = {
   PRODUCT_DETAIL: '/products/:id',
   BUNDLE_DETAIL: '/bundles/:id',
   CART: '/cart',
+  CHECKOUT: '/checkout',
 };
 
 export default NAVIGATION_ROUTES;
